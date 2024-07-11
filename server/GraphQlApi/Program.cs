@@ -1,3 +1,4 @@
+using Dataprovider;
 using GraphQlApi.Queries;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -7,14 +8,24 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddDbContext<DatabaseContext>();
 builder.Services
     .AddGraphQLServer()
-    .AddQueryType<MyQuery>();
+    .RegisterDbContext<DatabaseContext>()
+    .AddQueryType(q => q.Name("Query"))
+    .AddType<MyQuery>()
+    .AddType<AnotherQuery>()
+    .AddMutationType<MyMutation>()
+    ;
 
 var app = builder.Build();
 
 app.MapGraphQL();
+
+app.UseCors(builder => builder
+    .AllowAnyOrigin()
+    .AllowAnyMethod()
+    .AllowAnyHeader());
 
 app.UseHttpsRedirection();
 app.UseAuthorization();

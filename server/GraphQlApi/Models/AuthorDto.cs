@@ -1,6 +1,6 @@
 ﻿namespace GraphQlApi.Models;
 
-public class Author
+public class AuthorDto
 {
     public string Name { get; set; } = string.Empty;
 }

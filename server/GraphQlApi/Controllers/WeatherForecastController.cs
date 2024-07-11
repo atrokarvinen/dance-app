@@ -1,3 +1,4 @@
+using Dataprovider;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GraphQlApi.Controllers
@@ -12,15 +13,21 @@ namespace GraphQlApi.Controllers
         };
 
         private readonly ILogger<WeatherForecastController> _logger;
+        private readonly DatabaseContext _dbContext;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        public WeatherForecastController(
+            ILogger<WeatherForecastController> logger, 
+            DatabaseContext dbContext)
         {
             _logger = logger;
+            _dbContext = dbContext;
         }
 
         [HttpGet(Name = "GetWeatherForecast")]
         public IEnumerable<WeatherForecast> Get()
         {
+            var test = _dbContext.Books.ToList();
+
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {
                 Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
