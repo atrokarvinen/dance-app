@@ -4,6 +4,7 @@ using GraphQlApi.Inputs;
 
 namespace GraphQlApi.Queries;
 
+[ExtendObjectType("Mutation")]
 public class MyMutation
 {
     public Book AddBook([Service] DatabaseContext dbContext, BookInput input)

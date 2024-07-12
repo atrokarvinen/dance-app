@@ -3,6 +3,7 @@ using System;
 using Dataprovider;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Dataprovider.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20240711193449_AddVariations")]
+    partial class AddVariations
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.6");
@@ -180,27 +183,19 @@ namespace Dataprovider.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("OriginalId")
+                    b.Property<int>("DancePatternId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("VariationId")
+                    b.Property<int>("VariationPatternId")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("DancePatternVariationId");
 
-                    b.HasIndex("OriginalId");
+                    b.HasIndex("DancePatternId");
 
-                    b.HasIndex("VariationId");
+                    b.HasIndex("VariationPatternId");
 
                     b.ToTable("DancePatternVariations");
-
-                    b.HasData(
-                        new
-                        {
-                            DancePatternVariationId = 1,
-                            OriginalId = 1,
-                            VariationId = 2
-                        });
                 });
 
             modelBuilder.Entity("Dataprovider.Models.FavoritePattern", b =>
@@ -288,21 +283,21 @@ namespace Dataprovider.Migrations
 
             modelBuilder.Entity("Dataprovider.Models.DancePatternVariation", b =>
                 {
-                    b.HasOne("Dataprovider.Models.DancePattern", "Original")
-                        .WithMany("Variations")
-                        .HasForeignKey("OriginalId")
+                    b.HasOne("Dataprovider.Models.DancePattern", "DancePattern")
+                        .WithMany("DancePatternVariations")
+                        .HasForeignKey("DancePatternId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Dataprovider.Models.DancePattern", "Variation")
+                    b.HasOne("Dataprovider.Models.DancePattern", "VariationDancePattern")
                         .WithMany()
-                        .HasForeignKey("VariationId")
+                        .HasForeignKey("VariationPatternId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Original");
+                    b.Navigation("DancePattern");
 
-                    b.Navigation("Variation");
+                    b.Navigation("VariationDancePattern");
                 });
 
             modelBuilder.Entity("Dataprovider.Models.FavoritePattern", b =>
@@ -336,7 +331,7 @@ namespace Dataprovider.Migrations
 
             modelBuilder.Entity("Dataprovider.Models.DancePattern", b =>
                 {
-                    b.Navigation("Variations");
+                    b.Navigation("DancePatternVariations");
                 });
 
             modelBuilder.Entity("Dataprovider.Models.User", b =>

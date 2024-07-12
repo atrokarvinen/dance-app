@@ -5,7 +5,12 @@ VisualStudioVersion = 17.10.35004.147
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GraphQlApi", "GraphQlApi\GraphQlApi.csproj", "{AC8F80FB-7487-4A0D-9C27-955E4F80EB5A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dataprovider", "Dataprovider\Dataprovider.csproj", "{9C88B016-B3A8-4D96-9E9B-5D577BBA1E5C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dataprovider", "Dataprovider\Dataprovider.csproj", "{9C88B016-B3A8-4D96-9E9B-5D577BBA1E5C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E5C4B367-6B11-4B52-AF42-20D3D9D5DE4A}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

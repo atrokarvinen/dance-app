@@ -7,6 +7,11 @@ namespace Dataprovider
     {
         public DbSet<Book> Books { get; set; }
         public DbSet<Author> Authors { get; set; }
+        public DbSet<Dance> Dances { get; set; }
+        public DbSet<DancePattern> DancePatterns { get; set; }
+        public DbSet<DancePatternVariation> DancePatternVariations { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<FavoritePattern> FavoritePatterns { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -15,37 +20,8 @@ namespace Dataprovider
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            var books = new List<Book>()
-            {
-                new Book() 
-                { 
-                    BookId = 1, 
-                    Title = "C# in depth.",
-                    AuthorId = 1,
-                },
-                new Book() 
-                { 
-                    BookId = 2, 
-                    Title = "Design Patterns.",
-                    AuthorId = 2,
-                },
-            };
-            modelBuilder.Entity<Book>().HasData(books);
-
-            var authors = new List<Author>()
-            {
-                new Author ()
-                {
-                    AuthorId = 1,
-                    Name = "Jon Skeet",
-                },
-                new Author () 
-                { 
-                    AuthorId = 2, 
-                    Name = "Erich Gamma",
-                },
-            };
-            modelBuilder.Entity<Author>().HasData(authors);
+            BookSeeder.Seed(modelBuilder);
+            DataSeeder.Seed(modelBuilder);
         }
     }
 }
