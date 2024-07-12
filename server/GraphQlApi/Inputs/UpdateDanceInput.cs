@@ -1,8 +1,8 @@
 ﻿namespace GraphQlApi.Inputs;
 
-public class DanceInput
+public class UpdateDanceInput
 {
     [ID]
-    public int? DanceId { get; set; }
+    public int DanceId { get; set; }
     public string Name { get; set; } = string.Empty;
 }

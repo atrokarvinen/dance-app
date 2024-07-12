@@ -14,6 +14,9 @@ export const Navigation = () => {
         <a style={{ marginLeft: 15 }} href="/favorites">
           Favorites
         </a>
+        <a style={{ marginLeft: 15 }} href="/auth">
+          Auth
+        </a>
       </nav>
       <Outlet />
     </>

@@ -7,20 +7,16 @@ namespace GraphQlApi.Queries;
 [ExtendObjectType("Mutation")]
 public class DanceMutation
 {
-    public Dance AddDance([Service] DanceRepository repository, DanceInput input)
+    public Dance AddDance([Service] DanceRepository repository, AddDanceInput input)
     {
         var dance = new Dance { Name = input.Name };
         repository.AddDance(dance);
         return dance;
     }
 
-    public Dance UpdateDance([Service] DanceRepository repository, DanceInput input)
+    public Dance UpdateDance([Service] DanceRepository repository, UpdateDanceInput input)
     {
-        if (input.DanceId is null)
-        {
-            throw new ArgumentNullException(nameof(input.DanceId));
-        }
-        var dance = new Dance { DanceId = input.DanceId.Value, Name = input.Name };
+        var dance = new Dance { DanceId = input.DanceId, Name = input.Name };
         repository.UpdateDance(dance);
         return dance;
     }
