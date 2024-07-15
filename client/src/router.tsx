@@ -4,7 +4,7 @@ import { AuthPage } from "./auth/auth-page";
 import { SignupView } from "./auth/signup-view";
 import { DanceDetailsView } from "./dance/dance-details-view";
 import { DanceList } from "./dance/dance-list";
-import { DancePatternDetailsPage } from "./dance/dance-pattern-details-page";
+import { DancePatternDetailsPage } from "./dance/dance-pattern-details/dance-pattern-details-page";
 import { FavoriteList } from "./dance/favorite-list";
 import { Navigation } from "./navigation/navigation";
 

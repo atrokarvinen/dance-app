@@ -1,8 +1,8 @@
-import { ErrorPage } from "../common/ErrorPage";
-import { Loader } from "../common/Loader";
-import { useAddToFavorites } from "./api/use-add-to-favorites";
-import { useGetDancePattern } from "./api/use-get-dance-pattern";
-import { useRemoveFromFavorites } from "./api/use-remove-from-favorites";
+import { ErrorPage } from "../../common/ErrorPage";
+import { Loader } from "../../common/Loader";
+import { useAddToFavorites } from "../api/use-add-to-favorites";
+import { useGetDancePattern } from "../api/use-get-dance-pattern";
+import { useRemoveFromFavorites } from "../api/use-remove-from-favorites";
 import { DancePatternDetails } from "./dance-pattern-details";
 
 type Props = { id: number };

@@ -1,5 +1,5 @@
-import { DancePattern } from "./dance";
-import { FavoriteActionButton } from "./favorite-action-button";
+import { DancePattern } from "../dance";
+import { FavoriteActionButton } from "../favorite-action-button";
 
 type Props = {
   dancePattern: DancePattern;
