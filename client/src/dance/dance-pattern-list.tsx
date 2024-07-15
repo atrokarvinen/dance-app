@@ -3,9 +3,13 @@ import { DancePattern } from "./dance";
 
 type Props = {
   dancePatterns: DancePattern[];
+  onAddToFavorites: (dancePatternId: number) => void;
 };
 
-export const DancePatternList = ({ dancePatterns }: Props) => {
+export const DancePatternList = ({
+  dancePatterns,
+  onAddToFavorites,
+}: Props) => {
   return (
     <div>
       <h2>Dance Patterns</h2>
@@ -15,7 +19,9 @@ export const DancePatternList = ({ dancePatterns }: Props) => {
             <Link to={`/dance-patterns/${pattern.dancePatternId}`}>
               {pattern.name}
             </Link>
-            <button>Add to favorites</button>
+            <button onClick={() => onAddToFavorites(pattern.dancePatternId)}>
+              Add to favorites
+            </button>
           </li>
         ))}
       </ul>

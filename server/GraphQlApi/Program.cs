@@ -1,4 +1,5 @@
 using Dataprovider;
+using Dataprovider.Repositories;
 using Dataprovider.Services;
 using GraphQlApi;
 using GraphQlApi.Config;
@@ -34,19 +35,23 @@ builder.Services
     });
 builder.Services.AddDbContext<DatabaseContext>();
 builder.Services.AddScoped<DanceRepository>();
+builder.Services.AddScoped<DancePatternRepository>();
+builder.Services.AddScoped<FavoritesRepository>();
+builder.Services.AddScoped<FavoritesService>();
 builder.Services
     .AddGraphQLServer()
     .AddAuthorization()
     .RegisterDbContext<DatabaseContext>()
     .AddQueryType(q => q.Name("Query"))
     .AddMutationType(m => m.Name("Mutation"))
-    .AddType<MyQuery>()
     .AddType<AuthQuery>()
     .AddType<AuthMutation>()
-    //.AddType<AnotherQuery>()
-    //.AddType<DanceQuery>()
+    .AddType<DanceQuery>()
     .AddType<DanceMutation>()
-    //.AddType<MyMutation>()
+    .AddType<DancePatternQuery>()
+    .AddType<DancePatternMutation>()
+    .AddType<FavoritesQuery>()
+    .AddType<FavoritesMutation>()
     ;
 
 var app = builder.Build();

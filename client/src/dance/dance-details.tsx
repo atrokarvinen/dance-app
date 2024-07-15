@@ -1,27 +1,22 @@
-import { useParams } from "react-router-dom";
+import { useAddToFavorites } from "./api/use-add-to-favorites";
+import { Dance } from "./dance";
 import { DancePatternList } from "./dance-pattern-list";
-import { dummyDances } from "./dummy-data/dances";
 
-type RouteParams = {
-  danceId: string;
+type Props = {
+  dance: Dance;
 };
 
-export const DanceDetails = () => {
-  const { danceId } = useParams<RouteParams>();
-  if (!danceId) {
-    return <div>Invalid dance ID '{danceId}'</div>;
-  }
-  const id = parseInt(danceId);
-  const dance = dummyDances.find((x) => x.danceId == id);
-  if (!dance) {
-    return <div>Dance not found</div>;
-  }
+export const DanceDetails = ({ dance }: Props) => {
+  const { addToFavorites } = useAddToFavorites();
 
   return (
     <div>
       <h1>{dance.name}</h1>
       <h2>List of patterns:</h2>
-      <DancePatternList dancePatterns={dance.dancePatterns} />
+      <DancePatternList
+        dancePatterns={dance.dancePatterns}
+        onAddToFavorites={addToFavorites}
+      />
     </div>
   );
 };

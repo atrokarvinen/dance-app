@@ -5,8 +5,6 @@ namespace Dataprovider
 {
     public class DatabaseContext : DbContext
     {
-        public DbSet<Book> Books { get; set; }
-        public DbSet<Author> Authors { get; set; }
         public DbSet<Dance> Dances { get; set; }
         public DbSet<DancePattern> DancePatterns { get; set; }
         public DbSet<DancePatternVariation> DancePatternVariations { get; set; }
@@ -15,12 +13,11 @@ namespace Dataprovider
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite("Data Source=books.db");
+            optionsBuilder.UseSqlite("Data Source=dances.db");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            BookSeeder.Seed(modelBuilder);
             DataSeeder.Seed(modelBuilder);
         }
     }

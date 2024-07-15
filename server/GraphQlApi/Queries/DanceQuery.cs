@@ -1,5 +1,5 @@
 ﻿using Dataprovider.Models;
-using Dataprovider.Services;
+using Dataprovider.Repositories;
 
 namespace GraphQlApi.Queries;
 
@@ -12,7 +12,7 @@ public class DanceQuery
         return dances;
     }
 
-    public Dance GetDance([Service] DanceRepository repository, int danceId)
+    public Dance GetDance([Service] DanceRepository repository, [ID] int danceId)
     {
         var dance = repository.GetDanceById(danceId);
         return dance;

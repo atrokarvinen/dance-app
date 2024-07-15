@@ -2,9 +2,9 @@ import { createBrowserRouter } from "react-router-dom";
 import { App } from "./App";
 import { AuthPage } from "./auth/auth-page";
 import { SignupView } from "./auth/signup-view";
-import { DanceDetails } from "./dance/dance-details";
+import { DanceDetailsView } from "./dance/dance-details-view";
 import { DanceList } from "./dance/dance-list";
-import { DancePatternDetails } from "./dance/dance-pattern-details";
+import { DancePatternDetailsPage } from "./dance/dance-pattern-details-page";
 import { FavoriteList } from "./dance/favorite-list";
 import { Navigation } from "./navigation/navigation";
 
@@ -23,7 +23,7 @@ export const browserRouter = createBrowserRouter([
       },
       {
         path: "/dances/:danceId",
-        element: <DanceDetails />,
+        element: <DanceDetailsView />,
       },
       {
         path: "/favorites",
@@ -31,7 +31,7 @@ export const browserRouter = createBrowserRouter([
       },
       {
         path: "/dance-patterns/:dancePatternId",
-        element: <DancePatternDetails />,
+        element: <DancePatternDetailsPage />,
       },
       {
         path: "/auth",

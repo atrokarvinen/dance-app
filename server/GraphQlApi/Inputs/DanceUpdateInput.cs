@@ -1,6 +1,6 @@
 ﻿namespace GraphQlApi.Inputs;
 
-public class UpdateDanceInput
+public class DanceUpdateInput
 {
     [ID]
     public int DanceId { get; set; }

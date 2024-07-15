@@ -1,20 +1,19 @@
-import { useParams } from "react-router";
-import { dummyPatterns } from "./dummy-data/dance-patterns";
+import { DancePattern } from "./dance";
+import { FavoriteActionButton } from "./favorite-action-button";
 
-type RouteParams = {
-  dancePatternId: string;
+type Props = {
+  dancePattern: DancePattern;
+  addToFavorites: (dancePatternId: number) => void;
+  removeFromFavorites: (dancePatternId: number) => void;
 };
 
-export const DancePatternDetails = () => {
-  const params = useParams<RouteParams>();
-  if (!params.dancePatternId) {
-    return <div>Invalid dance pattern ID '{params.dancePatternId}'</div>;
-  }
-  const id = parseInt(params.dancePatternId);
-  const dancePattern = dummyPatterns.find((x) => x.dancePatternId == id);
-  if (!dancePattern) {
-    return <div>Dance pattern not found</div>;
-  }
+export const DancePatternDetails = ({
+  dancePattern,
+  addToFavorites,
+  removeFromFavorites,
+}: Props) => {
+  const { isFavorite } = dancePattern;
+  console.log("isFavorite:", isFavorite);
 
   return (
     <div>
@@ -24,7 +23,15 @@ export const DancePatternDetails = () => {
         <p>{dancePattern.description}</p>
         <img src={dancePattern.imageUrl} alt={dancePattern.name} />
         <a href={dancePattern.videoUrl}>Video</a>
-        <button>Add to favorites</button>
+
+        {isFavorite !== undefined && (
+          <FavoriteActionButton
+            id={dancePattern.dancePatternId}
+            addToFavorites={addToFavorites}
+            removeFromFavorites={removeFromFavorites}
+            isFavorite={isFavorite}
+          />
+        )}
       </div>
     </div>
   );

@@ -17,12 +17,16 @@ export type DancePattern = {
   counterPars: DancePattern[];
   predecessors: DancePattern[];
   successors: DancePattern[];
+
+  isFavorite?: boolean;
 };
 
 export type FavoritePattern = {
   favoritePatternId: number;
-  dancePatternId: number;
+  displayName?: string;
+
   userId: number;
 
-  displayName?: string;
+  dancePatternId: number;
+  dancePattern: DancePattern;
 };

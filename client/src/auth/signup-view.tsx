@@ -7,7 +7,8 @@ const signupMutation = gql`
   mutation Signup($input: SignupInput!) {
     signup(input: $input) {
       userId
-      name
+      username
+      token
     }
   }
 `;
@@ -15,7 +16,8 @@ const signupMutation = gql`
 type SignupMutationResponse = {
   signup: {
     userId: string;
-    name: string;
+    username: string;
+    token: string;
   };
 };
 
@@ -39,8 +41,10 @@ export const SignupView = () => {
       console.error(errors);
       return;
     }
-    const { name, userId } = data.signup;
-    console.log(`User '${name}' with id (${userId}) signed up successfully`);
+    const { username, userId } = data.signup;
+    console.log(
+      `User '${username}' with id (${userId}) signed up successfully`
+    );
     navigate("/auth");
   };
 

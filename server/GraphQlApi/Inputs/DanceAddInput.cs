@@ -1,6 +1,6 @@
 ﻿namespace GraphQlApi.Inputs;
 
-public class AddDanceInput
+public class DanceAddInput
 {
     public string Name { get; set; } = string.Empty;
 }

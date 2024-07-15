@@ -1,7 +1,7 @@
 ﻿using Dataprovider.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace Dataprovider.Services;
+namespace Dataprovider.Repositories;
 
 public class DanceRepository(DatabaseContext context)
 {
@@ -15,7 +15,15 @@ public class DanceRepository(DatabaseContext context)
             .ToList();
     }
 
-    public Dance? GetDanceById(int id)
+    public Dance GetDanceById(int id)
+    {
+        var dance = FindDanceById(id);
+        if (dance == null)
+            throw new Exception($"Failed to find dance with id ({id})");
+        return dance;
+    }
+
+    public Dance? FindDanceById(int id)
     {
         return _context.Dances
             .Include(d => d.DancePatterns)
