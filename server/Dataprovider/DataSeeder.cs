@@ -33,8 +33,18 @@ public class DataSeeder
             new DancePattern()
             {
                 DancePatternId = 3,
-                Name = "Basic step",
+                Name = "Box step",
                 Description = "Basic step for waltz",
+                VideoUrl= "https://www.youtube.com/watch?v=JMdAFjjxus8",
+                DanceId = 2,
+            },
+            new DancePattern()
+            {
+                DancePatternId = 4,
+                Name = "Twinkle",
+                Description = "Simple twinkle",
+                ImageUrl = "https://www.ballroomdancers.com/dances/awa/twinkle.jpg",
+                VideoUrl= "https://www.youtube.com/watch?v=ieXU4xp-1aY",
                 DanceId = 2,
             },
         };

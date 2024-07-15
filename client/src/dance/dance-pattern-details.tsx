@@ -12,21 +12,27 @@ export const DancePatternDetails = ({
   addToFavorites,
   removeFromFavorites,
 }: Props) => {
-  const { isFavorite } = dancePattern;
-  console.log("isFavorite:", isFavorite);
+  const { isFavorite, imageUrl, videoUrl, name, description, dancePatternId } =
+    dancePattern;
+
+  console.log("video:", dancePattern.videoUrl);
+  console.log("image:", dancePattern.imageUrl);
 
   return (
     <div>
       <h1>Details</h1>
-      <div>
-        <h2>{dancePattern.name}</h2>
-        <p>{dancePattern.description}</p>
-        <img src={dancePattern.imageUrl} alt={dancePattern.name} />
-        <a href={dancePattern.videoUrl}>Video</a>
-
+      <div style={{ display: "flex", flexDirection: "column", gap: 5 }}>
+        <h2>{name}</h2>
+        <p>{description}</p>
+        {imageUrl && <img src={imageUrl} alt={name} />}
+        {videoUrl && (
+          <a href={videoUrl} target="_blank">
+            Video
+          </a>
+        )}
         {isFavorite !== undefined && (
           <FavoriteActionButton
-            id={dancePattern.dancePatternId}
+            id={dancePatternId}
             addToFavorites={addToFavorites}
             removeFromFavorites={removeFromFavorites}
             isFavorite={isFavorite}

@@ -26,7 +26,7 @@ public class DancePatternRepository(DatabaseContext context)
     {
         return _context.DancePatterns
             .Include(dp => dp.Dance)
-            .FirstOrDefault(d => d.DanceId == id);
+            .FirstOrDefault(d => d.DancePatternId == id);
     }
 
     public DancePattern AddDancePattern(DancePattern dancePattern)
@@ -45,7 +45,7 @@ public class DancePatternRepository(DatabaseContext context)
 
     public DancePattern? DeleteDancePattern(int id)
     {
-        var dancePattern = _context.DancePatterns.FirstOrDefault(d => d.DanceId == id);
+        var dancePattern = _context.DancePatterns.FirstOrDefault(d => d.DancePatternId == id);
         if (dancePattern != null)
         {
             _context.DancePatterns.Remove(dancePattern);
