@@ -1,22 +1,19 @@
-import { Outlet } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 
 export const Navigation = () => {
   return (
     <>
       <nav>
-        <a href="/">Home</a>
-        <a style={{ marginLeft: 15 }} href="/books">
-          Books
-        </a>
-        <a style={{ marginLeft: 15 }} href="/dances">
+        <Link to="/">Home</Link>
+        <Link style={{ marginLeft: 15 }} to="/dances">
           Dances
-        </a>
-        <a style={{ marginLeft: 15 }} href="/favorites">
+        </Link>
+        <Link style={{ marginLeft: 15 }} to="/favorites">
           Favorites
-        </a>
-        <a style={{ marginLeft: 15 }} href="/auth">
+        </Link>
+        <Link style={{ marginLeft: 15 }} to="/auth">
           Auth
-        </a>
+        </Link>
       </nav>
       <Outlet />
     </>

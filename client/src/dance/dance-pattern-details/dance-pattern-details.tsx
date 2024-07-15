@@ -1,5 +1,6 @@
 import { DancePattern } from "../dance";
 import { FavoriteActionButton } from "../favorite-action-button";
+import { Video } from "./video";
 
 type Props = {
   dancePattern: DancePattern;
@@ -25,11 +26,7 @@ export const DancePatternDetails = ({
         <h2>{name}</h2>
         <p>{description}</p>
         {imageUrl && <img src={imageUrl} alt={name} />}
-        {videoUrl && (
-          <a href={videoUrl} target="_blank">
-            Video
-          </a>
-        )}
+        {videoUrl && <Video url={videoUrl} />}
         {isFavorite !== undefined && (
           <FavoriteActionButton
             id={dancePatternId}
