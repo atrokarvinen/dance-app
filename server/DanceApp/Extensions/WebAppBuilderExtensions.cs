@@ -30,16 +30,35 @@ public static class WebAppBuilderExtensions
     {
         builder.Services.AddDbContext<DatabaseContext>(optionsBuilder =>
         {
+            var logger = builder.Services.BuildServiceProvider().GetService<ILogger<DatabaseContext>>();
+            if (logger == null)
+                throw new Exception("Failed to get logger");
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
             var databaseProvider = builder.Configuration.GetSection("DatabaseProvider").Value;
             var env = builder.Environment.EnvironmentName;
+            logger.LogInformation("Using database provider: {databaseProvider}", databaseProvider);
+            logger.LogInformation("Environment: {env}", env);
+
+            var jwtSecret = builder.Configuration.GetSection("Auth:JwtSecret").Value;
+
+            //logger.LogInformation("Database URL: {connectionString}", connectionString);
+            //logger.LogInformation("JWT Secret: {jwtSecret}", jwtSecret);
+            logger.LogInformation("Database url start: {start}", connectionString?.Substring(0, 10));
+            logger.LogInformation("JWT Secret start: {start}", jwtSecret?.Substring(0, 10));
+
             if (databaseProvider == "PostgreSQL")
             {
-                optionsBuilder.UseNpgsql(connectionString);
+                optionsBuilder.UseNpgsql(connectionString, o =>
+                {
+                    o.UseQuerySplittingBehavior(QuerySplittingBehavior.SingleQuery);
+                });
             }
             else if (databaseProvider == "SQLite")
             {
-                optionsBuilder.UseSqlite(connectionString);
+                optionsBuilder.UseSqlite(connectionString, o =>
+                {
+                    o.UseQuerySplittingBehavior(QuerySplittingBehavior.SingleQuery);
+                });
             }
             else
             {

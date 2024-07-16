@@ -1,17 +1,18 @@
 ﻿using Dataprovider.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace Dataprovider.Repositories;
 
-public class DanceRepository(DatabaseContext context)
+public class DanceRepository(ILogger<DanceRepository> _logger, DatabaseContext _context)
 {
-    private readonly DatabaseContext _context = context;
-
     public List<Dance> GetDances()
     {
+        _logger.LogInformation("Getting all dances");
         return _context.Dances
             .Include(d => d.DancePatterns)
                 .ThenInclude(dp => dp.Variations)
+            .AsNoTracking()
             .ToList();
     }
 

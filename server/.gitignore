@@ -399,3 +399,4 @@ FodyWeavers.xsd
 
 *.db*
 *.Development.json
+docker-commands.txt

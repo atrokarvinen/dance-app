@@ -4,6 +4,7 @@ using DanceApp.Queries;
 using Dataprovider;
 using Dataprovider.Repositories;
 using Dataprovider.Services;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,7 +12,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Configuration
     .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-    .AddJsonFile("appsettings.Development.json", optional: true, reloadOnChange: true);
+    .AddJsonFile("appsettings.Development.json", optional: true, reloadOnChange: true)
+    .AddEnvironmentVariables();
 
 builder.Services.Configure<AuthConfig>(builder.Configuration.GetSection("Auth"));
 builder.Services.AddOptions();
@@ -40,6 +42,10 @@ builder.Services
     .AddType<FavoritesMutation>()
     ;
 
+builder.Host.UseSerilog((context, config) =>
+    config.ReadFrom.Configuration(context.Configuration)
+);
+
 var app = builder.Build();
 
 app.MapGraphQL();
@@ -49,6 +55,7 @@ app.UseCors(builder => builder
     .AllowAnyMethod()
     .AllowAnyHeader());
 
+app.UseSerilogRequestLogging();
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
