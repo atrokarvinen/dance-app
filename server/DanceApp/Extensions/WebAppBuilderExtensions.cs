@@ -38,14 +38,6 @@ public static class WebAppBuilderExtensions
             var env = builder.Environment.EnvironmentName;
             logger.LogInformation("Using database provider: {databaseProvider}", databaseProvider);
             logger.LogInformation("Environment: {env}", env);
-
-            var jwtSecret = builder.Configuration.GetSection("Auth:JwtSecret").Value;
-
-            //logger.LogInformation("Database URL: {connectionString}", connectionString);
-            //logger.LogInformation("JWT Secret: {jwtSecret}", jwtSecret);
-            logger.LogInformation("Database url start: {start}", connectionString?.Substring(0, 10));
-            logger.LogInformation("JWT Secret start: {start}", jwtSecret?.Substring(0, 10));
-
             if (databaseProvider == "PostgreSQL")
             {
                 optionsBuilder.UseNpgsql(connectionString, o =>
