@@ -12,7 +12,7 @@ const mutation = gql`
 `;
 
 type AddToFavoritesResponse = {
-  addToFavorites: {
+  addFavorite: {
     favoritePatternId: number;
     dancePatternId: number;
   };
@@ -38,9 +38,9 @@ export const useAddToFavorites = () => {
       return false;
     }
     console.log(
-      `Successfully added to favorites: ${data.addToFavorites.favoritePatternId}`
+      `Successfully added to favorites: ${data.addFavorite.favoritePatternId}`
     );
-    return data.addToFavorites;
+    return data.addFavorite;
   };
 
   return { addToFavorites };

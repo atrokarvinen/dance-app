@@ -12,7 +12,7 @@ const mutation = gql`
 `;
 
 type RemoveFromFavoritesResponse = {
-  removeFromFavorites: {
+  removeFavorite: {
     favoritePatternId: number;
     dancePatternId: number;
   };
@@ -38,9 +38,9 @@ export const useRemoveFromFavorites = () => {
       return false;
     }
     console.log(
-      `Successfully removed from favorites: ${data.removeFromFavorites.favoritePatternId}`
+      `Successfully removed from favorites: ${data.removeFavorite.favoritePatternId}`
     );
-    return data.removeFromFavorites;
+    return data.removeFavorite;
   };
 
   return { removeFromFavorites };
