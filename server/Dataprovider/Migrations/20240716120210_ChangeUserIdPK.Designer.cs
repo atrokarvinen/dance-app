@@ -2,6 +2,7 @@
 using Dataprovider;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -10,9 +11,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Dataprovider.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20240716120210_ChangeUserIdPK")]
+    partial class ChangeUserIdPK
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -35,7 +38,7 @@ namespace Dataprovider.Migrations
 
                     b.HasKey("DanceId");
 
-                    b.ToTable("Dances", (string)null);
+                    b.ToTable("Dances");
 
                     b.HasData(
                         new
@@ -88,7 +91,7 @@ namespace Dataprovider.Migrations
 
                     b.HasIndex("DanceId");
 
-                    b.ToTable("DancePatterns", (string)null);
+                    b.ToTable("DancePatterns");
 
                     b.HasData(
                         new
@@ -148,7 +151,7 @@ namespace Dataprovider.Migrations
 
                     b.HasIndex("VariationId");
 
-                    b.ToTable("DancePatternVariations", (string)null);
+                    b.ToTable("DancePatternVariations");
 
                     b.HasData(
                         new
@@ -183,7 +186,7 @@ namespace Dataprovider.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("FavoritePatterns", (string)null);
+                    b.ToTable("FavoritePatterns");
 
                     b.HasData(
                         new
@@ -213,7 +216,7 @@ namespace Dataprovider.Migrations
 
                     b.HasKey("UserId");
 
-                    b.ToTable("Users", (string)null);
+                    b.ToTable("Users");
 
                     b.HasData(
                         new

@@ -1,7 +1,12 @@
-﻿namespace Dataprovider.Models;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
+
+namespace Dataprovider.Models;
 
 public class FavoritePattern
 {
+    [Key]
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int FavoritePatternId { get; set; }
     public string DisplayName { get; set; } = string.Empty;
 
