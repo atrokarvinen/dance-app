@@ -28,7 +28,7 @@ namespace Dataprovider.Migrations
 
                     b.HasKey("DanceId");
 
-                    b.ToTable("Dances");
+                    b.ToTable("Dances", (string)null);
 
                     b.HasData(
                         new
@@ -79,7 +79,7 @@ namespace Dataprovider.Migrations
 
                     b.HasIndex("DanceId");
 
-                    b.ToTable("DancePatterns");
+                    b.ToTable("DancePatterns", (string)null);
 
                     b.HasData(
                         new
@@ -137,7 +137,7 @@ namespace Dataprovider.Migrations
 
                     b.HasIndex("VariationId");
 
-                    b.ToTable("DancePatternVariations");
+                    b.ToTable("DancePatternVariations", (string)null);
 
                     b.HasData(
                         new
@@ -170,7 +170,7 @@ namespace Dataprovider.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("FavoritePatterns");
+                    b.ToTable("FavoritePatterns", (string)null);
 
                     b.HasData(
                         new
@@ -198,7 +198,7 @@ namespace Dataprovider.Migrations
 
                     b.HasKey("UserId");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
 
                     b.HasData(
                         new
