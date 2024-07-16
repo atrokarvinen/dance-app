@@ -1,6 +1,6 @@
-﻿using Dataprovider;
+﻿using DanceApp.Extensions;
+using Dataprovider;
 using Dataprovider.Models;
-using DanceApp.Extensions;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 

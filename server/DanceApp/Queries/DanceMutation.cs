@@ -1,6 +1,6 @@
-﻿using Dataprovider.Models;
+﻿using DanceApp.Inputs;
+using Dataprovider.Models;
 using Dataprovider.Repositories;
-using DanceApp.Inputs;
 
 namespace DanceApp.Queries;
 

@@ -1,8 +1,8 @@
-﻿using Dataprovider.Models;
+﻿using DanceApp.Extensions;
+using DanceApp.Outputs;
+using Dataprovider.Models;
 using Dataprovider.Repositories;
 using Dataprovider.Services;
-using DanceApp.Extensions;
-using DanceApp.Outputs;
 using System.Security.Claims;
 
 namespace DanceApp.Queries;

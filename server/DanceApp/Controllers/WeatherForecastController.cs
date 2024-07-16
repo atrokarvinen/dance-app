@@ -16,7 +16,7 @@ namespace DanceApp.Controllers
         private readonly DatabaseContext _dbContext;
 
         public WeatherForecastController(
-            ILogger<WeatherForecastController> logger, 
+            ILogger<WeatherForecastController> logger,
             DatabaseContext dbContext)
         {
             _logger = logger;

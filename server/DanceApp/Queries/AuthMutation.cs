@@ -1,8 +1,8 @@
-﻿using Dataprovider;
-using Dataprovider.Models;
-using DanceApp.Config;
+﻿using DanceApp.Config;
 using DanceApp.Inputs;
 using DanceApp.Outputs;
+using Dataprovider;
+using Dataprovider.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;

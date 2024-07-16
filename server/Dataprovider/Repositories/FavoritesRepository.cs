@@ -1,5 +1,4 @@
 ﻿using Dataprovider.Models;
-using Microsoft.EntityFrameworkCore;
 
 namespace Dataprovider.Repositories;
 
