@@ -1,5 +1,4 @@
 import { createBrowserRouter } from "react-router-dom";
-import { App } from "./App";
 import { AuthPage } from "./auth/auth-page";
 import { SignupView } from "./auth/signup-view";
 import { DanceDetailsView } from "./dance/dance-details-view";
@@ -13,10 +12,6 @@ export const browserRouter = createBrowserRouter([
     path: "/",
     element: <Navigation />,
     children: [
-      {
-        path: "/books",
-        element: <App />,
-      },
       {
         path: "/dances",
         element: <DanceList />,
