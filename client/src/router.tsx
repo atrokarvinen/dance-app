@@ -1,16 +1,16 @@
 import { createBrowserRouter } from "react-router-dom";
+import { App } from "./App";
 import { AuthPage } from "./auth/auth-page";
 import { SignupView } from "./auth/signup-view";
 import { DanceDetailsPage } from "./dance/dance-details-page";
 import { DanceList } from "./dance/dance-list";
 import { DancePatternDetailsPage } from "./dance/dance-pattern-details/dance-pattern-details-page";
 import { FavoriteList } from "./dance/favorite-list";
-import { Navigation } from "./navigation/navigation";
 
 export const browserRouter = createBrowserRouter([
   {
     path: "/",
-    element: <Navigation />,
+    element: <App />,
     children: [
       {
         path: "/dances",

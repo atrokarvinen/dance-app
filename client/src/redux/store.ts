@@ -1,8 +1,12 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { useDispatch, useSelector } from "react-redux";
 import { authReducer } from "../auth/auth-store";
+import { uiStyleReducer } from "../layout/ui-style-store";
 
-export const rootReducer = combineReducers({ auth: authReducer });
+export const rootReducer = combineReducers({
+  auth: authReducer,
+  ui: uiStyleReducer,
+});
 export const store = configureStore({ reducer: rootReducer });
 
 export type RootState = ReturnType<typeof rootReducer>;
