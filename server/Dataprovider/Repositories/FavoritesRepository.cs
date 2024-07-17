@@ -1,4 +1,5 @@
 ﻿using Dataprovider.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Dataprovider.Repositories;
 
@@ -10,6 +11,8 @@ public class FavoritesRepository(DatabaseContext _context)
             return new List<FavoritePattern>();
 
         return _context.FavoritePatterns
+            .Include(fp => fp.DancePattern)
+                .ThenInclude(dp => dp.Dance)
             .Where(fp => fp.UserId == userId)
             .ToList();
     }

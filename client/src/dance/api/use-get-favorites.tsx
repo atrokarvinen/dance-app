@@ -10,6 +10,9 @@ const query = gql`
       dancePatternId
       dancePattern {
         name
+        dance {
+          name
+        }
       }
     }
   }

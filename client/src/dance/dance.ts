@@ -7,6 +7,7 @@ export type Dance = {
 export type DancePattern = {
   dancePatternId: number;
   danceId: number;
+  dance: Dance;
   name: string;
   aliases: string[];
   description: string;
