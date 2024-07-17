@@ -1,50 +1,25 @@
-import { gql, useMutation } from "@apollo/client";
 import { Link } from "react-router-dom";
+import { useLogin } from "./api/use-login";
 import { LoginForm } from "./login-form";
 import { LoginFormType } from "./models/login-form-type";
 import { TestAuthButton } from "./test-auth-button";
-
-const a = gql`
-  mutation Login($input: LoginInput!) {
-    login(input: $input) {
-      token
-    }
-  }
-`;
-
-type LoginMutationResponse = {
-  login: {
-    token: string;
-  };
-};
-
-type LoginMutationVariables = {
-  input: {
-    username: string;
-    password: string;
-  };
-};
+import { useAuth } from "./use-auth";
 
 export const AuthPage = () => {
-  const [loginFunc] = useMutation<
-    LoginMutationResponse,
-    LoginMutationVariables
-  >(a);
+  const { login, logout } = useAuth();
+  const { login: loginMutation } = useLogin();
 
   const handleLogin = async (values: LoginFormType) => {
-    const { data, errors } = await loginFunc({ variables: { input: values } });
-    if (errors || !data) {
-      console.error(errors);
+    const token = await loginMutation(values);
+    if (!token) {
       return;
     }
-    const { token } = data.login;
-    localStorage.setItem("token", token);
-    console.log("Login successful");
-    console.log("Token:", token);
+    login(token);
+    console.log("Login successful, token: ", token);
   };
 
   const handleLogout = () => {
-    localStorage.removeItem("token");
+    logout();
     console.log("Logged out");
   };
 

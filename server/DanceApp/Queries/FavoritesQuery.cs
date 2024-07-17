@@ -11,7 +11,8 @@ public class FavoritesQuery
 {
     public IEnumerable<FavoritePattern> GetFavorites([Service] DatabaseContext context, ClaimsPrincipal claims)
     {
-        var userId = claims.GetUserId();
+        var userId = claims.TryGetUserId();
+        if (userId is null) return new List<FavoritePattern>();
         var favorites = context.FavoritePatterns
             .Include(f => f.DancePattern)
             .Where(f => f.UserId == userId);

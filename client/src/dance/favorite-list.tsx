@@ -1,10 +1,12 @@
 import { Link } from "react-router-dom";
+import { ErrorPage } from "../common/ErrorPage";
+import { Loader } from "../common/Loader";
 import { useGetFavorites } from "./api/use-get-favorites";
 
 export const FavoriteList = () => {
   const { error, favorites, loading } = useGetFavorites();
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error :{error.message}</p>;
+  if (loading) return <Loader />;
+  if (error) return <ErrorPage message={error.message} />;
 
   return (
     <div>

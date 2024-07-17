@@ -1,6 +1,14 @@
+import { useEffect } from "react";
 import { Link, Outlet } from "react-router-dom";
+import { useAuth } from "../auth/use-auth";
 
 export const Navigation = () => {
+  const { initialLogin } = useAuth();
+
+  useEffect(() => {
+    initialLogin();
+  }, []);
+
   return (
     <>
       <nav>

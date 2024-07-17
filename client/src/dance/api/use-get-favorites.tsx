@@ -20,7 +20,7 @@ type GetFavoritesResponse = {
 };
 
 export const useGetFavorites = () => {
-  const { loading, error, data } = useQuery<GetFavoritesResponse>(query);
+  const queryResult = useQuery<GetFavoritesResponse>(query);
 
-  return { loading, error, favorites: data?.favorites ?? [] };
+  return { favorites: queryResult.data?.favorites ?? [], ...queryResult };
 };

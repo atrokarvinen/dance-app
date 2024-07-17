@@ -1,7 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import { AuthPage } from "./auth/auth-page";
 import { SignupView } from "./auth/signup-view";
-import { DanceDetailsView } from "./dance/dance-details-view";
+import { DanceDetailsPage } from "./dance/dance-details-page";
 import { DanceList } from "./dance/dance-list";
 import { DancePatternDetailsPage } from "./dance/dance-pattern-details/dance-pattern-details-page";
 import { FavoriteList } from "./dance/favorite-list";
@@ -18,7 +18,7 @@ export const browserRouter = createBrowserRouter([
       },
       {
         path: "/dances/:danceId",
-        element: <DanceDetailsView />,
+        element: <DanceDetailsPage />,
       },
       {
         path: "/favorites",

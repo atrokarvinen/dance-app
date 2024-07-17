@@ -1,5 +1,7 @@
 import { gql, useQuery } from "@apollo/client";
 import { Link } from "react-router-dom";
+import { ErrorPage } from "../common/ErrorPage";
+import { Loader } from "../common/Loader";
 import { GetDancesResponse } from "./api-models";
 
 const query = gql`
@@ -14,8 +16,8 @@ const query = gql`
 export const DanceList = () => {
   const { loading, error, data } = useQuery<GetDancesResponse>(query);
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error :{error.message}</p>;
+  if (loading) return <Loader />;
+  if (error) return <ErrorPage message={error.message} />;
 
   const dances = data?.dances ?? [];
 

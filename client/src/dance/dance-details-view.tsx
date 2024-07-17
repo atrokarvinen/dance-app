@@ -1,56 +1,52 @@
-import { gql, useLazyQuery } from "@apollo/client";
-import { useParams } from "react-router-dom";
-import { Dance } from "./dance";
+import { ErrorPage } from "../common/ErrorPage";
+import { Loader } from "../common/Loader";
+import { useAddToFavorites } from "./api/use-add-to-favorites";
+import { useGetDance } from "./api/use-get-dance";
+import { useGetFavorites } from "./api/use-get-favorites";
+import { useRemoveFromFavorites } from "./api/use-remove-from-favorites";
 import { DanceDetails } from "./dance-details";
 
-type RouteParams = {
-  danceId: string;
-};
-
-const query = gql`
-  query GetDance($danceId: ID!) {
-    dance(danceId: $danceId) {
-      danceId
-      name
-      dancePatterns {
-        dancePatternId
-        name
-        description
-        imageUrl
-        videoUrl
-      }
-    }
-  }
-`;
-
-type GetDanceResponse = {
-  dance: Dance;
-};
-
-type GetDanceVariables = {
+type Props = {
   danceId: number;
 };
 
-export const DanceDetailsView = () => {
-  const { danceId } = useParams<RouteParams>();
-  const [getDance, { data, loading, error }] = useLazyQuery<
-    GetDanceResponse,
-    GetDanceVariables
-  >(query);
-  if (!danceId) {
-    return <div>Invalid dance ID '{danceId}'</div>;
+export const DanceDetailsView = ({ danceId }: Props) => {
+  const {
+    dance,
+    error: danceError,
+    loading: danceLoading,
+  } = useGetDance(danceId);
+  const {
+    favorites,
+    error: favoritesError,
+    loading: favoritesLoading,
+    refetch: refetchFavorites,
+  } = useGetFavorites();
+  const { addToFavorites } = useAddToFavorites();
+  const { removeFromFavorites } = useRemoveFromFavorites();
+  if (danceLoading || favoritesLoading) return <Loader />;
+  if (danceError || favoritesError) {
+    const message = danceError?.message ?? favoritesError?.message ?? "Error";
+    return <ErrorPage message={message} />;
   }
-  const id = parseInt(danceId);
-  if (!data && !loading && !error) {
-    getDance({ variables: { danceId: id } });
-  }
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error :{error.message}</p>;
+  if (!dance) return <div>Dance not found</div>;
 
-  const dance = data?.dance;
-  if (!dance) {
-    return <div>Dance not found</div>;
-  }
+  const handleAddFavorite = async (dancePatternId: number) => {
+    await addToFavorites(dancePatternId);
+    refetchFavorites();
+  };
 
-  return <DanceDetails dance={dance} />;
+  const handleRemoveFavorite = async (favoritePatternId: number) => {
+    await removeFromFavorites(favoritePatternId);
+    refetchFavorites();
+  };
+
+  return (
+    <DanceDetails
+      dance={dance}
+      favorites={favorites}
+      onAddToFavorites={handleAddFavorite}
+      onRemoveFromFavorites={handleRemoveFavorite}
+    />
+  );
 };
