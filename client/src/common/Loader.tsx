@@ -1,3 +1,16 @@
+import { CircularProgress, Container } from "@mui/material";
+
 export const Loader = () => {
-  return <p>Loading...</p>;
+  return (
+    <Container
+      sx={{
+        height: "100%",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
+      <CircularProgress />
+    </Container>
+  );
 };

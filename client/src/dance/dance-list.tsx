@@ -1,4 +1,5 @@
 import { gql, useQuery } from "@apollo/client";
+import { Box, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 import { ErrorPage } from "../common/ErrorPage";
 import { Loader } from "../common/Loader";
@@ -23,8 +24,8 @@ export const DanceList = () => {
   const dances = data?.dances ?? [];
 
   return (
-    <div>
-      <h1>Dances</h1>
+    <Box>
+      <Typography variant="h1">Dances</Typography>
       <DarkModeButton />
       <ul>
         {dances.map((dance) => (
@@ -33,6 +34,6 @@ export const DanceList = () => {
           </li>
         ))}
       </ul>
-    </div>
+    </Box>
   );
 };

@@ -1,6 +1,6 @@
 import { Container } from "@mui/material";
 import { ReactNode } from "react";
-import { Navigation } from "../navigation/navigation";
+import { NavigationDesktop } from "../navigation/navigation-desktop";
 
 type Props = {
   children: ReactNode;
@@ -9,7 +9,7 @@ type Props = {
 export const LayoutDesktop = ({ children }: Props) => {
   return (
     <>
-      <Navigation />
+      <NavigationDesktop />
       <Container>{children}</Container>
     </>
   );

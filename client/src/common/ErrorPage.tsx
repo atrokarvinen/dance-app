@@ -1,12 +1,21 @@
+import { Container, Typography } from "@mui/material";
+
 type Props = {
   message: string;
 };
 
 export const ErrorPage = ({ message }: Props) => {
   return (
-    <div>
-      <h1>Error</h1>
-      <p>{message}</p>
-    </div>
+    <Container
+      sx={{
+        height: "100%",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
+      <Typography variant="h1">Error</Typography>
+      <Typography variant="body1">{message}</Typography>
+    </Container>
   );
 };
