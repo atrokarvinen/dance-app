@@ -10,12 +10,13 @@ export const ErrorPage = ({ message }: Props) => {
       sx={{
         height: "100%",
         display: "flex",
+        flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
       }}
     >
       <Typography variant="h1">Error</Typography>
-      <Typography variant="body1">{message}</Typography>
+      <Typography paragraph>{message}</Typography>
     </Container>
   );
 };

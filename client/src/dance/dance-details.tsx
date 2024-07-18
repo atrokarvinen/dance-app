@@ -1,5 +1,6 @@
 import { ArrowBack } from "@mui/icons-material";
 import { Box, IconButton, Typography } from "@mui/material";
+import { createRef, useEffect, useState } from "react";
 import { Dance, FavoritePattern } from "./dance";
 import { DancePatternList } from "./dance-pattern-list";
 
@@ -9,6 +10,7 @@ type Props = {
   onAddToFavorites: (dancePatternId: number) => void;
   onRemoveFromFavorites: (dancePatternId: number) => void;
   onNavigateBack: () => void;
+  initialScroll: number;
 };
 
 export const DanceDetails = ({
@@ -17,21 +19,44 @@ export const DanceDetails = ({
   onAddToFavorites,
   onRemoveFromFavorites,
   onNavigateBack,
+  initialScroll,
 }: Props) => {
+  const [scrollY, setScrollY] = useState(0);
+  const containerRef = createRef<HTMLDivElement>();
+
+  useEffect(() => {
+    if (!containerRef.current) return;
+    containerRef.current.scrollTo(0, initialScroll);
+  }, [containerRef.current, initialScroll]);
+
   return (
-    <Box>
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        maxHeight: "100%",
+        alignItems: "flex-start",
+      }}
+    >
       <Typography component="h1" variant="h3">
         {dance.name}
       </Typography>
       <IconButton onClick={onNavigateBack}>
         <ArrowBack />
       </IconButton>
-      <DancePatternList
-        dancePatterns={dance.dancePatterns}
-        favorites={favorites}
-        onAddToFavorites={onAddToFavorites}
-        onRemoveFromFavorites={onRemoveFromFavorites}
-      />
+      <Box
+        sx={{ flex: 1, overflow: "auto" }}
+        ref={containerRef}
+        onScroll={(e) => setScrollY(e.currentTarget.scrollTop)}
+      >
+        <DancePatternList
+          dancePatterns={dance.dancePatterns}
+          favorites={favorites}
+          onAddToFavorites={onAddToFavorites}
+          onRemoveFromFavorites={onRemoveFromFavorites}
+          scrollY={scrollY}
+        />
+      </Box>
     </Box>
   );
 };

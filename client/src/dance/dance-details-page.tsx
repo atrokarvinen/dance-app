@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { DanceDetailsView } from "./dance-details-view";
 
 type RouteParams = {
@@ -7,9 +7,12 @@ type RouteParams = {
 
 export const DanceDetailsPage = () => {
   const { danceId } = useParams<RouteParams>();
+  const location = useLocation();
   if (!danceId) {
     return <div>Invalid dance ID '{danceId}'</div>;
   }
   const id = parseInt(danceId);
-  return <DanceDetailsView danceId={id} />;
+  const initialScroll = location.state?.scrollY ?? 0;
+
+  return <DanceDetailsView danceId={id} initialScroll={initialScroll} />;
 };

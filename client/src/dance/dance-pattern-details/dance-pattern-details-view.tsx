@@ -11,9 +11,10 @@ import { DancePatternDetails } from "./dance-pattern-details";
 type Props = {
   id: number;
   returnUrl: string | undefined;
+  scrollY: number;
 };
 
-export const DancePatternDetailsView = ({ id, returnUrl }: Props) => {
+export const DancePatternDetailsView = ({ id, returnUrl, scrollY }: Props) => {
   const navigate = useNavigate();
   const { dancePattern, error, loading, refetch } = useGetDancePattern({ id });
   const { addToFavorites } = useAddToFavorites();
@@ -35,7 +36,11 @@ export const DancePatternDetailsView = ({ id, returnUrl }: Props) => {
 
   const handleNavigateBack = () => {
     const defaultReturnUrl = "/dances/" + dancePattern.danceId;
-    navigate(returnUrl || defaultReturnUrl, { replace: true });
+    navigate(returnUrl || defaultReturnUrl, {
+      state: {
+        scrollY,
+      },
+    });
   };
 
   return (
