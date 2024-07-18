@@ -1,3 +1,4 @@
+import { Box, Typography } from "@mui/material";
 import { Dance, FavoritePattern } from "./dance";
 import { DancePatternList } from "./dance-pattern-list";
 
@@ -17,15 +18,16 @@ export const DanceDetails = ({
   console.log("favorites:", favorites);
 
   return (
-    <div>
-      <h1>{dance.name}</h1>
-      <h2>List of patterns:</h2>
+    <Box>
+      <Typography component="h1" variant="h3">
+        {dance.name}
+      </Typography>
       <DancePatternList
         dancePatterns={dance.dancePatterns}
         favorites={favorites}
         onAddToFavorites={onAddToFavorites}
         onRemoveFromFavorites={onRemoveFromFavorites}
       />
-    </div>
+    </Box>
   );
 };

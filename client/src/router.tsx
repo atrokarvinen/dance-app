@@ -13,7 +13,7 @@ export const browserRouter = createBrowserRouter([
     element: <App />,
     children: [
       {
-        path: "/dances",
+        path: "/",
         element: <DanceList />,
       },
       {

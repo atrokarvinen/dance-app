@@ -1,7 +1,8 @@
+import { Box, List, ListItem } from "@mui/material";
 import { selectIsAuthenticated } from "../auth/auth-store";
 import { useAppSelector } from "../redux/store";
 import { DancePattern, FavoritePattern } from "./dance";
-import { DancePatternListItem } from "./dance-patter-list-item";
+import { DancePatternListItem } from "./dance-pattern-list-item";
 
 type Props = {
   dancePatterns: DancePattern[];
@@ -24,25 +25,28 @@ export const DancePatternList = ({
     );
   };
 
+  if (dancePatterns.length === 0) {
+    return <Box>No dance patterns found</Box>;
+  }
   return (
-    <div>
-      <h2>Dance Patterns</h2>
-      <ul>
+    <Box>
+      <List>
         {dancePatterns.map((pattern) => {
           const isFavorite = isAuthenticated
             ? isPatternInFavorites(pattern)
             : undefined;
           return (
-            <DancePatternListItem
-              key={pattern.dancePatternId}
-              pattern={pattern}
-              isFavorite={isFavorite}
-              onAddToFavorites={onAddToFavorites}
-              onRemoveFromFavorites={onRemoveFromFavorites}
-            />
+            <ListItem key={pattern.dancePatternId}>
+              <DancePatternListItem
+                pattern={pattern}
+                isFavorite={isFavorite}
+                onAddToFavorites={onAddToFavorites}
+                onRemoveFromFavorites={onRemoveFromFavorites}
+              />
+            </ListItem>
           );
         })}
-      </ul>
-    </div>
+      </List>
+    </Box>
   );
 };

@@ -1,3 +1,4 @@
+import { Box } from "@mui/material";
 import { Link } from "react-router-dom";
 import { FavoritePattern } from "./dance";
 
@@ -8,10 +9,13 @@ type Props = {
 export const FavoriteListItem = ({ favorite }: Props) => {
   const { dancePatternId, dancePattern, displayName } = favorite;
   return (
-    <li>
-      <Link to={`/dance-patterns/${dancePatternId}`}>
+    <Box>
+      <Link
+        to={`/dance-patterns/${dancePatternId}`}
+        state={{ returnUrl: "/favorites" }}
+      >
         {displayName ?? dancePattern.name}
       </Link>
-    </li>
+    </Box>
   );
 };

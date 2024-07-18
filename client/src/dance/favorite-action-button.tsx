@@ -1,3 +1,6 @@
+import { Favorite, FavoriteBorder } from "@mui/icons-material";
+import { IconButton } from "@mui/material";
+
 type Props = {
   id: number;
   isFavorite: boolean;
@@ -11,7 +14,7 @@ export const FavoriteActionButton = ({
   removeFromFavorites,
   isFavorite,
 }: Props) => {
-  const text = isFavorite ? "Remove from favorites" : "Add to favorites";
+  const icon = isFavorite ? <Favorite /> : <FavoriteBorder />;
   const action = isFavorite ? removeFromFavorites : addToFavorites;
-  return <button onClick={() => action(id)}>{text}</button>;
+  return <IconButton onClick={() => action(id)}>{icon}</IconButton>;
 };

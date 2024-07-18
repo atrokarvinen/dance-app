@@ -1,39 +1,33 @@
-import { gql, useQuery } from "@apollo/client";
-import { Box, Typography } from "@mui/material";
+import { Box, Button, List, ListItem, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 import { ErrorPage } from "../common/ErrorPage";
 import { Loader } from "../common/Loader";
-import { DarkModeButton } from "../layout/dark-mode-button";
-import { GetDancesResponse } from "./api-models";
-
-const query = gql`
-  query GetDances {
-    dances {
-      danceId
-      name
-    }
-  }
-`;
+import { useGetDances } from "./api/use-get-dances";
 
 export const DanceList = () => {
-  const { loading, error, data } = useQuery<GetDancesResponse>(query);
+  const { error, loading, dances } = useGetDances();
 
   if (loading) return <Loader />;
   if (error) return <ErrorPage message={error.message} />;
 
-  const dances = data?.dances ?? [];
-
   return (
     <Box>
-      <Typography variant="h1">Dances</Typography>
-      <DarkModeButton />
-      <ul>
+      <Typography component="h1" variant="h3">
+        Dances
+      </Typography>
+      <List>
         {dances.map((dance) => (
-          <li key={dance.danceId}>
-            <Link to={`/dances/${dance.danceId}`}>{dance.name}</Link>
-          </li>
+          <ListItem key={dance.danceId}>
+            <Button
+              component={Link}
+              to={`/dances/${dance.danceId}`}
+              variant="contained"
+            >
+              {dance.name}
+            </Button>
+          </ListItem>
         ))}
-      </ul>
+      </List>
     </Box>
   );
 };

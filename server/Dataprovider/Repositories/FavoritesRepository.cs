@@ -14,6 +14,8 @@ public class FavoritesRepository(DatabaseContext _context)
             .Include(fp => fp.DancePattern)
                 .ThenInclude(dp => dp.Dance)
             .Where(fp => fp.UserId == userId)
+            .OrderBy(x => x.DancePattern.Dance.Name)
+                .ThenBy(x => x.DancePattern.Name)
             .ToList();
     }
 

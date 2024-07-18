@@ -13,6 +13,7 @@ public class DanceRepository(ILogger<DanceRepository> _logger, DatabaseContext _
             .Include(d => d.DancePatterns)
                 .ThenInclude(dp => dp.Variations)
             .AsNoTracking()
+            .OrderBy(x => x.Name)
             .ToList();
     }
 

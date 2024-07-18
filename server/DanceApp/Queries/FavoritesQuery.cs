@@ -1,8 +1,6 @@
 ﻿using DanceApp.Extensions;
-using Dataprovider;
 using Dataprovider.Models;
 using Dataprovider.Repositories;
-using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 
 namespace DanceApp.Queries;

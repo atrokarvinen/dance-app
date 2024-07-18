@@ -8,6 +8,7 @@ const query = gql`
     dancePattern(id: $id) {
       dancePattern {
         dancePatternId
+        danceId
         name
         description
         videoUrl

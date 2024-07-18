@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { DarkModeButton } from "../layout/dark-mode-button";
 import { useLogin } from "./api/use-login";
 import { LoginForm } from "./login-form";
 import { LoginFormType } from "./models/login-form-type";
@@ -26,6 +27,7 @@ export const AuthPage = () => {
   return (
     <div>
       <h1>Auth Page</h1>
+      <DarkModeButton />
       <LoginForm onSubmit={handleLogin} />
       <p>Or</p>
       <button>

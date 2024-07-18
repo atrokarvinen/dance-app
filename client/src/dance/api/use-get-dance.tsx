@@ -8,6 +8,7 @@ const query = gql`
       name
       dancePatterns {
         dancePatternId
+        danceId
         name
         description
         imageUrl

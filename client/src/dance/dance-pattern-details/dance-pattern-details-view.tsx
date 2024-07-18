@@ -1,21 +1,27 @@
+import { useNavigate } from "react-router";
+import { selectIsAuthenticated } from "../../auth/auth-store";
 import { ErrorPage } from "../../common/ErrorPage";
 import { Loader } from "../../common/Loader";
+import { useAppSelector } from "../../redux/store";
 import { useAddToFavorites } from "../api/use-add-to-favorites";
 import { useGetDancePattern } from "../api/use-get-dance-pattern";
 import { useRemoveFromFavorites } from "../api/use-remove-from-favorites";
 import { DancePatternDetails } from "./dance-pattern-details";
 
-type Props = { id: number };
+type Props = {
+  id: number;
+  returnUrl: string | undefined;
+};
 
-export const DancePatternDetailsView = ({ id }: Props) => {
+export const DancePatternDetailsView = ({ id, returnUrl }: Props) => {
+  const navigate = useNavigate();
   const { dancePattern, error, loading, refetch } = useGetDancePattern({ id });
   const { addToFavorites } = useAddToFavorites();
   const { removeFromFavorites } = useRemoveFromFavorites();
+  const isAuthenticated = useAppSelector(selectIsAuthenticated);
   if (loading) return <Loader />;
   if (error) return <ErrorPage message={error.message} />;
   if (!dancePattern) return <ErrorPage message="Dance pattern not found" />;
-
-  console.log("Rendering DancePatternDetailsView");
 
   const handleAddToFavorites = async (dancePatternId: number) => {
     await addToFavorites(dancePatternId);
@@ -27,21 +33,18 @@ export const DancePatternDetailsView = ({ id }: Props) => {
     await refetch({ id });
   };
 
+  const handleNavigateBack = () => {
+    const defaultReturnUrl = "/dances/" + dancePattern.danceId;
+    navigate(returnUrl || defaultReturnUrl, { replace: true });
+  };
+
   return (
-    <>
-      <button
-        onClick={async () => {
-          const data = await refetch({ id });
-          console.log("Refetch data", data);
-        }}
-      >
-        Refetch
-      </button>
-      <DancePatternDetails
-        dancePattern={dancePattern}
-        addToFavorites={handleAddToFavorites}
-        removeFromFavorites={handleRemoveFromFavorites}
-      />
-    </>
+    <DancePatternDetails
+      dancePattern={dancePattern}
+      isAuthenticated={isAuthenticated}
+      addToFavorites={handleAddToFavorites}
+      removeFromFavorites={handleRemoveFromFavorites}
+      onNavigateBack={handleNavigateBack}
+    />
   );
 };

@@ -1,3 +1,4 @@
+import { Box, List, ListItem, Typography } from "@mui/material";
 import _ from "lodash";
 import { ErrorPage } from "../common/ErrorPage";
 import { Loader } from "../common/Loader";
@@ -14,27 +15,33 @@ export const FavoriteList = () => {
     (favorite) => favorite.dancePattern.dance.name
   );
   const danceNames = Object.keys(favoritesByDance);
+  if (danceNames.length === 0) {
+    return <Box>No favorites found</Box>;
+  }
   return (
-    <div>
-      <h1>Favorites</h1>
-      <ul>
+    <Box>
+      <Typography component="h1" variant="h3">
+        Favorites
+      </Typography>
+      <List>
         {danceNames.map((danceName) => (
-          <li key={danceName}>
-            <h2>{danceName}</h2>
-            <ul>
+          <ListItem key={danceName}>
+            <Typography component="h2" variant="h4">
+              {danceName}
+            </Typography>
+            <List>
               {favoritesByDance[danceName].map((favorite) => {
                 const { favoritePatternId } = favorite;
                 return (
-                  <FavoriteListItem
-                    key={favoritePatternId}
-                    favorite={favorite}
-                  />
+                  <ListItem key={favoritePatternId}>
+                    <FavoriteListItem favorite={favorite} />
+                  </ListItem>
                 );
               })}
-            </ul>
-          </li>
+            </List>
+          </ListItem>
         ))}
-      </ul>
-    </div>
+      </List>
+    </Box>
   );
 };
