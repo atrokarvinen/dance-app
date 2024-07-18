@@ -3,7 +3,7 @@ import { Outlet } from "react-router-dom";
 import { useAuth } from "./auth/use-auth";
 import { LayoutDesktop } from "./layout/layout-desktop";
 import { LayoutMobile } from "./layout/layout-mobile";
-import { useBreakpoint } from "./layout/useBreakpoints";
+import { useBreakpoint } from "./layout/use-breakpoint";
 
 export const App = () => {
   const { initialLogin } = useAuth();

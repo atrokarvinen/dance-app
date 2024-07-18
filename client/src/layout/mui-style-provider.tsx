@@ -4,12 +4,14 @@ import { ReactNode } from "react";
 import { useAppSelector } from "../redux/store";
 import { theme as baseTheme } from "../theme";
 import { selectLightMode } from "./ui-style-store";
+import { useCheckPrefersDark } from "./use-check-prefers-dark";
 
 type Props = {
   children: ReactNode;
 };
 
 export const MuiStyleProvider = ({ children }: Props) => {
+  useCheckPrefersDark();
   const colorMode = useAppSelector(selectLightMode);
   const theme: Theme = createTheme({
     ...baseTheme,

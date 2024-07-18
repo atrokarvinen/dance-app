@@ -1,7 +1,7 @@
 import { ApolloClient, createHttpLink, InMemoryCache } from "@apollo/client";
 import { loadDevMessages, loadErrorMessages } from "@apollo/client/dev";
 import { setContext } from "@apollo/client/link/context";
-import { LOCALSTORE_TOKEN } from "./auth/constants";
+import { LOCALSTORE_TOKEN } from "./common/localstore-constants";
 
 const uri = import.meta.env.VITE_BACKEND_URL as string;
 const httpLink = createHttpLink({ uri });

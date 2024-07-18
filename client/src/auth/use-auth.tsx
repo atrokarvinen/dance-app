@@ -1,6 +1,6 @@
+import { LOCALSTORE_TOKEN } from "../common/localstore-constants";
 import { useAppDispatch } from "../redux/store";
 import { login as reduxLogin, logout as reduxLogout } from "./auth-store";
-import { LOCALSTORE_TOKEN } from "./constants";
 
 export const useAuth = () => {
   const dispatch = useAppDispatch();
