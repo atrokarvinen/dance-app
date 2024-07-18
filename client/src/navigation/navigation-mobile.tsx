@@ -9,7 +9,13 @@ export const NavigationMobile = () => {
   const [value, setValue] = useState<number>();
 
   useEffect(() => {
-    const route = routes.find((route) => route.href === location.pathname);
+    const route = routes.find((route) => {
+      const isExactMatch = route.href === location.pathname;
+      const isChildMatch = route.children.some((child) =>
+        location.pathname.startsWith(child)
+      );
+      return isExactMatch || isChildMatch;
+    });
     if (route) {
       setValue(routes.indexOf(route));
     }

@@ -1,4 +1,5 @@
-import { Box, Typography } from "@mui/material";
+import { ArrowBack } from "@mui/icons-material";
+import { Box, IconButton, Typography } from "@mui/material";
 import { Dance, FavoritePattern } from "./dance";
 import { DancePatternList } from "./dance-pattern-list";
 
@@ -7,6 +8,7 @@ type Props = {
   favorites: FavoritePattern[];
   onAddToFavorites: (dancePatternId: number) => void;
   onRemoveFromFavorites: (dancePatternId: number) => void;
+  onNavigateBack: () => void;
 };
 
 export const DanceDetails = ({
@@ -14,12 +16,16 @@ export const DanceDetails = ({
   favorites,
   onAddToFavorites,
   onRemoveFromFavorites,
+  onNavigateBack,
 }: Props) => {
   return (
     <Box>
       <Typography component="h1" variant="h3">
         {dance.name}
       </Typography>
+      <IconButton onClick={onNavigateBack}>
+        <ArrowBack />
+      </IconButton>
       <DancePatternList
         dancePatterns={dance.dancePatterns}
         favorites={favorites}

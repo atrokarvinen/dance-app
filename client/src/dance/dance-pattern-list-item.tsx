@@ -20,16 +20,15 @@ export const DancePatternListItem = ({
   return (
     <Box sx={{ width: "100%" }}>
       <Stack direction="row">
-        <Box flex={1}>
-          <Button
-            component={Link}
-            to={`/dance-patterns/${dancePatternId}`}
-            variant="contained"
-            state={{ returnUrl: `/dances/${danceId}` }}
-          >
-            {name}
-          </Button>
-        </Box>
+        <Button
+          component={Link}
+          to={`/dance-patterns/${dancePatternId}`}
+          variant="contained"
+          state={{ returnUrl: `/dances/${danceId}` }}
+          sx={{ flex: 1 }}
+        >
+          {name}
+        </Button>
         {isFavorite !== undefined && (
           <FavoriteActionButton
             id={dancePatternId}

@@ -6,7 +6,6 @@ import { useGetDances } from "./api/use-get-dances";
 
 export const DanceList = () => {
   const { error, loading, dances } = useGetDances();
-
   if (loading) return <Loader />;
   if (error) return <ErrorPage message={error.message} />;
 
@@ -22,6 +21,7 @@ export const DanceList = () => {
               component={Link}
               to={`/dances/${dance.danceId}`}
               variant="contained"
+              sx={{ width: "100%" }}
             >
               {dance.name}
             </Button>

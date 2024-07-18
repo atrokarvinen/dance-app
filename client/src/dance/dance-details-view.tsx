@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router";
 import { ErrorPage } from "../common/ErrorPage";
 import { Loader } from "../common/Loader";
 import { useAddToFavorites } from "./api/use-add-to-favorites";
@@ -24,6 +25,7 @@ export const DanceDetailsView = ({ danceId }: Props) => {
   } = useGetFavorites();
   const { addToFavorites } = useAddToFavorites();
   const { removeFromFavorites } = useRemoveFromFavorites();
+  const navigate = useNavigate();
   if (danceLoading || favoritesLoading) return <Loader />;
   if (danceError || favoritesError) {
     const message = danceError?.message ?? favoritesError?.message ?? "Error";
@@ -47,6 +49,7 @@ export const DanceDetailsView = ({ danceId }: Props) => {
       favorites={favorites}
       onAddToFavorites={handleAddFavorite}
       onRemoveFromFavorites={handleRemoveFavorite}
+      onNavigateBack={() => navigate("/")}
     />
   );
 };
