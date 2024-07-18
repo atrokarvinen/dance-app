@@ -15,8 +15,6 @@ export const DanceDetails = ({
   onAddToFavorites,
   onRemoveFromFavorites,
 }: Props) => {
-  console.log("favorites:", favorites);
-
   return (
     <Box>
       <Typography component="h1" variant="h3">
