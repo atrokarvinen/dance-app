@@ -12,7 +12,7 @@ public class FavoritesQuery
     {
         var userId = claims.TryGetUserId();
         if (userId is null) return new List<FavoritePattern>();
-        var favorites = repository.GetFavoritesByUser(userId);
+        var favorites = repository.GetFavoritesByUser(userId.Value);
         return favorites;
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Security.Claims;
+﻿using DanceApp.Exceptions;
+using System.Security.Claims;
 
 namespace DanceApp.Extensions;
 
@@ -9,11 +10,11 @@ public static class ClaimsPrincipalExtensions
         var userIdStr = claimsPrincipal.FindFirstValue(ClaimTypes.NameIdentifier);
         if (userIdStr is null)
         {
-            throw new Exception("User not authenticated");
+            throw new UserNotAuthenticatedException("User not authenticated");
         }
         if (!int.TryParse(userIdStr, out int userId))
         {
-            throw new ArgumentException($"User id '{userIdStr}' could not be parsed to int.");
+            throw new UserAuthenticationException($"User id '{userIdStr}' could not be parsed to int.");
         }
 
         return userId;

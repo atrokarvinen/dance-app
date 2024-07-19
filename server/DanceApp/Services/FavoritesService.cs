@@ -1,4 +1,5 @@
-﻿using Dataprovider.Models;
+﻿using DanceApp.Exceptions;
+using Dataprovider.Models;
 using Dataprovider.Repositories;
 
 namespace Dataprovider.Services;
@@ -14,7 +15,7 @@ public class FavoritesService(
         {
             return null;
         }
-        var favorites = _favoritesRepository.GetFavoritesByUser(userId);
+        var favorites = _favoritesRepository.GetFavoritesByUser(userId.Value);
         var dancePattern = _dancePatternRepository.GetDancePatternById(dancePatternId);
         var isFavorite = favorites.Any(fp => fp.DancePatternId == dancePatternId);
         return isFavorite;
@@ -25,7 +26,7 @@ public class FavoritesService(
         var favorites = _favoritesRepository.GetFavoritesByUser(userId);
         var isAlreadyFavorite = favorites.Any(fp => fp.DancePatternId == dancePatternId);
         if (isAlreadyFavorite)
-            throw new Exception("Pattern is already a favorite");
+            throw new FavoritePatternException("Pattern is already a favorite");
 
         var favorite = new FavoritePattern
         {
@@ -45,7 +46,7 @@ public class FavoritesService(
             .FirstOrDefault(fp => fp.DancePatternId == dancePatternId)
             ?.FavoritePatternId;
         if (favoriteId is null)
-            throw new Exception("Pattern is not a favorite");
+            throw new FavoritePatternException("Pattern is not a favorite");
         var favorite = _favoritesRepository.RemoveFavorite(favoriteId.Value, userId);
         return favorite;
     }

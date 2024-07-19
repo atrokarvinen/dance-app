@@ -1,5 +1,5 @@
 ﻿using DanceApp.Config;
-using DanceApp.Inputs;
+using DanceApp.Exceptions;
 using DanceApp.Outputs;
 using Dataprovider;
 using Dataprovider.Models;
@@ -15,17 +15,22 @@ namespace DanceApp.Queries;
 [ExtendObjectType("Mutation")]
 public class AuthMutation
 {
-    public SignupOutput Signup([Service] DatabaseContext context, [Service] IOptions<AuthConfig> authConfig, SignupInput input)
+    [Error<UsernameTakenException>]
+    public SignupOutput Signup(
+        [Service] DatabaseContext context,
+        [Service] IOptions<AuthConfig> authConfig,
+        string username,
+        string password)
     {
-        var userExists = context.Users.Any(u => u.Name == input.Username);
+        var userExists = context.Users.Any(u => u.Name == username);
         if (userExists)
         {
-            throw new Exception("User already exists");
+            throw new UsernameTakenException("User already exists");
         }
-        var hashedPassword = new PasswordHasher<User>().HashPassword(new(), input.Password);
+        var hashedPassword = new PasswordHasher<User>().HashPassword(new User(), password);
         var user = new User
         {
-            Name = input.Username,
+            Name = username,
             Password = hashedPassword,
         };
         context.Users.Add(user);
@@ -39,20 +44,23 @@ public class AuthMutation
         };
     }
 
-    public LoginOutput Login([Service] DatabaseContext context, [Service] IOptions<AuthConfig> authConfig, LoginInput input)
+    [Error<InvalidCredentialsException>]
+    public LoginOutput Login(
+        [Service] DatabaseContext context,
+        [Service] IOptions<AuthConfig> authConfig,
+        string username,
+        string password)
     {
         var jwtSecret = authConfig.Value.JwtSecret;
-        var username = input.Username;
-        var password = input.Password;
         var user = context.Users.FirstOrDefault(u => u.Name == username);
         if (user == null)
         {
-            throw new Exception("Invalid username or password");
+            throw new InvalidCredentialsException("Invalid username or password");
         }
-        var passwordMatches = new PasswordHasher<User>().VerifyHashedPassword(new(), user.Password, password);
+        var passwordMatches = new PasswordHasher<User>().VerifyHashedPassword(new User(), user.Password, password);
         if (passwordMatches == PasswordVerificationResult.Failed)
         {
-            throw new Exception("Invalid username or password");
+            throw new InvalidCredentialsException("Invalid username or password");
         }
         var token = GenerateJWTToken(user.Name, user.UserId.ToString(), jwtSecret);
         var response = new LoginOutput() { Token = token };
@@ -63,11 +71,6 @@ public class AuthMutation
     {
         context.Users.RemoveRange(context.Users.Where(u => u.Name == name));
         context.SaveChanges();
-        return new User();
-    }
-
-    public User Logout([Service] DatabaseContext context, LogoutInput input)
-    {
         return new User();
     }
 

@@ -1,4 +1,5 @@
-﻿using Dataprovider.Models;
+﻿using Dataprovider.Exceptions;
+using Dataprovider.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace Dataprovider.Repositories;
@@ -18,7 +19,7 @@ public class DancePatternRepository(DatabaseContext context)
     {
         var dancePattern = FindDancePatternById(id);
         if (dancePattern == null)
-            throw new Exception($"Failed to find dance pattern with id ({id})");
+            throw new NotFoundException($"Failed to find dance pattern with id ({id})");
         return dancePattern;
     }
 

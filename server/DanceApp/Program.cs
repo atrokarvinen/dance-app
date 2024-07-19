@@ -40,6 +40,7 @@ builder.Services
     .AddType<DancePatternMutation>()
     .AddType<FavoritesQuery>()
     .AddType<FavoritesMutation>()
+    .AddMutationConventions()
     ;
 
 builder.Host.UseSerilog((context, config) =>

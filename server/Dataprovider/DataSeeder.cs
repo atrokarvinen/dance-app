@@ -28,7 +28,7 @@ public class DataSeeder
             DanceId = i + 1,
         });
 
-        var patterns = new List<DancePattern>() 
+        var patterns = new List<DancePattern>()
         {
             new DancePattern()
             {
@@ -221,7 +221,7 @@ public class DataSeeder
                 DanceId = danceNames.IndexOf("Waltz") + 1,
                 Name = "Closed impetus",
                 VideoUrl= "https://www.youtube.com/watch?v=3RuK2kpTsP0",
-            },            
+            },
             new DancePattern()
             {
                 DanceId = danceNames.IndexOf("Waltz") + 1,

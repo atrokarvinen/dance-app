@@ -1,11 +1,13 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { useDispatch, useSelector } from "react-redux";
 import { authReducer } from "../auth/auth-store";
+import { toastReducer } from "../common/toast/toast-store";
 import { uiStyleReducer } from "../layout/ui-style-store";
 
 export const rootReducer = combineReducers({
   auth: authReducer,
   ui: uiStyleReducer,
+  toast: toastReducer,
 });
 export const store = configureStore({ reducer: rootReducer });
 

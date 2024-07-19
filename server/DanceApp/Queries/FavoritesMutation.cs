@@ -1,5 +1,6 @@
-﻿using DanceApp.Extensions;
-using DanceApp.Inputs;
+﻿using DanceApp.Exceptions;
+using DanceApp.Extensions;
+using Dataprovider.Exceptions;
 using Dataprovider.Models;
 using Dataprovider.Services;
 using System.Security.Claims;
@@ -9,23 +10,26 @@ namespace DanceApp.Queries;
 [ExtendObjectType("Mutation")]
 public class FavoritesMutation
 {
+    [Error<FavoritePatternException>]
     public FavoritePattern AddFavorite(
         [Service] FavoritesService favoritesService,
-        FavoriteAddInput input,
+        [ID] int dancePatternId,
         ClaimsPrincipal claims
         )
     {
         var userId = claims.GetUserId();
-        return favoritesService.AddFavorite(input.DancePatternId, userId);
+        return favoritesService.AddFavorite(dancePatternId, userId);
     }
 
+    [Error<NotFoundException>]
+    [Error<UnauthorizedException>]
+    [Error<FavoritePatternException>]
     public FavoritePattern RemoveFavorite(
         [Service] FavoritesService favoritesService,
-        FavoriteRemoveInput input,
+        [ID] int id,
         ClaimsPrincipal claims
         )
     {
-        var id = input.Id;
         var userId = claims.GetUserId();
         var favorite = favoritesService.RemoveFavorite(id, userId);
         return favorite;

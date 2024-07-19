@@ -1,4 +1,5 @@
-﻿using Dataprovider.Models;
+﻿using Dataprovider.Exceptions;
+using Dataprovider.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
@@ -21,7 +22,7 @@ public class DanceRepository(ILogger<DanceRepository> _logger, DatabaseContext _
     {
         var dance = FindDanceById(id);
         if (dance == null)
-            throw new Exception($"Failed to find dance with id ({id})");
+            throw new NotFoundException($"Failed to find dance with id ({id})");
         return dance;
     }
 
