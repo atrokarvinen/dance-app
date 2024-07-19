@@ -1,9 +1,11 @@
+import { useNavigate } from "react-router";
 import { LOCALSTORE_TOKEN } from "../common/localstore-constants";
 import { useAppDispatch } from "../redux/store";
 import { login as reduxLogin, logout as reduxLogout } from "./auth-store";
 
 export const useAuth = () => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const login = (token: string) => {
     localStorage.setItem(LOCALSTORE_TOKEN, token);
@@ -21,6 +23,7 @@ export const useAuth = () => {
   const logout = () => {
     localStorage.removeItem(LOCALSTORE_TOKEN);
     dispatch(reduxLogout());
+    navigate("/auth");
   };
 
   return { login, initialLogin, logout };

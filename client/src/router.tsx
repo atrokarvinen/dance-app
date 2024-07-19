@@ -6,6 +6,7 @@ import { DanceDetailsPage } from "./dance/dance-details-page";
 import { DanceList } from "./dance/dance-list";
 import { DancePatternDetailsPage } from "./dance/dance-pattern-details/dance-pattern-details-page";
 import { FavoriteList } from "./dance/favorite-list";
+import { SettingsPage } from "./settings/settings-page";
 
 export const browserRouter = createBrowserRouter([
   {
@@ -35,6 +36,10 @@ export const browserRouter = createBrowserRouter([
       {
         path: "/auth/signup",
         element: <SignupView />,
+      },
+      {
+        path: "/settings",
+        element: <SettingsPage />,
       },
     ],
   },

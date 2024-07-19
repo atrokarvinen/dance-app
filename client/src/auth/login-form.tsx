@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { Box, Button, Stack, TextField, Typography } from "@mui/material";
+import { FormEvent, useState } from "react";
 import { LoginFormType } from "./models/login-form-type";
 
 type Props = {
@@ -9,33 +10,37 @@ export const LoginForm = ({ onSubmit }: Props) => {
   const [username, setUsername] = useState("test user");
   const [password, setPassword] = useState("123");
 
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    onSubmit({ username, password });
+  };
+
   return (
-    <div>
-      <h1>Login Form</h1>
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          onSubmit({ username, password });
-        }}
-        style={{ display: "flex", flexDirection: "column", gap: 10 }}
-      >
-        <label>
-          Username:
-          <input
+    <Box>
+      <Typography component="h1" variant="h4" sx={{ marginBottom: 3 }}>
+        Login
+      </Typography>
+      <form onSubmit={handleSubmit}>
+        <Stack direction="column" spacing={2}>
+          <TextField
+            label="Username"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
           />
-        </label>
-        <label>
-          Password:
-          <input
-            type="password"
+          <TextField
+            label="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-        </label>
-        <button>Submit</button>
+          <Button
+            variant="contained"
+            type="submit"
+            sx={{ alignSelf: "center" }}
+          >
+            Submit
+          </Button>
+        </Stack>
       </form>
-    </div>
+    </Box>
   );
 };

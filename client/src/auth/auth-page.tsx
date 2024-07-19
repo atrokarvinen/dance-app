@@ -1,13 +1,13 @@
-import { Link } from "react-router-dom";
-import { DarkModeButton } from "../layout/dark-mode-button";
+import { Box, Button, Card, CardContent, Divider, Stack } from "@mui/material";
+import { Link, useNavigate } from "react-router-dom";
 import { useLogin } from "./api/use-login";
 import { LoginForm } from "./login-form";
 import { LoginFormType } from "./models/login-form-type";
-import { TestAuthButton } from "./test-auth-button";
 import { useAuth } from "./use-auth";
 
 export const AuthPage = () => {
-  const { login, logout } = useAuth();
+  const navigate = useNavigate();
+  const { login } = useAuth();
   const { login: loginMutation } = useLogin();
 
   const handleLogin = async (values: LoginFormType) => {
@@ -17,24 +17,34 @@ export const AuthPage = () => {
     }
     login(token);
     console.log("Login successful, token: ", token);
-  };
-
-  const handleLogout = () => {
-    logout();
-    console.log("Logged out");
+    navigate("/");
   };
 
   return (
-    <div>
-      <h1>Auth Page</h1>
-      <DarkModeButton />
-      <LoginForm onSubmit={handleLogin} />
-      <p>Or</p>
-      <button>
-        <Link to="/auth/signup">Sign up</Link>
-      </button>
-      <button onClick={handleLogout}>Logout</button>
-      <TestAuthButton />
-    </div>
+    <Box
+      sx={{
+        height: "100%",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
+      <Card data-testid="login-card">
+        <CardContent>
+          <Stack direction="column" spacing={5}>
+            <LoginForm onSubmit={handleLogin} />
+            <Divider>Or</Divider>
+            <Button
+              variant="contained"
+              to="/auth/signup"
+              component={Link}
+              sx={{ alignSelf: "center" }}
+            >
+              Sign up
+            </Button>
+          </Stack>
+        </CardContent>
+      </Card>
+    </Box>
   );
 };
