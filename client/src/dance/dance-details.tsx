@@ -35,13 +35,12 @@ export const DanceDetails = ({
         display: "flex",
         flexDirection: "column",
         maxHeight: "100%",
-        alignItems: "flex-start",
       }}
     >
       <Typography component="h1" variant="h3">
         {dance.name}
       </Typography>
-      <IconButton onClick={onNavigateBack}>
+      <IconButton onClick={onNavigateBack} sx={{ alignSelf: "flex-start" }}>
         <ArrowBack />
       </IconButton>
       <Box
