@@ -1,12 +1,10 @@
 import { gql, useQuery } from "@apollo/client";
 import { FavoritePattern } from "../dance";
 
-export const GET_FAVORITES = "GetFavorites";
-
 const query = gql`
-  query ${GET_FAVORITES} {
-    favorites {
-      favoritePatternId
+  query GetFavorites {
+    favoritePatterns {
+      id
       dancePatternId
       dancePattern {
         name
@@ -19,11 +17,14 @@ const query = gql`
 `;
 
 type GetFavoritesResponse = {
-  favorites: FavoritePattern[];
+  favoritePatterns: FavoritePattern[];
 };
 
 export const useGetFavorites = () => {
   const queryResult = useQuery<GetFavoritesResponse>(query);
 
-  return { favorites: queryResult.data?.favorites ?? [], ...queryResult };
+  return {
+    favorites: queryResult.data?.favoritePatterns ?? [],
+    ...queryResult,
+  };
 };

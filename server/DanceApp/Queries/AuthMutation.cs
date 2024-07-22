@@ -35,11 +35,11 @@ public class AuthMutation
         };
         context.Users.Add(user);
         context.SaveChanges();
-        var jwt = GenerateJWTToken(user.Name, user.UserId.ToString(), authConfig.Value.JwtSecret);
+        var jwt = GenerateJWTToken(user.Name, user.Id.ToString(), authConfig.Value.JwtSecret);
         return new SignupOutput()
         {
             Username = user.Name,
-            UserId = user.UserId,
+            UserId = user.Id,
             Token = jwt,
         };
     }
@@ -62,7 +62,7 @@ public class AuthMutation
         {
             throw new InvalidCredentialsException("Invalid username or password");
         }
-        var token = GenerateJWTToken(user.Name, user.UserId.ToString(), jwtSecret);
+        var token = GenerateJWTToken(user.Name, user.Id.ToString(), jwtSecret);
         var response = new LoginOutput() { Token = token };
         return response;
     }

@@ -16,7 +16,7 @@ type Props = {
 
 export const DancePatternDetailsView = ({ id, returnUrl, scrollY }: Props) => {
   const navigate = useNavigate();
-  const { dancePattern, error, loading, refetch } = useGetDancePattern({ id });
+  const { dancePattern, error, loading } = useGetDancePattern({ id });
   const { addToFavorites } = useAddToFavorites();
   const { removeFromFavorites } = useRemoveFromFavorites();
   const isAuthenticated = useAppSelector(selectIsAuthenticated);
@@ -26,12 +26,10 @@ export const DancePatternDetailsView = ({ id, returnUrl, scrollY }: Props) => {
 
   const handleAddToFavorites = async (dancePatternId: number) => {
     await addToFavorites(dancePatternId);
-    await refetch({ id });
   };
 
   const handleRemoveFromFavorites = async (id: number) => {
     await removeFromFavorites(id);
-    await refetch({ id });
   };
 
   const handleNavigateBack = () => {

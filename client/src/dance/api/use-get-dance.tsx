@@ -7,7 +7,7 @@ const query = gql`
       id
       name
       dancePatterns {
-        dancePatternId
+        id
         danceId
         name
         description

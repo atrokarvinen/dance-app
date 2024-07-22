@@ -7,7 +7,7 @@ public class FavoritePattern
 {
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    public int FavoritePatternId { get; set; }
+    public int Id { get; set; }
     public string DisplayName { get; set; } = string.Empty;
 
     public int UserId { get; set; }

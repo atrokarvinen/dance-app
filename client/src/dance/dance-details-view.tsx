@@ -5,6 +5,7 @@ import { useAddToFavorites } from "./api/use-add-to-favorites";
 import { useGetDance } from "./api/use-get-dance";
 import { useGetFavorites } from "./api/use-get-favorites";
 import { useRemoveFromFavorites } from "./api/use-remove-from-favorites";
+import { CacheButton } from "./cache-button";
 import { DanceDetails } from "./dance-details";
 
 type Props = {
@@ -22,7 +23,6 @@ export const DanceDetailsView = ({ danceId, initialScroll }: Props) => {
     favorites,
     error: favoritesError,
     loading: favoritesLoading,
-    refetch: refetchFavorites,
   } = useGetFavorites();
   const { addToFavorites } = useAddToFavorites();
   const { removeFromFavorites } = useRemoveFromFavorites();
@@ -37,12 +37,10 @@ export const DanceDetailsView = ({ danceId, initialScroll }: Props) => {
 
   const handleAddFavorite = async (dancePatternId: number) => {
     await addToFavorites(dancePatternId);
-    refetchFavorites();
   };
 
   const handleRemoveFavorite = async (favoritePatternId: number) => {
     await removeFromFavorites(favoritePatternId);
-    refetchFavorites();
   };
 
   const handleOnNavigateBack = () => {
@@ -51,13 +49,16 @@ export const DanceDetailsView = ({ danceId, initialScroll }: Props) => {
   };
 
   return (
-    <DanceDetails
-      dance={dance}
-      favorites={favorites}
-      onAddToFavorites={handleAddFavorite}
-      onRemoveFromFavorites={handleRemoveFavorite}
-      onNavigateBack={handleOnNavigateBack}
-      initialScroll={initialScroll}
-    />
+    <>
+      <CacheButton />
+      <DanceDetails
+        dance={dance}
+        favorites={favorites}
+        onAddToFavorites={handleAddFavorite}
+        onRemoveFromFavorites={handleRemoveFavorite}
+        onNavigateBack={handleOnNavigateBack}
+        initialScroll={initialScroll}
+      />
+    </>
   );
 };

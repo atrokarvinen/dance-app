@@ -237,7 +237,7 @@ public class DataSeeder
         };
         for (int i = 0; i < patterns.Count; i++)
         {
-            patterns[i].DancePatternId = i + 1;
+            patterns[i].Id = i + 1;
         }
 
         modelBuilder.Entity<Dance>().HasData(dances);

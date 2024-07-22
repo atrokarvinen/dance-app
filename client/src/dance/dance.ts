@@ -5,7 +5,7 @@ export type Dance = {
 };
 
 export type DancePattern = {
-  dancePatternId: number;
+  id: number;
   danceId: number;
   dance: Dance;
   name: string;
@@ -23,7 +23,7 @@ export type DancePattern = {
 };
 
 export type FavoritePattern = {
-  favoritePatternId: number;
+  id: number;
   displayName?: string;
 
   userId: number;

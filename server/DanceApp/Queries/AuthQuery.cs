@@ -16,7 +16,7 @@ public class AuthQuery
         return new User()
         {
             Name = name ?? "N/A",
-            UserId = parsedId,
+            Id = parsedId,
         };
     }
 }

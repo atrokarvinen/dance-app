@@ -1,0 +1,15 @@
+version: "3.9"
+
+name: dance-app
+services:
+  postgres:
+    image: postgres:alpine
+    ports:
+      - 5432:5432
+    volumes:
+      - ~/apps/danceapp/postgres:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=mypassword
+      - POSTGRES_USER=myuser
+      - POSTGRES_DB=danceDb
+    restart: always

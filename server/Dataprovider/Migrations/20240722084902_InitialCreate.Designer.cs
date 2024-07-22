@@ -4,30 +4,37 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
 namespace Dataprovider.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20240719200752_InitialCreate")]
+    [Migration("20240722084902_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "8.0.6");
+            modelBuilder
+                .HasAnnotation("ProductVersion", "8.0.6")
+                .HasAnnotation("Relational:MaxIdentifierLength", 63);
+
+            NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
             modelBuilder.Entity("Dataprovider.Models.Dance", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -93,32 +100,34 @@ namespace Dataprovider.Migrations
 
             modelBuilder.Entity("Dataprovider.Models.DancePattern", b =>
                 {
-                    b.Property<int>("DancePatternId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Aliases")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<int>("DanceId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("integer");
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<string>("ImageUrl")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<string>("VideoUrl")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
-                    b.HasKey("DancePatternId");
+                    b.HasKey("Id");
 
                     b.HasIndex("DanceId");
 
@@ -127,7 +136,7 @@ namespace Dataprovider.Migrations
                     b.HasData(
                         new
                         {
-                            DancePatternId = 1,
+                            Id = 1,
                             Aliases = "",
                             DanceId = 6,
                             Description = "Basic step for salsa",
@@ -135,7 +144,7 @@ namespace Dataprovider.Migrations
                         },
                         new
                         {
-                            DancePatternId = 2,
+                            Id = 2,
                             Aliases = "",
                             DanceId = 6,
                             Description = "Alternative basic step",
@@ -143,7 +152,7 @@ namespace Dataprovider.Migrations
                         },
                         new
                         {
-                            DancePatternId = 3,
+                            Id = 3,
                             Aliases = "",
                             DanceId = 11,
                             Description = "",
@@ -152,7 +161,7 @@ namespace Dataprovider.Migrations
                         },
                         new
                         {
-                            DancePatternId = 4,
+                            Id = 4,
                             Aliases = "",
                             DanceId = 11,
                             Description = "",
@@ -161,7 +170,7 @@ namespace Dataprovider.Migrations
                         },
                         new
                         {
-                            DancePatternId = 5,
+                            Id = 5,
                             Aliases = "",
                             DanceId = 11,
                             Description = "",
@@ -170,7 +179,7 @@ namespace Dataprovider.Migrations
                         },
                         new
                         {
-                            DancePatternId = 6,
+                            Id = 6,
                             Aliases = "",
                             DanceId = 11,
                             Description = "",
@@ -179,7 +188,7 @@ namespace Dataprovider.Migrations
                         },
                         new
                         {
-                            DancePatternId = 7,
+                            Id = 7,
                             Aliases = "",
                             DanceId = 11,
                             Description = "",
@@ -188,7 +197,7 @@ namespace Dataprovider.Migrations
                         },
                         new
                         {
-                            DancePatternId = 8,
+                            Id = 8,
                             Aliases = "",
                             DanceId = 11,
                             Description = "",
@@ -197,7 +206,7 @@ namespace Dataprovider.Migrations
                         },
                         new
                         {
-                            DancePatternId = 9,
+                            Id = 9,
                             Aliases = "",
                             DanceId = 11,
                             Description = "",
@@ -206,7 +215,7 @@ namespace Dataprovider.Migrations
                         },
                         new
                         {
-                            DancePatternId = 10,
+                            Id = 10,
                             Aliases = "",
                             DanceId = 11,
                             Description = "",
@@ -215,7 +224,7 @@ namespace Dataprovider.Migrations
                         },
                         new
                         {
-                            DancePatternId = 11,
+                            Id = 11,
                             Aliases = "",
                             DanceId = 11,
                             Description = "",
@@ -224,7 +233,7 @@ namespace Dataprovider.Migrations
                         },
                         new
                         {
-                            DancePatternId = 12,
+                            Id = 12,
                             Aliases = "",
                             DanceId = 11,
                             Description = "",
@@ -233,7 +242,7 @@ namespace Dataprovider.Migrations
                         },
                         new
                         {
-                            DancePatternId = 13,
+                            Id = 13,
                             Aliases = "",
                             DanceId = 11,
                             Description = "",
@@ -242,7 +251,7 @@ namespace Dataprovider.Migrations
                         },
                         new
                         {
-                            DancePatternId = 14,
+                            Id = 14,
                             Aliases = "",
                             DanceId = 11,
                             Description = "",
@@ -251,7 +260,7 @@ namespace Dataprovider.Migrations
                         },
                         new
                         {
-                            DancePatternId = 15,
+                            Id = 15,
                             Aliases = "",
                             DanceId = 11,
                             Description = "",
@@ -260,7 +269,7 @@ namespace Dataprovider.Migrations
                         },
                         new
                         {
-                            DancePatternId = 16,
+                            Id = 16,
                             Aliases = "",
                             DanceId = 11,
                             Description = "",
@@ -269,7 +278,7 @@ namespace Dataprovider.Migrations
                         },
                         new
                         {
-                            DancePatternId = 17,
+                            Id = 17,
                             Aliases = "",
                             DanceId = 11,
                             Description = "",
@@ -278,7 +287,7 @@ namespace Dataprovider.Migrations
                         },
                         new
                         {
-                            DancePatternId = 18,
+                            Id = 18,
                             Aliases = "",
                             DanceId = 11,
                             Description = "",
@@ -287,7 +296,7 @@ namespace Dataprovider.Migrations
                         },
                         new
                         {
-                            DancePatternId = 19,
+                            Id = 19,
                             Aliases = "",
                             DanceId = 11,
                             Description = "",
@@ -296,7 +305,7 @@ namespace Dataprovider.Migrations
                         },
                         new
                         {
-                            DancePatternId = 20,
+                            Id = 20,
                             Aliases = "",
                             DanceId = 11,
                             Description = "",
@@ -305,7 +314,7 @@ namespace Dataprovider.Migrations
                         },
                         new
                         {
-                            DancePatternId = 21,
+                            Id = 21,
                             Aliases = "",
                             DanceId = 11,
                             Description = "",
@@ -314,7 +323,7 @@ namespace Dataprovider.Migrations
                         },
                         new
                         {
-                            DancePatternId = 22,
+                            Id = 22,
                             Aliases = "",
                             DanceId = 11,
                             Description = "",
@@ -323,7 +332,7 @@ namespace Dataprovider.Migrations
                         },
                         new
                         {
-                            DancePatternId = 23,
+                            Id = 23,
                             Aliases = "",
                             DanceId = 11,
                             Description = "",
@@ -332,7 +341,7 @@ namespace Dataprovider.Migrations
                         },
                         new
                         {
-                            DancePatternId = 24,
+                            Id = 24,
                             Aliases = "",
                             DanceId = 11,
                             Description = "",
@@ -341,7 +350,7 @@ namespace Dataprovider.Migrations
                         },
                         new
                         {
-                            DancePatternId = 25,
+                            Id = 25,
                             Aliases = "",
                             DanceId = 11,
                             Description = "",
@@ -350,7 +359,7 @@ namespace Dataprovider.Migrations
                         },
                         new
                         {
-                            DancePatternId = 26,
+                            Id = 26,
                             Aliases = "",
                             DanceId = 11,
                             Description = "",
@@ -359,7 +368,7 @@ namespace Dataprovider.Migrations
                         },
                         new
                         {
-                            DancePatternId = 27,
+                            Id = 27,
                             Aliases = "",
                             DanceId = 11,
                             Description = "",
@@ -368,7 +377,7 @@ namespace Dataprovider.Migrations
                         },
                         new
                         {
-                            DancePatternId = 28,
+                            Id = 28,
                             Aliases = "",
                             DanceId = 11,
                             Description = "",
@@ -377,7 +386,7 @@ namespace Dataprovider.Migrations
                         },
                         new
                         {
-                            DancePatternId = 29,
+                            Id = 29,
                             Aliases = "",
                             DanceId = 11,
                             Description = "",
@@ -386,7 +395,7 @@ namespace Dataprovider.Migrations
                         },
                         new
                         {
-                            DancePatternId = 30,
+                            Id = 30,
                             Aliases = "",
                             DanceId = 11,
                             Description = "",
@@ -395,7 +404,7 @@ namespace Dataprovider.Migrations
                         },
                         new
                         {
-                            DancePatternId = 31,
+                            Id = 31,
                             Aliases = "",
                             DanceId = 11,
                             Description = "",
@@ -404,7 +413,7 @@ namespace Dataprovider.Migrations
                         },
                         new
                         {
-                            DancePatternId = 32,
+                            Id = 32,
                             Aliases = "",
                             DanceId = 11,
                             Description = "",
@@ -413,7 +422,7 @@ namespace Dataprovider.Migrations
                         },
                         new
                         {
-                            DancePatternId = 33,
+                            Id = 33,
                             Aliases = "",
                             DanceId = 11,
                             Description = "",
@@ -422,7 +431,7 @@ namespace Dataprovider.Migrations
                         },
                         new
                         {
-                            DancePatternId = 34,
+                            Id = 34,
                             Aliases = "",
                             DanceId = 11,
                             Description = "",
@@ -433,17 +442,19 @@ namespace Dataprovider.Migrations
 
             modelBuilder.Entity("Dataprovider.Models.DancePatternVariation", b =>
                 {
-                    b.Property<int>("DancePatternVariationId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<int>("OriginalId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("integer");
 
                     b.Property<int>("VariationId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("integer");
 
-                    b.HasKey("DancePatternVariationId");
+                    b.HasKey("Id");
 
                     b.HasIndex("OriginalId");
 
@@ -454,21 +465,23 @@ namespace Dataprovider.Migrations
 
             modelBuilder.Entity("Dataprovider.Models.FavoritePattern", b =>
                 {
-                    b.Property<int>("FavoritePatternId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<int>("DancePatternId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("integer");
 
                     b.Property<string>("DisplayName")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<int>("UserId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("integer");
 
-                    b.HasKey("FavoritePatternId");
+                    b.HasKey("Id");
 
                     b.HasIndex("DancePatternId");
 
@@ -479,19 +492,21 @@ namespace Dataprovider.Migrations
 
             modelBuilder.Entity("Dataprovider.Models.User", b =>
                 {
-                    b.Property<int>("UserId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<string>("Password")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
-                    b.HasKey("UserId");
+                    b.HasKey("Id");
 
                     b.ToTable("Users");
                 });

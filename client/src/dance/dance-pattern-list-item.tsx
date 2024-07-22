@@ -5,36 +5,38 @@ import { FavoriteActionButton } from "./favorite-action-button";
 
 type Props = {
   pattern: DancePattern;
-  isFavorite: boolean | undefined;
+  favoriteId: number | undefined;
+  isAuthenticated: boolean;
   onAddToFavorites: (dancePatternId: number) => void;
-  onRemoveFromFavorites: (dancePatternId: number) => void;
+  onRemoveFromFavorites: (favoriteId: number) => void;
   scrollY: number;
 };
 
 export const DancePatternListItem = ({
   pattern,
-  isFavorite,
+  favoriteId,
+  isAuthenticated,
   onAddToFavorites,
   onRemoveFromFavorites,
   scrollY,
 }: Props) => {
-  const { dancePatternId, name, danceId } = pattern;
+  const { id, name, danceId } = pattern;
   return (
     <Box sx={{ width: "100%" }}>
       <Stack direction="row">
         <Button
           component={Link}
-          to={`/dance-patterns/${dancePatternId}`}
+          to={`/dance-patterns/${id}`}
           variant="contained"
           state={{ returnUrl: `/dances/${danceId}`, scrollY }}
           sx={{ flex: 1 }}
         >
           {name}
         </Button>
-        {isFavorite !== undefined && (
+        {isAuthenticated && (
           <FavoriteActionButton
-            id={dancePatternId}
-            isFavorite={isFavorite}
+            dancePatternId={id}
+            favoriteId={favoriteId}
             addToFavorites={onAddToFavorites}
             removeFromFavorites={onRemoveFromFavorites}
           />

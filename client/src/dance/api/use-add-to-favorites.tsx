@@ -8,10 +8,8 @@ const mutation = gql`
   mutation AddFavorite($input: AddFavoriteInput!) {
     addFavorite(input: $input) {
       favoritePattern {
+        id
         dancePatternId
-        displayName
-        favoritePatternId
-        userId
       }
       errors {
         ... on FavoritePatternError {
@@ -25,7 +23,8 @@ const mutation = gql`
 type AddToFavoritesResponse = {
   addFavorite: {
     favoritePattern: {
-      favoritePatternId: number;
+      __typename: "FavoritePattern";
+      id: number;
       dancePatternId: number;
     } | null;
     errors: ApiError[] | null;
@@ -43,23 +42,63 @@ export const useAddToFavorites = () => {
     AddToFavoritesVariables
   >(mutation);
 
-  const addToFavorites = async (dancePatternId: number) => {
+  const mutate = async (dancePatternId: number) => {
     const { data } = await mutationFunction({
       variables: { input: { dancePatternId } },
+      optimisticResponse: {
+        addFavorite: {
+          favoritePattern: {
+            __typename: "FavoritePattern",
+            dancePatternId,
+            id: 99,
+          },
+          errors: null,
+        },
+      },
+      update: (cache, { data }) => {
+        if (!data) return;
+        cache.modify({
+          fields: {
+            favoritePatterns(existingFavorites = []) {
+              console.log("new data:", data.addFavorite.favoritePattern);
+
+              const newFavoriteRef = cache.writeFragment({
+                data: data.addFavorite.favoritePattern,
+                fragment: gql`
+                  fragment NewFavorite on FavoritePattern {
+                    id
+                    dancePatternId
+                  }
+                `,
+              });
+
+              return [...existingFavorites, newFavoriteRef];
+            },
+          },
+        });
+      },
     });
-    if (!data) {
-      console.error("No data returned from add to favorites mutation");
-      return;
+    return { data };
+  };
+
+  const addToFavorites = async (dancePatternId: number) => {
+    try {
+      const { data } = await mutate(dancePatternId);
+      if (!data) {
+        console.error("No data returned from add to favorites mutation");
+        return;
+      }
+      const errorMessage = getErrorMessage(data.addFavorite.errors);
+      if (errorMessage) {
+        dispatch(addMessage({ message: errorMessage, type: "error" }));
+        return;
+      }
+      console.log(`Successfully added to favorites`);
+      return data.addFavorite.favoritePattern;
+    } catch (error) {
+      const message = "Failed to add to favorites";
+      dispatch(addMessage({ message, type: "error" }));
     }
-    const errorMessage = getErrorMessage(data.addFavorite.errors);
-    if (errorMessage) {
-      dispatch(addMessage({ message: errorMessage, type: "error" }));
-      return;
-    }
-    console.log(
-      `Successfully added to favorites: ${data.addFavorite.favoritePattern?.favoritePatternId}`
-    );
-    return data.addFavorite.favoritePattern;
   };
 
   return { addToFavorites };

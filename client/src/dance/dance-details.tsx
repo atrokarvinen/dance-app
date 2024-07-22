@@ -8,7 +8,7 @@ type Props = {
   dance: Dance;
   favorites: FavoritePattern[];
   onAddToFavorites: (dancePatternId: number) => void;
-  onRemoveFromFavorites: (dancePatternId: number) => void;
+  onRemoveFromFavorites: (favoriteId: number) => void;
   onNavigateBack: () => void;
   initialScroll: number;
 };

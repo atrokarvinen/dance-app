@@ -7,7 +7,7 @@ const query = gql`
   query ${GET_DANCE_PATTERN}($id: ID!) {
     dancePattern(id: $id) {
       dancePattern {
-        dancePatternId
+        id
         danceId
         name
         description
@@ -33,17 +33,18 @@ export type GetDancePatternVariables = {
 type Props = { id: number };
 
 export const useGetDancePattern = ({ id }: Props) => {
-  const { data, loading, error, refetch } = useQuery<
+  const queryResult = useQuery<
     GetDancePatternResponse,
     GetDancePatternVariables
   >(query, { variables: { id } });
 
   let dancePattern: DancePattern | undefined;
+  const { data } = queryResult;
   if (data?.dancePattern) {
     dancePattern = {
       ...data.dancePattern.dancePattern,
       isFavorite: data.dancePattern.isFavorite,
     };
   }
-  return { dancePattern, loading, error, refetch };
+  return { ...queryResult, dancePattern };
 };

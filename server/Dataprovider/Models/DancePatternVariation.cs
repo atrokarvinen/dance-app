@@ -7,7 +7,7 @@ public class DancePatternVariation
 {
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    public int DancePatternVariationId { get; set; }
+    public int Id { get; set; }
 
     public int OriginalId { get; set; }
     [ForeignKey(nameof(OriginalId))]

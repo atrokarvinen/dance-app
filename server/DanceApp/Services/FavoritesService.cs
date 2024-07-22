@@ -39,15 +39,9 @@ public class FavoritesService(
         return favorite;
     }
 
-    public FavoritePattern RemoveFavorite(int dancePatternId, int userId)
+    public FavoritePattern RemoveFavorite(int id, int userId)
     {
-        var favorites = _favoritesRepository.GetFavoritesByUser(userId);
-        var favoriteId = favorites
-            .FirstOrDefault(fp => fp.DancePatternId == dancePatternId)
-            ?.FavoritePatternId;
-        if (favoriteId is null)
-            throw new FavoritePatternException("Pattern is not a favorite");
-        var favorite = _favoritesRepository.RemoveFavorite(favoriteId.Value, userId);
+        var favorite = _favoritesRepository.RemoveFavorite(id, userId);
         return favorite;
     }
 }

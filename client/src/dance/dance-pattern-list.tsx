@@ -8,7 +8,7 @@ type Props = {
   dancePatterns: DancePattern[];
   favorites: FavoritePattern[];
   onAddToFavorites: (dancePatternId: number) => void;
-  onRemoveFromFavorites: (dancePatternId: number) => void;
+  onRemoveFromFavorites: (favoriteId: number) => void;
   scrollY: number;
 };
 
@@ -21,10 +21,13 @@ export const DancePatternList = ({
 }: Props) => {
   const isAuthenticated = useAppSelector(selectIsAuthenticated);
 
-  const isPatternInFavorites = (pattern: DancePattern) => {
-    return favorites.some(
-      (favorite) => favorite.dancePatternId === pattern.dancePatternId
+  console.log("favorites count:", favorites.length);
+
+  const getFavoriteId = (pattern: DancePattern) => {
+    const favorite = favorites.find(
+      (favorite) => favorite.dancePatternId === pattern.id
     );
+    return favorite?.id;
   };
 
   if (dancePatterns.length === 0) {
@@ -34,14 +37,13 @@ export const DancePatternList = ({
     <Box>
       <List>
         {dancePatterns.map((pattern) => {
-          const isFavorite = isAuthenticated
-            ? isPatternInFavorites(pattern)
-            : undefined;
+          const favoriteId = getFavoriteId(pattern);
           return (
-            <ListItem key={pattern.dancePatternId}>
+            <ListItem key={pattern.id}>
               <DancePatternListItem
                 pattern={pattern}
-                isFavorite={isFavorite}
+                favoriteId={favoriteId}
+                isAuthenticated={isAuthenticated}
                 onAddToFavorites={onAddToFavorites}
                 onRemoveFromFavorites={onRemoveFromFavorites}
                 scrollY={scrollY}

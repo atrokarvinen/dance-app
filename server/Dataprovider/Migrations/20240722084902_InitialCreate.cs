@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
@@ -16,9 +17,9 @@ namespace Dataprovider.Migrations
                 name: "Dances",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(type: "TEXT", nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -29,32 +30,32 @@ namespace Dataprovider.Migrations
                 name: "Users",
                 columns: table => new
                 {
-                    UserId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(type: "TEXT", nullable: false),
-                    Password = table.Column<string>(type: "TEXT", nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    Password = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Users", x => x.UserId);
+                    table.PrimaryKey("PK_Users", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
                 name: "DancePatterns",
                 columns: table => new
                 {
-                    DancePatternId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(type: "TEXT", nullable: false),
-                    Aliases = table.Column<string>(type: "TEXT", nullable: false),
-                    Description = table.Column<string>(type: "TEXT", nullable: false),
-                    VideoUrl = table.Column<string>(type: "TEXT", nullable: true),
-                    ImageUrl = table.Column<string>(type: "TEXT", nullable: true),
-                    DanceId = table.Column<int>(type: "INTEGER", nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    Aliases = table.Column<string>(type: "text", nullable: false),
+                    Description = table.Column<string>(type: "text", nullable: false),
+                    VideoUrl = table.Column<string>(type: "text", nullable: true),
+                    ImageUrl = table.Column<string>(type: "text", nullable: true),
+                    DanceId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_DancePatterns", x => x.DancePatternId);
+                    table.PrimaryKey("PK_DancePatterns", x => x.Id);
                     table.ForeignKey(
                         name: "FK_DancePatterns_Dances_DanceId",
                         column: x => x.DanceId,
@@ -67,25 +68,25 @@ namespace Dataprovider.Migrations
                 name: "DancePatternVariations",
                 columns: table => new
                 {
-                    DancePatternVariationId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    OriginalId = table.Column<int>(type: "INTEGER", nullable: false),
-                    VariationId = table.Column<int>(type: "INTEGER", nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    OriginalId = table.Column<int>(type: "integer", nullable: false),
+                    VariationId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_DancePatternVariations", x => x.DancePatternVariationId);
+                    table.PrimaryKey("PK_DancePatternVariations", x => x.Id);
                     table.ForeignKey(
                         name: "FK_DancePatternVariations_DancePatterns_OriginalId",
                         column: x => x.OriginalId,
                         principalTable: "DancePatterns",
-                        principalColumn: "DancePatternId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_DancePatternVariations_DancePatterns_VariationId",
                         column: x => x.VariationId,
                         principalTable: "DancePatterns",
-                        principalColumn: "DancePatternId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -93,26 +94,26 @@ namespace Dataprovider.Migrations
                 name: "FavoritePatterns",
                 columns: table => new
                 {
-                    FavoritePatternId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    DisplayName = table.Column<string>(type: "TEXT", nullable: false),
-                    UserId = table.Column<int>(type: "INTEGER", nullable: false),
-                    DancePatternId = table.Column<int>(type: "INTEGER", nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    DisplayName = table.Column<string>(type: "text", nullable: false),
+                    UserId = table.Column<int>(type: "integer", nullable: false),
+                    DancePatternId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_FavoritePatterns", x => x.FavoritePatternId);
+                    table.PrimaryKey("PK_FavoritePatterns", x => x.Id);
                     table.ForeignKey(
                         name: "FK_FavoritePatterns_DancePatterns_DancePatternId",
                         column: x => x.DancePatternId,
                         principalTable: "DancePatterns",
-                        principalColumn: "DancePatternId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_FavoritePatterns_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
-                        principalColumn: "UserId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -136,7 +137,7 @@ namespace Dataprovider.Migrations
 
             migrationBuilder.InsertData(
                 table: "DancePatterns",
-                columns: new[] { "DancePatternId", "Aliases", "DanceId", "Description", "ImageUrl", "Name", "VideoUrl" },
+                columns: new[] { "Id", "Aliases", "DanceId", "Description", "ImageUrl", "Name", "VideoUrl" },
                 values: new object[,]
                 {
                     { 1, "", 6, "Basic step for salsa", null, "Basic step", null },

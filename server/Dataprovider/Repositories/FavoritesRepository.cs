@@ -27,7 +27,7 @@ public class FavoritesRepository(DatabaseContext _context)
 
     public FavoritePattern RemoveFavorite(int id, int userId)
     {
-        var favorite = _context.FavoritePatterns.FirstOrDefault(f => f.FavoritePatternId == id);
+        var favorite = _context.FavoritePatterns.FirstOrDefault(f => f.Id == id);
         if (favorite is null)
         {
             throw new NotFoundException("Favorite not found");

@@ -16,14 +16,13 @@ import { useRemoveFromFavorites } from "./api/use-remove-from-favorites";
 import { FavoriteListItem } from "./favorite-list-item";
 
 export const FavoriteList = () => {
-  const { error, favorites, loading, refetch } = useGetFavorites();
+  const { error, favorites, loading } = useGetFavorites();
   const { removeFromFavorites } = useRemoveFromFavorites();
   if (loading) return <Loader />;
   if (error) return <ErrorPage message={error.message} />;
 
   const handleRemoveFromFavorites = async (id: number) => {
     await removeFromFavorites(id);
-    await refetch();
   };
 
   const favoritesByDance = _.groupBy(
@@ -56,9 +55,9 @@ export const FavoriteList = () => {
               <AccordionDetails>
                 <List>
                   {favoritesByDance[danceName].map((favorite) => {
-                    const { favoritePatternId } = favorite;
+                    const { id } = favorite;
                     return (
-                      <ListItem key={favoritePatternId}>
+                      <ListItem key={id}>
                         <FavoriteListItem
                           favorite={favorite}
                           onRemoveFavorite={handleRemoveFromFavorites}
