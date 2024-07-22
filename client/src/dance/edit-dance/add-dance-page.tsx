@@ -16,5 +16,11 @@ export const AddDancePage = () => {
     navigate("/");
   };
 
-  return <DanceForm onSubmit={handleSubmit} submitting={loading} />;
+  return (
+    <DanceForm
+      onCancel={() => navigate("/")}
+      onSubmit={handleSubmit}
+      submitting={loading}
+    />
+  );
 };

@@ -28,6 +28,7 @@ export const EditDanceView = ({ danceId }: Props) => {
   const defaultValues: DanceFormType = { name: dance.name };
   return (
     <DanceForm
+      onCancel={() => navigate("/")}
       onSubmit={handleUpdateDance}
       defaultValues={defaultValues}
       submitting={submitting}

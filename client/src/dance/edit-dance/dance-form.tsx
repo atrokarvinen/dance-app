@@ -1,3 +1,4 @@
+import { zodResolver } from "@hookform/resolvers/zod";
 import {
   Box,
   Button,
@@ -6,22 +7,36 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { FormEvent, useState } from "react";
+import { FormEvent } from "react";
+import { useForm } from "react-hook-form";
 import { DanceFormType } from "./dance-form-type";
+import { validationSchema } from "./validation";
 
 type Props = {
   defaultValues?: DanceFormType;
+  onCancel: () => void;
   onSubmit: (values: DanceFormType) => void;
   submitting: boolean;
 };
 
-export const DanceForm = ({ defaultValues, onSubmit, submitting }: Props) => {
-  const [name, setName] = useState(defaultValues?.name || "");
+export const DanceForm = ({
+  defaultValues,
+  onCancel,
+  onSubmit,
+  submitting,
+}: Props) => {
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+  } = useForm({
+    defaultValues,
+    resolver: zodResolver(validationSchema),
+  });
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const submitHandler = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const values: DanceFormType = { name };
-    onSubmit(values);
+    handleSubmit(onSubmit)();
   };
 
   const isEdit = !!defaultValues;
@@ -32,22 +47,27 @@ export const DanceForm = ({ defaultValues, onSubmit, submitting }: Props) => {
       <Typography component="h1" variant="h4" sx={{ marginBottom: 3 }}>
         {title}
       </Typography>
-      <form onSubmit={handleSubmit}>
-        <Stack spacing={2} alignItems="flex-start" maxWidth="300px">
+      <form onSubmit={submitHandler}>
+        <Stack spacing={2}>
           <TextField
             label="Name"
             variant="outlined"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
+            error={!!errors.name}
+            helperText={errors.name?.message ?? " "}
+            {...register("name")}
           />
-          <Button
-            variant="contained"
-            type="submit"
-            sx={{ alignSelf: "flex-end" }}
-            disabled={submitting}
-          >
-            {submitting ? <CircularProgress size={24} /> : <span>Submit</span>}
-          </Button>
+          <Stack direction="row" spacing={2} sx={{ alignSelf: "flex-end" }}>
+            <Button variant="outlined" disabled={submitting} onClick={onCancel}>
+              Cancel
+            </Button>
+            <Button variant="contained" type="submit" disabled={submitting}>
+              {submitting ? (
+                <CircularProgress size={24} />
+              ) : (
+                <span>Submit</span>
+              )}
+            </Button>
+          </Stack>
         </Stack>
       </form>
     </Box>
