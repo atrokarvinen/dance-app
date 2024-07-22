@@ -3,8 +3,8 @@ import { addMessage } from "../../common/toast/toast-store";
 import { useAppDispatch } from "../../redux/store";
 
 const mutation = gql`
-  mutation AddDance($input: AddDanceInput!) {
-    addDance(input: $input) {
+  mutation UpdateDance($input: UpdateDanceInput!) {
+    updateDance(input: $input) {
       dance {
         id
         name
@@ -13,28 +13,29 @@ const mutation = gql`
   }
 `;
 
-type AddDanceMutationResponse = {
+type UpdateDanceMutationResponse = {
   __typename: string;
-  addDance: {
+  updateDance: {
     __typename: string;
     dance: { __typename: string; id: number; name: string } | null;
   };
 };
 
-type AddDanceMutationVariables = {
+type UpdateDanceMutationVariables = {
   input: {
+    id: number;
     name: string;
   };
 };
 
-export const useAddDance = () => {
+export const useUpdateDance = () => {
   const dispatch = useAppDispatch();
   const [mutationFunc, { loading }] = useMutation<
-    AddDanceMutationResponse,
-    AddDanceMutationVariables
+    UpdateDanceMutationResponse,
+    UpdateDanceMutationVariables
   >(mutation);
 
-  const addDance = async (values: AddDanceMutationVariables["input"]) => {
+  const updateDance = async (values: UpdateDanceMutationVariables["input"]) => {
     let errorMessage;
     try {
       const { data } = await mutationFunc({
@@ -44,32 +45,34 @@ export const useAddDance = () => {
           cache.modify({
             fields: {
               dances(existingDances = []) {
-                const newDanceRef = cache.writeFragment({
-                  data: data.addDance.dance,
+                const updatedDanceRef = cache.writeFragment({
+                  data: data.updateDance.dance,
                   fragment: gql`
-                    fragment NewDance on Dance {
+                    fragment UpdatedDance on Dance {
                       id
                       name
                     }
                   `,
                 });
-                return [...existingDances, newDanceRef];
+                return existingDances.map((d: any) =>
+                  d.id === values.id ? updatedDanceRef : d
+                );
               },
             },
           });
         },
       });
       if (!data) throw new Error("No data returned");
-      return data.addDance.dance;
+      return data.updateDance.dance;
     } catch (error) {
       errorMessage = error;
     }
     if (errorMessage) {
-      const message = "Failed to create new dance";
+      const message = "Failed to update dance";
       dispatch(addMessage({ type: "error", message }));
       return;
     }
   };
 
-  return { addDance, loading };
+  return { updateDance, loading };
 };

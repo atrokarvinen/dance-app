@@ -16,13 +16,13 @@ namespace Dataprovider.Migrations
                 name: "Dances",
                 columns: table => new
                 {
-                    DanceId = table.Column<int>(type: "INTEGER", nullable: false)
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Dances", x => x.DanceId);
+                    table.PrimaryKey("PK_Dances", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -59,7 +59,7 @@ namespace Dataprovider.Migrations
                         name: "FK_DancePatterns_Dances_DanceId",
                         column: x => x.DanceId,
                         principalTable: "Dances",
-                        principalColumn: "DanceId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -118,7 +118,7 @@ namespace Dataprovider.Migrations
 
             migrationBuilder.InsertData(
                 table: "Dances",
-                columns: new[] { "DanceId", "Name" },
+                columns: new[] { "Id", "Name" },
                 values: new object[,]
                 {
                     { 1, "Bachata" },
@@ -147,8 +147,8 @@ namespace Dataprovider.Migrations
                     { 6, "", 11, "", null, "Left turning box", "https://www.youtube.com/watch?v=czKmAQw5H1A" },
                     { 7, "", 11, "", null, "Left turning box with inside turn", "https://www.youtube.com/watch?v=H8FLOyah61g" },
                     { 8, "", 11, "", null, "Left turning box with outside turn", "https://www.youtube.com/watch?v=X-d95ctAG2M" },
-                    { 9, "", 11, "", null, "Waltz right turning box", "https://www.youtube.com/watch?v=IIQc5QuDWJM" },
-                    { 10, "", 11, "", null, "Waltz progressive", "https://www.youtube.com/watch?v=PoP3U5cqGBQ" },
+                    { 9, "", 11, "", null, "Right turning box", "https://www.youtube.com/watch?v=IIQc5QuDWJM" },
+                    { 10, "", 11, "", null, "Progressive step", "https://www.youtube.com/watch?v=PoP3U5cqGBQ" },
                     { 11, "", 11, "", null, "Balances side to side", "https://www.youtube.com/watch?v=OjflxkGSIVo" },
                     { 12, "", 11, "", null, "Hesitations forward and back", "https://www.youtube.com/watch?v=qTxGkP9IBzA" },
                     { 13, "", 11, "", null, "Hesitation and box", "https://www.youtube.com/watch?v=czS_SqSO5vQ" },

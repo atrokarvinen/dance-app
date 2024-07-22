@@ -3,7 +3,6 @@ using Dataprovider;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
@@ -15,82 +14,76 @@ namespace Dataprovider.Migrations
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.6")
-                .HasAnnotation("Relational:MaxIdentifierLength", 63);
-
-            NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
+            modelBuilder.HasAnnotation("ProductVersion", "8.0.6");
 
             modelBuilder.Entity("Dataprovider.Models.Dance", b =>
                 {
-                    b.Property<int>("DanceId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("DanceId"));
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("TEXT");
 
-                    b.HasKey("DanceId");
+                    b.HasKey("Id");
 
                     b.ToTable("Dances");
 
                     b.HasData(
                         new
                         {
-                            DanceId = 1,
+                            Id = 1,
                             Name = "Bachata"
                         },
                         new
                         {
-                            DanceId = 2,
+                            Id = 2,
                             Name = "Bugg"
                         },
                         new
                         {
-                            DanceId = 3,
+                            Id = 3,
                             Name = "Cha Cha"
                         },
                         new
                         {
-                            DanceId = 4,
+                            Id = 4,
                             Name = "Finnish folk"
                         },
                         new
                         {
-                            DanceId = 5,
+                            Id = 5,
                             Name = "Rumba"
                         },
                         new
                         {
-                            DanceId = 6,
+                            Id = 6,
                             Name = "Salsa"
                         },
                         new
                         {
-                            DanceId = 7,
+                            Id = 7,
                             Name = "Samba"
                         },
                         new
                         {
-                            DanceId = 8,
+                            Id = 8,
                             Name = "Swing dance"
                         },
                         new
                         {
-                            DanceId = 9,
+                            Id = 9,
                             Name = "Tango"
                         },
                         new
                         {
-                            DanceId = 10,
+                            Id = 10,
                             Name = "Viennesse Waltz"
                         },
                         new
                         {
-                            DanceId = 11,
+                            Id = 11,
                             Name = "Waltz"
                         });
                 });
@@ -99,30 +92,28 @@ namespace Dataprovider.Migrations
                 {
                     b.Property<int>("DancePatternId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("DancePatternId"));
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Aliases")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("DanceId")
-                        .HasColumnType("integer");
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("ImageUrl")
-                        .HasColumnType("text");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("VideoUrl")
-                        .HasColumnType("text");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("DancePatternId");
 
@@ -441,15 +432,13 @@ namespace Dataprovider.Migrations
                 {
                     b.Property<int>("DancePatternVariationId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("DancePatternVariationId"));
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("OriginalId")
-                        .HasColumnType("integer");
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("VariationId")
-                        .HasColumnType("integer");
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("DancePatternVariationId");
 
@@ -464,19 +453,17 @@ namespace Dataprovider.Migrations
                 {
                     b.Property<int>("FavoritePatternId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("FavoritePatternId"));
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("DancePatternId")
-                        .HasColumnType("integer");
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("DisplayName")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("UserId")
-                        .HasColumnType("integer");
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("FavoritePatternId");
 
@@ -491,17 +478,15 @@ namespace Dataprovider.Migrations
                 {
                     b.Property<int>("UserId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("UserId"));
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Password")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("UserId");
 

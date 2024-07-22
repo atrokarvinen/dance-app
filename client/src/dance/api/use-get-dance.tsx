@@ -4,7 +4,7 @@ import { Dance } from "../dance";
 const query = gql`
   query GetDance($danceId: ID!) {
     dance(danceId: $danceId) {
-      danceId
+      id
       name
       dancePatterns {
         dancePatternId

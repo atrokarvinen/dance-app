@@ -20,7 +20,7 @@ export const routes: LinkType[] = [
     href: "/",
     label: "Home",
     icon: <Home />,
-    children: ["/dances", "/dance-patterns"],
+    children: ["/dances", "/dance-patterns", "/dances/new", "/dances/edit"],
     visibility: RouteVisibility.ALWAYS,
   },
   {

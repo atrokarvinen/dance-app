@@ -25,7 +25,7 @@ public class DataSeeder
         var dances = danceNames.Select((x, i) => new Dance()
         {
             Name = x,
-            DanceId = i + 1,
+            Id = i + 1,
         });
 
         var patterns = new List<DancePattern>()

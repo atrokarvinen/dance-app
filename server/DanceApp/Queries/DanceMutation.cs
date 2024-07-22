@@ -14,9 +14,9 @@ public class DanceMutation
         return dance;
     }
 
-    public Dance UpdateDance([Service] DanceRepository repository, [ID] int danceId, string name)
+    public Dance UpdateDance([Service] DanceRepository repository, [ID] int id, string name)
     {
-        var dance = new Dance { DanceId = danceId, Name = name };
+        var dance = new Dance { Id = id, Name = name };
         repository.UpdateDance(dance);
         return dance;
     }

@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Dataprovider.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20240718132125_InitialCreate")]
+    [Migration("20240719200752_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -21,7 +21,7 @@ namespace Dataprovider.Migrations
 
             modelBuilder.Entity("Dataprovider.Models.Dance", b =>
                 {
-                    b.Property<int>("DanceId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
@@ -29,64 +29,64 @@ namespace Dataprovider.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.HasKey("DanceId");
+                    b.HasKey("Id");
 
                     b.ToTable("Dances");
 
                     b.HasData(
                         new
                         {
-                            DanceId = 1,
+                            Id = 1,
                             Name = "Bachata"
                         },
                         new
                         {
-                            DanceId = 2,
+                            Id = 2,
                             Name = "Bugg"
                         },
                         new
                         {
-                            DanceId = 3,
+                            Id = 3,
                             Name = "Cha Cha"
                         },
                         new
                         {
-                            DanceId = 4,
+                            Id = 4,
                             Name = "Finnish folk"
                         },
                         new
                         {
-                            DanceId = 5,
+                            Id = 5,
                             Name = "Rumba"
                         },
                         new
                         {
-                            DanceId = 6,
+                            Id = 6,
                             Name = "Salsa"
                         },
                         new
                         {
-                            DanceId = 7,
+                            Id = 7,
                             Name = "Samba"
                         },
                         new
                         {
-                            DanceId = 8,
+                            Id = 8,
                             Name = "Swing dance"
                         },
                         new
                         {
-                            DanceId = 9,
+                            Id = 9,
                             Name = "Tango"
                         },
                         new
                         {
-                            DanceId = 10,
+                            Id = 10,
                             Name = "Viennesse Waltz"
                         },
                         new
                         {
-                            DanceId = 11,
+                            Id = 11,
                             Name = "Waltz"
                         });
                 });
@@ -201,7 +201,7 @@ namespace Dataprovider.Migrations
                             Aliases = "",
                             DanceId = 11,
                             Description = "",
-                            Name = "Waltz right turning box",
+                            Name = "Right turning box",
                             VideoUrl = "https://www.youtube.com/watch?v=IIQc5QuDWJM"
                         },
                         new
@@ -210,7 +210,7 @@ namespace Dataprovider.Migrations
                             Aliases = "",
                             DanceId = 11,
                             Description = "",
-                            Name = "Waltz progressive",
+                            Name = "Progressive step",
                             VideoUrl = "https://www.youtube.com/watch?v=PoP3U5cqGBQ"
                         },
                         new

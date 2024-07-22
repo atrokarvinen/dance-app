@@ -8,7 +8,7 @@ public class Dance
 {
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    public int DanceId { get; set; }
+    public int Id { get; set; }
     public string Name { get; set; } = string.Empty;
 
     public List<DancePattern> DancePatterns { get; set; } = new List<DancePattern>();

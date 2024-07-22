@@ -1,5 +1,5 @@
 export type Dance = {
-  danceId: number;
+  id: number;
   name: string;
   dancePatterns: DancePattern[];
 };

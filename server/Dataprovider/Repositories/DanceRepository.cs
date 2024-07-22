@@ -31,7 +31,7 @@ public class DanceRepository(ILogger<DanceRepository> _logger, DatabaseContext _
         return _context.Dances
             .Include(d => d.DancePatterns)
                 .ThenInclude(dp => dp.Variations)
-            .FirstOrDefault(d => d.DanceId == id);
+            .FirstOrDefault(d => d.Id == id);
     }
 
     public Dance AddDance(Dance dance)
@@ -50,7 +50,7 @@ public class DanceRepository(ILogger<DanceRepository> _logger, DatabaseContext _
 
     public Dance? DeleteDance(int id)
     {
-        var dance = _context.Dances.FirstOrDefault(d => d.DanceId == id);
+        var dance = _context.Dances.FirstOrDefault(d => d.Id == id);
         if (dance != null)
         {
             _context.Dances.Remove(dance);
