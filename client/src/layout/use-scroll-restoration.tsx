@@ -3,26 +3,28 @@ import { useLocation } from "react-router";
 import { useAppDispatch, useAppSelector } from "../redux/store";
 import { selectContentScrollOfPage, setContentScroll } from "./ui-store";
 
-type ScrollRestorationOptions = {
-  pathsToRestore: string[];
-};
-
-type ScrollOption = {
+type ScrollRestoreOption = {
   to: string;
   from?: string;
   behavior?: "smooth" | "auto" | "instant";
 };
 
-const scrollRestoreOptions: ScrollOption[] = [
+const scrollRestoreOptions: ScrollRestoreOption[] = [
   { to: "/", behavior: "smooth" },
   { to: "/", from: "/dances/*", behavior: "instant" },
   { to: "/dances/*", behavior: "smooth" },
   { to: "/dances/*", from: "/dance-patterns/*", behavior: "instant" },
+  { to: "/favorites", from: "/dance-patterns/*", behavior: "instant" },
 ];
 
 type Pathing = {
   from: string;
   to: string;
+};
+
+const defaultScrollOption: ScrollToOptions = {
+  top: 0,
+  behavior: "instant",
 };
 
 export const useScrollRestoration = (
@@ -51,7 +53,7 @@ export const useScrollRestoration = (
         console.log(
           `no scroll restoration defined for pathing ${from} => ${to}`
         );
-        return;
+        return scrollCallback(defaultScrollOption);
       }
       const options: ScrollToOptions = {
         top: initialScroll,
@@ -59,7 +61,6 @@ export const useScrollRestoration = (
       };
       scrollCallback(options);
     }
-    console.log("scroll", initialScroll);
   }, [initialScroll, scrollInitialized]);
 
   const findRestorationOption = (from: string, to: string) => {

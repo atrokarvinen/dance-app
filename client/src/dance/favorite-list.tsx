@@ -9,8 +9,15 @@ import {
   Typography,
 } from "@mui/material";
 import _ from "lodash";
+import { SyntheticEvent } from "react";
 import { ErrorPage } from "../common/ErrorPage";
 import { Loader } from "../common/Loader";
+import {
+  onCloseFavorite,
+  onOpenFavorite,
+  selectOpenFavorites,
+} from "../layout/ui-store";
+import { useAppDispatch, useAppSelector } from "../redux/store";
 import { useGetFavorites } from "./api/use-get-favorites";
 import { useRemoveFromFavorites } from "./api/use-remove-from-favorites";
 import { FavoriteListItem } from "./favorite-list-item";
@@ -18,12 +25,26 @@ import { FavoriteListItem } from "./favorite-list-item";
 export const FavoriteList = () => {
   const { error, favorites, loading } = useGetFavorites();
   const { removeFromFavorites } = useRemoveFromFavorites();
+  const dispatch = useAppDispatch();
+  const openFavorites = useAppSelector(selectOpenFavorites);
+
+  console.log("openFavorites:", openFavorites);
+
   if (loading) return <Loader />;
   if (error) return <ErrorPage message={error.message} />;
 
   const handleRemoveFromFavorites = async (id: number) => {
     await removeFromFavorites(id);
   };
+
+  const handleAccordionExpandedChange =
+    (id: string) => (_: SyntheticEvent, expanded: boolean) => {
+      if (expanded) {
+        dispatch(onOpenFavorite(id));
+      } else {
+        dispatch(onCloseFavorite(id));
+      }
+    };
 
   const favoritesByDance = _.groupBy(
     favorites,
@@ -48,7 +69,11 @@ export const FavoriteList = () => {
       <List>
         {danceNames.map((danceName) => (
           <ListItem key={danceName}>
-            <Accordion sx={{ width: "100%" }}>
+            <Accordion
+              sx={{ width: "100%" }}
+              onChange={handleAccordionExpandedChange(danceName)}
+              expanded={openFavorites.includes(danceName)}
+            >
               <AccordionSummary expandIcon={<ExpandMore />}>
                 {danceName}
               </AccordionSummary>
