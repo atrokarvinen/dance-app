@@ -1,4 +1,4 @@
-import { Button, Container, Stack } from "@mui/material";
+import { Container, Stack } from "@mui/material";
 import { ReactNode, useRef } from "react";
 import { NavigationMobile } from "../navigation/navigation-mobile";
 import { useScrollRestoration } from "./use-scroll-restoration";
@@ -18,13 +18,6 @@ export const LayoutMobile = ({ children }: Props) => {
 
   return (
     <Stack direction="column" sx={{ height: "100%", maxHeight: "100%" }}>
-      <Button
-        onClick={() => {
-          containerRef.current!.scrollTo({ top: 1500, behavior: "smooth" });
-        }}
-      >
-        To Bottom
-      </Button>
       <Container
         ref={containerRef}
         sx={{
@@ -36,13 +29,6 @@ export const LayoutMobile = ({ children }: Props) => {
       >
         {children}
       </Container>
-      <Button
-        onClick={() => {
-          containerRef.current!.scrollTo({ top: 0, behavior: "smooth" });
-        }}
-      >
-        To Top
-      </Button>
       <NavigationMobile />
     </Stack>
   );
