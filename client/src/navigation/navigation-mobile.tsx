@@ -37,14 +37,14 @@ export const NavigationMobile = () => {
   }, [visibleRoutes, location.pathname]);
 
   return (
-    <AppBar position="static">
+    <AppBar position="sticky">
       <Toolbar>
         <Stack direction="row" width="100%" justifyContent="space-between">
           {visibleRoutes.map((route) => {
             const { href, label, iconActive, iconInactive } = route;
             const isActive = value === visibleRoutes.indexOf(route);
             return (
-              <Box key={href} color={isActive ? "HighlightText" : "lightgray"}>
+              <Box key={href} color={isActive ? "inherit" : "lightgray"}>
                 <Button color={"inherit"} to={href} component={Link}>
                   <Stack alignItems="center">
                     {isActive ? iconActive : iconInactive}

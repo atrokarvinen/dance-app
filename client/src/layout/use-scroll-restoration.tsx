@@ -108,8 +108,9 @@ export const useScrollRestoration = (
     return matches.every((match) => match);
   };
 
-  const handleScroll = (e: any) => {
-    const scroll = e.currentTarget.scrollTop;
+  const handleScroll = (_: any) => {
+    // const scroll = e.currentTarget.scrollTop;
+    const scroll = window.scrollY;
     dispatch(setContentScroll({ path: pathname, scroll }));
   };
 
