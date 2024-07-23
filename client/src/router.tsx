@@ -5,9 +5,12 @@ import { SignupView } from "./auth/signup-view";
 import { DanceDetailsPage } from "./dance/dance-details-page";
 import { DanceList } from "./dance/dance-list";
 import { DancePatternDetailsPage } from "./dance/dance-pattern-details/dance-pattern-details-page";
+import { AddDancePatternPage } from "./dance/edit-dance-pattern/add-dance-pattern-page";
+import { EditDancePatternPage } from "./dance/edit-dance-pattern/edit-dance-pattern-page";
 import { AddDancePage } from "./dance/edit-dance/add-dance-page";
 import { EditDancePage } from "./dance/edit-dance/edit-dance-page";
 import { FavoriteList } from "./dance/favorite-list";
+import { TestPage } from "./dance/test-page/test-page";
 import { SettingsPage } from "./settings/settings-page";
 
 export const browserRouter = createBrowserRouter([
@@ -36,6 +39,14 @@ export const browserRouter = createBrowserRouter([
         element: <FavoriteList />,
       },
       {
+        path: "dances/:danceId/dance-patterns/new",
+        element: <AddDancePatternPage />,
+      },
+      {
+        path: "dances/:danceId/dance-patterns/:dancePatternId/edit",
+        element: <EditDancePatternPage />,
+      },
+      {
         path: "/dance-patterns/:dancePatternId",
         element: <DancePatternDetailsPage />,
       },
@@ -50,6 +61,10 @@ export const browserRouter = createBrowserRouter([
       {
         path: "/settings",
         element: <SettingsPage />,
+      },
+      {
+        path: "/test",
+        element: <TestPage />,
       },
     ],
   },

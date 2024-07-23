@@ -50,6 +50,15 @@ export const useDeleteDance = () => {
         },
         update: (cache, { data }) => {
           if (!data) return;
+          cache.modify({
+            fields: {
+              dances(existingDances = [], { readField }) {
+                return existingDances.filter((danceRef: any) => {
+                  return danceId !== readField("id", danceRef);
+                });
+              },
+            },
+          });
           cache.evict({ id: `Dance:${danceId}` });
         },
       });

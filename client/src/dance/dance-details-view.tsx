@@ -2,6 +2,7 @@ import { useLocation, useNavigate } from "react-router";
 import { ErrorPage } from "../common/ErrorPage";
 import { Loader } from "../common/Loader";
 import { useAddToFavorites } from "./api/use-add-to-favorites";
+import { useDeleteDancePattern } from "./api/use-delete-dance-pattern";
 import { useGetDance } from "./api/use-get-dance";
 import { useGetFavorites } from "./api/use-get-favorites";
 import { useRemoveFromFavorites } from "./api/use-remove-from-favorites";
@@ -26,6 +27,7 @@ export const DanceDetailsView = ({ danceId, initialScroll }: Props) => {
   } = useGetFavorites();
   const { addToFavorites } = useAddToFavorites();
   const { removeFromFavorites } = useRemoveFromFavorites();
+  const { deleteDancePattern } = useDeleteDancePattern();
   const navigate = useNavigate();
   const location = useLocation();
   if (danceLoading || favoritesLoading) return <Loader />;
@@ -56,6 +58,7 @@ export const DanceDetailsView = ({ danceId, initialScroll }: Props) => {
         favorites={favorites}
         onAddToFavorites={handleAddFavorite}
         onRemoveFromFavorites={handleRemoveFavorite}
+        onDeletePattern={deleteDancePattern}
         onNavigateBack={handleOnNavigateBack}
         initialScroll={initialScroll}
       />

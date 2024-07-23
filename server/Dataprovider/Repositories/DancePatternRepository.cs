@@ -27,6 +27,7 @@ public class DancePatternRepository(DatabaseContext context)
     {
         return _context.DancePatterns
             .Include(dp => dp.Dance)
+            .AsNoTracking()
             .FirstOrDefault(d => d.Id == id);
     }
 
@@ -39,6 +40,9 @@ public class DancePatternRepository(DatabaseContext context)
 
     public DancePattern UpdateDancePattern(DancePattern dancePattern)
     {
+        var existingDancePattern = FindDancePatternById(dancePattern.Id);
+        if (existingDancePattern == null)
+            throw new NotFoundException($"Failed to find dance pattern with id ({dancePattern.Id})");
         _context.DancePatterns.Update(dancePattern);
         _context.SaveChanges();
         return dancePattern;

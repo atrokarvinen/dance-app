@@ -38,30 +38,7 @@ export const useUpdateDance = () => {
   const updateDance = async (values: UpdateDanceMutationVariables["input"]) => {
     let errorMessage;
     try {
-      const { data } = await mutationFunc({
-        variables: { input: values },
-        update: (cache, { data }) => {
-          if (!data) return;
-          cache.modify({
-            fields: {
-              dances(existingDances = []) {
-                const updatedDanceRef = cache.writeFragment({
-                  data: data.updateDance.dance,
-                  fragment: gql`
-                    fragment UpdatedDance on Dance {
-                      id
-                      name
-                    }
-                  `,
-                });
-                return existingDances.map((d: any) =>
-                  d.id === values.id ? updatedDanceRef : d
-                );
-              },
-            },
-          });
-        },
-      });
+      const { data } = await mutationFunc({ variables: { input: values } });
       if (!data) throw new Error("No data returned");
       return data.updateDance.dance;
     } catch (error) {

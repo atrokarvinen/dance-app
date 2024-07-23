@@ -1,4 +1,5 @@
-import { Box, Button, Stack } from "@mui/material";
+import { Delete, Edit } from "@mui/icons-material";
+import { Box, Button, IconButton, Stack } from "@mui/material";
 import { Link } from "react-router-dom";
 import { DancePattern } from "./dance";
 import { FavoriteActionButton } from "./favorite-action-button";
@@ -9,6 +10,7 @@ type Props = {
   isAuthenticated: boolean;
   onAddToFavorites: (dancePatternId: number) => void;
   onRemoveFromFavorites: (favoriteId: number) => void;
+  onDeletePattern: (id: number) => void;
   scrollY: number;
 };
 
@@ -18,6 +20,7 @@ export const DancePatternListItem = ({
   isAuthenticated,
   onAddToFavorites,
   onRemoveFromFavorites,
+  onDeletePattern,
   scrollY,
 }: Props) => {
   const { id, name, danceId } = pattern;
@@ -34,12 +37,23 @@ export const DancePatternListItem = ({
           {name}
         </Button>
         {isAuthenticated && (
-          <FavoriteActionButton
-            dancePatternId={id}
-            favoriteId={favoriteId}
-            addToFavorites={onAddToFavorites}
-            removeFromFavorites={onRemoveFromFavorites}
-          />
+          <Stack direction="row">
+            <FavoriteActionButton
+              dancePatternId={id}
+              favoriteId={favoriteId}
+              addToFavorites={onAddToFavorites}
+              removeFromFavorites={onRemoveFromFavorites}
+            />
+            <IconButton
+              component={Link}
+              to={`/dances/${danceId}/dance-patterns/${id}/edit`}
+            >
+              <Edit />
+            </IconButton>
+            <IconButton onClick={() => onDeletePattern(id)}>
+              <Delete />
+            </IconButton>
+          </Stack>
         )}
       </Stack>
     </Box>

@@ -2,8 +2,8 @@ import { gql, useQuery } from "@apollo/client";
 import { Dance } from "../dance";
 
 const query = gql`
-  query GetDance($danceId: ID!) {
-    dance(danceId: $danceId) {
+  query GetDance($id: ID!) {
+    dance(id: $id) {
       id
       name
       dancePatterns {
@@ -23,12 +23,12 @@ type GetDanceResponse = {
 };
 
 type GetDanceVariables = {
-  danceId: number;
+  id: number;
 };
 
 export const useGetDance = (danceId: number) => {
   const queryResult = useQuery<GetDanceResponse, GetDanceVariables>(query, {
-    variables: { danceId },
+    variables: { id: danceId },
   });
 
   return {

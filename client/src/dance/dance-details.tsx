@@ -1,6 +1,7 @@
 import { ArrowBack } from "@mui/icons-material";
-import { Box, IconButton, Typography } from "@mui/material";
+import { Box, Button, IconButton, Typography } from "@mui/material";
 import { createRef, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { Dance, FavoritePattern } from "./dance";
 import { DancePatternList } from "./dance-pattern-list";
 
@@ -9,6 +10,7 @@ type Props = {
   favorites: FavoritePattern[];
   onAddToFavorites: (dancePatternId: number) => void;
   onRemoveFromFavorites: (favoriteId: number) => void;
+  onDeletePattern: (id: number) => void;
   onNavigateBack: () => void;
   initialScroll: number;
 };
@@ -18,6 +20,7 @@ export const DanceDetails = ({
   favorites,
   onAddToFavorites,
   onRemoveFromFavorites,
+  onDeletePattern,
   onNavigateBack,
   initialScroll,
 }: Props) => {
@@ -43,6 +46,9 @@ export const DanceDetails = ({
       <IconButton onClick={onNavigateBack} sx={{ alignSelf: "flex-start" }}>
         <ArrowBack />
       </IconButton>
+      <Button component={Link} to={`/dances/${dance.id}/dance-patterns/new`}>
+        + Add new
+      </Button>
       <Box
         sx={{ flex: 1, overflow: "auto" }}
         ref={containerRef}
@@ -53,6 +59,7 @@ export const DanceDetails = ({
           favorites={favorites}
           onAddToFavorites={onAddToFavorites}
           onRemoveFromFavorites={onRemoveFromFavorites}
+          onDeletePattern={onDeletePattern}
           scrollY={scrollY}
         />
       </Box>

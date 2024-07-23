@@ -12,9 +12,9 @@ public class DanceQuery
         return dances;
     }
 
-    public Dance GetDance([Service] DanceRepository repository, [ID] int danceId)
+    public Dance GetDance([Service] DanceRepository repository, [ID] int id)
     {
-        var dance = repository.GetDanceById(danceId);
+        var dance = repository.GetDanceById(id);
         return dance;
     }
 }
