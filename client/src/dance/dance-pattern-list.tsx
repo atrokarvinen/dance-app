@@ -10,7 +10,6 @@ type Props = {
   onAddToFavorites: (dancePatternId: number) => void;
   onRemoveFromFavorites: (favoriteId: number) => void;
   onDeletePattern: (id: number) => void;
-  scrollY: number;
 };
 
 export const DancePatternList = ({
@@ -19,7 +18,6 @@ export const DancePatternList = ({
   onAddToFavorites,
   onRemoveFromFavorites,
   onDeletePattern,
-  scrollY,
 }: Props) => {
   const isAuthenticated = useAppSelector(selectIsAuthenticated);
 
@@ -47,7 +45,6 @@ export const DancePatternList = ({
                 onAddToFavorites={onAddToFavorites}
                 onRemoveFromFavorites={onRemoveFromFavorites}
                 onDeletePattern={onDeletePattern}
-                scrollY={scrollY}
               />
             </ListItem>
           );

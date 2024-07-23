@@ -2,12 +2,19 @@ import { PaletteMode } from "@mui/material";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../redux/store";
 
-type UiStyleState = {
+type UiState = {
   lightMode: PaletteMode;
+  contentScroll: Record<string, number>;
 };
 
-const initialState: UiStyleState = {
+type ScrollPayload = {
+  path: string;
+  scroll: number;
+};
+
+const initialState: UiState = {
   lightMode: "light",
+  contentScroll: {},
 };
 
 const uiStyleSlice = createSlice({
@@ -17,13 +24,20 @@ const uiStyleSlice = createSlice({
     setDarkMode: (state, action: PayloadAction<PaletteMode>) => {
       state.lightMode = action.payload;
     },
+    setContentScroll: (state, action: PayloadAction<ScrollPayload>) => {
+      const { path, scroll } = action.payload;
+      state.contentScroll[path] = scroll;
+    },
   },
 });
 
-export const { setDarkMode } = uiStyleSlice.actions;
+export const { setDarkMode, setContentScroll } = uiStyleSlice.actions;
 
 export const selectIsDarkMode = (state: RootState) =>
   state.ui.lightMode === "dark";
 export const selectLightMode = (state: RootState) => state.ui.lightMode;
+export const selectContentScroll = (state: RootState) => state.ui.contentScroll;
+export const selectContentScrollOfPage = (path: string) => (state: RootState) =>
+  state.ui.contentScroll[path];
 
 export const uiStyleReducer = uiStyleSlice.reducer;

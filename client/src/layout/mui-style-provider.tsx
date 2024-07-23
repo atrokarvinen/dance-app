@@ -3,7 +3,7 @@ import { createTheme, CssBaseline, Theme } from "@mui/material";
 import { ReactNode } from "react";
 import { useAppSelector } from "../redux/store";
 import { theme as baseTheme } from "../theme";
-import { selectLightMode } from "./ui-style-store";
+import { selectLightMode } from "./ui-store";
 import { useCheckPrefersDark } from "./use-check-prefers-dark";
 
 type Props = {

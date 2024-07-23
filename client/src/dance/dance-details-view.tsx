@@ -6,15 +6,13 @@ import { useDeleteDancePattern } from "./api/use-delete-dance-pattern";
 import { useGetDance } from "./api/use-get-dance";
 import { useGetFavorites } from "./api/use-get-favorites";
 import { useRemoveFromFavorites } from "./api/use-remove-from-favorites";
-import { CacheButton } from "./cache-button";
 import { DanceDetails } from "./dance-details";
 
 type Props = {
-  initialScroll: number;
   danceId: number;
 };
 
-export const DanceDetailsView = ({ danceId, initialScroll }: Props) => {
+export const DanceDetailsView = ({ danceId }: Props) => {
   const {
     dance,
     error: danceError,
@@ -51,17 +49,13 @@ export const DanceDetailsView = ({ danceId, initialScroll }: Props) => {
   };
 
   return (
-    <>
-      <CacheButton />
-      <DanceDetails
-        dance={dance}
-        favorites={favorites}
-        onAddToFavorites={handleAddFavorite}
-        onRemoveFromFavorites={handleRemoveFavorite}
-        onDeletePattern={deleteDancePattern}
-        onNavigateBack={handleOnNavigateBack}
-        initialScroll={initialScroll}
-      />
-    </>
+    <DanceDetails
+      dance={dance}
+      favorites={favorites}
+      onAddToFavorites={handleAddFavorite}
+      onRemoveFromFavorites={handleRemoveFavorite}
+      onDeletePattern={deleteDancePattern}
+      onNavigateBack={handleOnNavigateBack}
+    />
   );
 };

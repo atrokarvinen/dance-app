@@ -2,7 +2,7 @@ import { Brightness4, Brightness7 } from "@mui/icons-material";
 import { IconButton, PaletteMode } from "@mui/material";
 import { LOCALSTORE_LIGHT_MODE } from "../common/localstore-constants";
 import { useAppDispatch, useAppSelector } from "../redux/store";
-import { selectIsDarkMode, setDarkMode } from "./ui-style-store";
+import { selectIsDarkMode, setDarkMode } from "./ui-store";
 
 export const DarkModeButton = () => {
   const isDarkMode = useAppSelector(selectIsDarkMode);

@@ -16,9 +16,6 @@ export const DancePatternDetailsPage = () => {
 
   const id = parseInt(params.dancePatternId);
   const returnUrl: string | undefined = location.state?.returnUrl;
-  const scrollY = location.state?.scrollY ?? 0;
 
-  return (
-    <DancePatternDetailsView id={id} returnUrl={returnUrl} scrollY={scrollY} />
-  );
+  return <DancePatternDetailsView id={id} returnUrl={returnUrl} />;
 };

@@ -11,7 +11,6 @@ type Props = {
   onAddToFavorites: (dancePatternId: number) => void;
   onRemoveFromFavorites: (favoriteId: number) => void;
   onDeletePattern: (id: number) => void;
-  scrollY: number;
 };
 
 export const DancePatternListItem = ({
@@ -21,7 +20,6 @@ export const DancePatternListItem = ({
   onAddToFavorites,
   onRemoveFromFavorites,
   onDeletePattern,
-  scrollY,
 }: Props) => {
   const { id, name, danceId } = pattern;
   return (
@@ -31,7 +29,7 @@ export const DancePatternListItem = ({
           component={Link}
           to={`/dance-patterns/${id}`}
           variant="contained"
-          state={{ returnUrl: `/dances/${danceId}`, scrollY }}
+          state={{ returnUrl: `/dances/${danceId}` }}
           sx={{ flex: 1 }}
         >
           {name}

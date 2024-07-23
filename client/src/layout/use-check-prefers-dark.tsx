@@ -2,7 +2,7 @@ import { PaletteMode } from "@mui/material";
 import { useEffect } from "react";
 import { LOCALSTORE_LIGHT_MODE } from "../common/localstore-constants";
 import { useAppDispatch } from "../redux/store";
-import { setDarkMode } from "./ui-style-store";
+import { setDarkMode } from "./ui-store";
 
 export const useCheckPrefersDark = () => {
   const dispatch = useAppDispatch();
