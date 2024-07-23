@@ -19,8 +19,7 @@ export const DancePatternDetails = ({
   removeFromFavorites,
   onNavigateBack,
 }: Props) => {
-  const { isFavorite, imageUrl, videoUrl, name, description, id } =
-    dancePattern;
+  const { imageUrl, videoUrl, name, description, id } = dancePattern;
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column" }}>
@@ -37,7 +36,7 @@ export const DancePatternDetails = ({
               dancePatternId={id}
               addToFavorites={addToFavorites}
               removeFromFavorites={removeFromFavorites}
-              isFavorite={isFavorite!}
+              favoriteId={id}
             />
           </Box>
         )}
