@@ -1,9 +1,8 @@
-import { BottomNavigation, BottomNavigationAction } from "@mui/material";
+import { AppBar, Box, Button, Stack, Toolbar, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { selectIsAuthenticated } from "../auth/auth-store";
 import { useAppSelector } from "../redux/store";
-import { BottomNavLink } from "./bottom-nav-link";
 import { routes, RouteVisibility } from "./routes";
 
 export const NavigationMobile = () => {
@@ -38,23 +37,30 @@ export const NavigationMobile = () => {
   }, [visibleRoutes, location.pathname]);
 
   return (
-    <BottomNavigation
-      showLabels
-      value={value}
-      onChange={(_, newValue) => setValue(newValue)}
-    >
-      {visibleRoutes.map((route) => {
-        const { href, label, icon } = route;
-        return (
-          <BottomNavigationAction
-            key={href}
-            label={label}
-            icon={icon}
-            href={href}
-            LinkComponent={BottomNavLink}
-          />
-        );
-      })}
-    </BottomNavigation>
+    <AppBar position="static">
+      <Toolbar>
+        <Stack direction="row" width="100%" justifyContent="space-between">
+          {visibleRoutes.map((route) => {
+            const { href, label, iconActive, iconInactive } = route;
+            const isActive = value === visibleRoutes.indexOf(route);
+            return (
+              <Box key={href} color={isActive ? "HighlightText" : "lightgray"}>
+                <Button color={"inherit"} to={href} component={Link}>
+                  <Stack alignItems="center">
+                    {isActive ? iconActive : iconInactive}
+                    <Typography
+                      variant="caption"
+                      fontWeight={isActive ? "bold" : undefined}
+                    >
+                      {label}
+                    </Typography>
+                  </Stack>
+                </Button>
+              </Box>
+            );
+          })}
+        </Stack>
+      </Toolbar>
+    </AppBar>
   );
 };

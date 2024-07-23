@@ -18,6 +18,7 @@ export const LayoutMobile = ({ children }: Props) => {
 
   return (
     <Stack direction="column" sx={{ height: "100%", maxHeight: "100%" }}>
+      <NavigationMobile />
       <Container
         ref={containerRef}
         sx={{
@@ -29,7 +30,6 @@ export const LayoutMobile = ({ children }: Props) => {
       >
         {children}
       </Container>
-      <NavigationMobile />
     </Stack>
   );
 };

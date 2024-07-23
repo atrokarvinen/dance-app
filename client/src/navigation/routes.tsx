@@ -1,10 +1,20 @@
-import { Favorite, Home, Person, Settings } from "@mui/icons-material";
+import {
+  Favorite,
+  FavoriteBorder,
+  Home,
+  HomeOutlined,
+  Person,
+  PersonOutline,
+  Settings,
+  SettingsOutlined,
+} from "@mui/icons-material";
 import { ReactNode } from "react";
 
 type LinkType = {
   href: string;
   label: string;
-  icon?: ReactNode;
+  iconActive?: ReactNode;
+  iconInactive?: ReactNode;
   children: string[];
   visibility: RouteVisibility;
 };
@@ -19,28 +29,32 @@ export const routes: LinkType[] = [
   {
     href: "/",
     label: "Home",
-    icon: <Home />,
+    iconActive: <Home />,
+    iconInactive: <HomeOutlined />,
     children: ["/dances", "/dance-patterns", "/dances/new", "/dances/edit"],
     visibility: RouteVisibility.ALWAYS,
   },
   {
     href: "/favorites",
     label: "Favorites",
-    icon: <Favorite />,
+    iconActive: <Favorite />,
+    iconInactive: <FavoriteBorder />,
     children: [],
     visibility: RouteVisibility.AUTH,
   },
   {
     href: "/auth",
     label: "Auth",
-    icon: <Person />,
+    iconActive: <Person />,
+    iconInactive: <PersonOutline />,
     children: ["/auth/signup"],
     visibility: RouteVisibility.UNAUTH,
   },
   {
     href: "/settings",
     label: "Settings",
-    icon: <Settings />,
+    iconActive: <Settings />,
+    iconInactive: <SettingsOutlined />,
     children: [],
     visibility: RouteVisibility.ALWAYS,
   },
