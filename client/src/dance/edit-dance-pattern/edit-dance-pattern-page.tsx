@@ -1,5 +1,5 @@
 import { useParams } from "react-router";
-import { ErrorPage } from "../../common/ErrorPage";
+import { ErrorPage } from "../../common/error-page";
 import { EditDancePatternView } from "./edit-dance-pattern-view";
 
 type RouteParams = {

@@ -1,6 +1,6 @@
 import { useLocation, useNavigate } from "react-router";
-import { ErrorPage } from "../common/ErrorPage";
-import { Loader } from "../common/Loader";
+import { ErrorPage } from "../common/error-page";
+import { Loader } from "../common/loaders";
 import { useAddToFavorites } from "./api/use-add-to-favorites";
 import { useDeleteDancePattern } from "./api/use-delete-dance-pattern";
 import { useGetDance } from "./api/use-get-dance";

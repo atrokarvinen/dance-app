@@ -10,8 +10,8 @@ import {
 } from "@mui/material";
 import _ from "lodash";
 import { SyntheticEvent } from "react";
-import { ErrorPage } from "../common/ErrorPage";
-import { Loader } from "../common/Loader";
+import { ErrorPage } from "../common/error-page";
+import { Loader } from "../common/loaders";
 import {
   onCloseFavorite,
   onOpenFavorite,

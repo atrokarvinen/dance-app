@@ -1,4 +1,4 @@
-import { Box, List, ListItem } from "@mui/material";
+import { Box, List, ListItem, Typography } from "@mui/material";
 import { selectIsAuthenticated } from "../auth/auth-store";
 import { useAppSelector } from "../redux/store";
 import { DancePattern, FavoritePattern } from "./dance";
@@ -29,7 +29,9 @@ export const DancePatternList = ({
   };
 
   if (dancePatterns.length === 0) {
-    return <Box>No dance patterns found</Box>;
+    return (
+      <Typography paragraph>No dance patterns have been added.</Typography>
+    );
   }
   return (
     <Box>

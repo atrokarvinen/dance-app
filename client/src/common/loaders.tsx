@@ -4,7 +4,7 @@ export const Loader = () => {
   return (
     <Container
       sx={{
-        height: "100%",
+        height: "calc(100vh - 60px)",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",

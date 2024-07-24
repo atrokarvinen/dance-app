@@ -6,6 +6,8 @@ type UiState = {
   lightMode: PaletteMode;
   contentScroll: Record<string, number>;
   openFavorites: string[];
+  isDanceEditMode: boolean;
+  isDancePatternEditMode: boolean;
 };
 
 type ScrollPayload = {
@@ -17,6 +19,8 @@ const initialState: UiState = {
   lightMode: "light",
   contentScroll: {},
   openFavorites: [],
+  isDanceEditMode: false,
+  isDancePatternEditMode: false,
 };
 
 const uiStyleSlice = createSlice({
@@ -38,6 +42,12 @@ const uiStyleSlice = createSlice({
         (id) => id !== action.payload
       );
     },
+    onSetDanceEditMode: (state, action: PayloadAction<boolean>) => {
+      state.isDanceEditMode = action.payload;
+    },
+    onSetDancePatternEditMode: (state, action: PayloadAction<boolean>) => {
+      state.isDancePatternEditMode = action.payload;
+    },
   },
 });
 
@@ -46,6 +56,8 @@ export const {
   setContentScroll,
   onCloseFavorite,
   onOpenFavorite,
+  onSetDanceEditMode,
+  onSetDancePatternEditMode,
 } = uiStyleSlice.actions;
 
 export const selectIsDarkMode = (state: RootState) =>
@@ -55,5 +67,9 @@ export const selectContentScroll = (state: RootState) => state.ui.contentScroll;
 export const selectContentScrollOfPage = (path: string) => (state: RootState) =>
   state.ui.contentScroll[path];
 export const selectOpenFavorites = (state: RootState) => state.ui.openFavorites;
+export const selectIsDanceEditMode = (state: RootState) =>
+  state.ui.isDanceEditMode;
+export const selectIsDancePatternEditMode = (state: RootState) =>
+  state.ui.isDancePatternEditMode;
 
 export const uiStyleReducer = uiStyleSlice.reducer;

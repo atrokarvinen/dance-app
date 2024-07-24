@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router";
-import { ErrorPage } from "../../common/ErrorPage";
-import { Loader } from "../../common/Loader";
+import { ErrorPage } from "../../common/error-page";
+import { Loader } from "../../common/loaders";
 import { useGetDancePattern } from "../api/use-get-dance-pattern";
 import { useUpdateDancePattern } from "../api/use-update-dance-pattern";
 import { DancePatternForm } from "./dance-pattern-form";

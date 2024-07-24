@@ -16,7 +16,7 @@ export const AuthPage = () => {
       return;
     }
     login(token);
-    console.log("Login successful, token: ", token);
+    console.log("Login successful.");
     navigate("/");
   };
 

@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router";
 import { selectIsAuthenticated } from "../../auth/auth-store";
-import { ErrorPage } from "../../common/ErrorPage";
-import { Loader } from "../../common/Loader";
+import { ErrorPage } from "../../common/error-page";
+import { Loader } from "../../common/loaders";
 import { useAppSelector } from "../../redux/store";
 import { useAddToFavorites } from "../api/use-add-to-favorites";
 import { useGetDancePattern } from "../api/use-get-dance-pattern";
