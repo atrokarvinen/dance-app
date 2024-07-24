@@ -27,7 +27,13 @@ type UpdateDancePatternMutationResponse = {
 };
 
 type UpdateDancePatternMutationVariables = {
-  input: { id: number; name: string; danceId: number };
+  input: {
+    id: number;
+    name: string;
+    description?: string;
+    videoUrl?: string;
+    danceId: number;
+  };
 };
 
 export const useUpdateDancePattern = () => {

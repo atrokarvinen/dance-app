@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 type Props = {
   viewMode: string;
   isEditMode: boolean;
+  addNewUrl: string;
   onEditModeChange: (mode: boolean) => void;
   onViewModeChange: (mode: string) => void;
 };
@@ -12,6 +13,7 @@ type Props = {
 export const ActionButtons = ({
   viewMode,
   isEditMode,
+  addNewUrl,
   onEditModeChange,
   onViewModeChange,
 }: Props) => {
@@ -28,7 +30,7 @@ export const ActionButtons = ({
       <Stack direction="row" spacing={2}>
         {isEditMode && (
           <IconButton
-            to={"/dances/new"}
+            to={addNewUrl}
             component={Link}
             sx={{ alignSelf: "flex-end" }}
           >

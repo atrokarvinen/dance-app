@@ -27,7 +27,12 @@ type AddDancePatternResponse = {
 };
 
 type AddDancePatternVariables = {
-  input: { name: string; danceId: number };
+  input: {
+    name: string;
+    description?: string;
+    videoUrl?: string;
+    danceId: number;
+  };
 };
 
 export const useAddDancePattern = () => {

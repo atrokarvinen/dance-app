@@ -1,20 +1,22 @@
 import { Box, List, ListItem, Typography } from "@mui/material";
-import { selectIsAuthenticated } from "../auth/auth-store";
-import { useAppSelector } from "../redux/store";
-import { DancePattern, FavoritePattern } from "./dance";
+import { selectIsAuthenticated } from "../../auth/auth-store";
+import { useAppSelector } from "../../redux/store";
+import { DancePattern, FavoritePattern } from "../dance";
 import { DancePatternListItem } from "./dance-pattern-list-item";
 
 type Props = {
   dancePatterns: DancePattern[];
   favorites: FavoritePattern[];
+  isEditMode: boolean;
   onAddToFavorites: (dancePatternId: number) => void;
   onRemoveFromFavorites: (favoriteId: number) => void;
-  onDeletePattern: (id: number) => void;
+  onDeletePattern: (dancePattern: DancePattern) => void;
 };
 
 export const DancePatternList = ({
   dancePatterns,
   favorites,
+  isEditMode,
   onAddToFavorites,
   onRemoveFromFavorites,
   onDeletePattern,
@@ -44,6 +46,7 @@ export const DancePatternList = ({
                 pattern={pattern}
                 favoriteId={favoriteId}
                 isAuthenticated={isAuthenticated}
+                isEditMode={isEditMode}
                 onAddToFavorites={onAddToFavorites}
                 onRemoveFromFavorites={onRemoveFromFavorites}
                 onDeletePattern={onDeletePattern}

@@ -27,6 +27,8 @@ export const EditDancePatternView = ({ danceId, dancePatternId }: Props) => {
     const created = await updateDancePattern({
       id: dancePatternId,
       name: values.name,
+      description: values.description,
+      videoUrl: values.videoUrl,
       danceId: danceId,
     });
     if (!created) return;

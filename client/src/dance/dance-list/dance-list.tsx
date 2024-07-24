@@ -14,14 +14,14 @@ import { Dance } from "../dance";
 import { ActionButtons } from "./action-buttons";
 import { DanceListGridView } from "./dance-list-grid-view";
 import { DanceListView } from "./dance-list-view";
-import { usePreferredViewMode } from "./use-preferred-view-mode";
+import { Page, usePreferredViewMode } from "./use-preferred-view-mode";
 
 export const DanceList = () => {
   const dispatch = useAppDispatch();
   const { error, loading, dances } = useGetDances();
   const { deleteDance } = useDeleteDance();
   const isEditMode = useAppSelector(selectIsDanceEditMode);
-  const { viewMode, setViewMode } = usePreferredViewMode();
+  const { viewMode, setViewMode } = usePreferredViewMode(Page.DANCE);
   const [confirmDeleteVisible, setConfirmDeleteVisible] = useState(false);
   const [selectedDance, setSelectedDance] = useState<Dance>();
 
@@ -61,6 +61,7 @@ export const DanceList = () => {
       <ActionButtons
         viewMode={viewMode}
         isEditMode={isEditMode}
+        addNewUrl="/dances/new"
         onEditModeChange={setEditMode}
         onViewModeChange={setViewMode}
       />

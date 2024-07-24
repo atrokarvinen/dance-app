@@ -2,7 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import { App } from "./App";
 import { AuthPage } from "./auth/auth-page";
 import { SignupView } from "./auth/signup-view";
-import { DanceDetailsPage } from "./dance/dance-details-page";
+import { DanceDetailsPage } from "./dance/dance-details/dance-details-page";
 import { DanceList } from "./dance/dance-list/dance-list";
 import { DancePatternDetailsPage } from "./dance/dance-pattern-details/dance-pattern-details-page";
 import { AddDancePatternPage } from "./dance/edit-dance-pattern/add-dance-pattern-page";

@@ -21,6 +21,8 @@ export const AddDancePatternPage = () => {
     const danceId = parseInt(danceIdStr);
     const created = await addDancePattern({
       name: values.name,
+      description: values.description,
+      videoUrl: values.videoUrl,
       danceId: danceId,
     });
     if (!created) return;

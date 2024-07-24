@@ -11,12 +11,16 @@ public class DancePatternMutation
     public DancePattern AddDancePattern(
         [Service] DancePatternRepository repository,
         string name,
+        string? description,
+        string? videoUrl,
         [ID] int danceId
         )
     {
         var dancePattern = new DancePattern
         {
             Name = name,
+            Description = description ?? "",
+            VideoUrl = videoUrl,
             DanceId = danceId,
         };
         repository.AddDancePattern(dancePattern);
@@ -28,6 +32,8 @@ public class DancePatternMutation
         [Service] DancePatternRepository repository,
         [ID] int id,
         string name,
+        string? description,
+        string? videoUrl,
         [ID] int danceId
         )
     {
@@ -35,6 +41,8 @@ public class DancePatternMutation
         {
             Id = id,
             Name = name,
+            Description = description ?? "",
+            VideoUrl = videoUrl,
             DanceId = danceId,
         };
         repository.UpdateDancePattern(dancePattern);
