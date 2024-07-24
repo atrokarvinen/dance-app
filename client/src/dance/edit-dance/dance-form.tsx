@@ -9,13 +9,13 @@ import {
 } from "@mui/material";
 import { FormEvent } from "react";
 import { useForm } from "react-hook-form";
-import { DanceFormType } from "./dance-form-type";
+import { DanceFormType, DanceFormValues } from "./dance-form-type";
 import { validationSchema } from "./validation";
 
 type Props = {
   defaultValues?: DanceFormType;
   onCancel: () => void;
-  onSubmit: (values: DanceFormType) => void;
+  onSubmit: (values: DanceFormValues) => void;
   submitting: boolean;
 };
 
@@ -36,8 +36,35 @@ export const DanceForm = ({
 
   const submitHandler = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    handleSubmit(onSubmit)();
+    handleSubmit(async (data) => {
+      const files = data.image as any;
+      let imageBase64: string | undefined;
+      if (files.length > 0) {
+        const file = files[0];
+        imageBase64 = await fileToBase64(file);
+      }
+
+      const processedData: DanceFormValues = {
+        name: data.name,
+        imageBase64: imageBase64,
+      };
+      onSubmit(processedData);
+    })();
   };
+
+  const fileToBase64 = (file: File) =>
+    new Promise<string>((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        if (typeof reader.result !== "string") {
+          resolve("N/A");
+          return;
+        }
+        resolve(reader.result);
+      };
+      reader.onerror = reject;
+    });
 
   const isEdit = !!defaultValues;
   const title = isEdit ? "Edit dance" : "Create new dance";
@@ -56,6 +83,7 @@ export const DanceForm = ({
             helperText={errors.name?.message ?? " "}
             {...register("name")}
           />
+          <input type="file" accept="image/*" {...register("image")} />
           <Stack direction="row" spacing={2} sx={{ alignSelf: "flex-end" }}>
             <Button variant="outlined" disabled={submitting} onClick={onCancel}>
               Cancel

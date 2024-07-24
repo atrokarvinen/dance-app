@@ -1,6 +1,7 @@
 using DanceApp.Config;
 using DanceApp.Extensions;
 using DanceApp.Queries;
+using DanceApp.Services;
 using Dataprovider;
 using Dataprovider.Repositories;
 using Dataprovider.Services;
@@ -16,8 +17,10 @@ builder.Configuration
     .AddEnvironmentVariables();
 
 builder.Services.Configure<AuthConfig>(builder.Configuration.GetSection("Auth"));
+builder.Services.Configure<BlobConfig>(builder.Configuration.GetSection("Blob"));
 builder.Services.AddOptions();
 builder.Services.AddControllers();
+builder.Services.AddHttpClient();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.AddAuth();
@@ -26,6 +29,7 @@ builder.Services.AddScoped<DanceRepository>();
 builder.Services.AddScoped<DancePatternRepository>();
 builder.Services.AddScoped<FavoritesRepository>();
 builder.Services.AddScoped<FavoritesService>();
+builder.Services.AddScoped<BlobService>();
 builder.Services
     .AddGraphQLServer()
     .AddAuthorization()
@@ -40,6 +44,7 @@ builder.Services
     .AddType<DancePatternMutation>()
     .AddType<FavoritesQuery>()
     .AddType<FavoritesMutation>()
+    .AddType<UploadType>()
     .AddMutationConventions()
     ;
 

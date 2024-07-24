@@ -1,4 +1,5 @@
-﻿using Dataprovider.Exceptions;
+﻿using DanceApp.Services;
+using Dataprovider.Exceptions;
 using Dataprovider.Models;
 using Dataprovider.Repositories;
 
@@ -7,8 +8,16 @@ namespace DanceApp.Queries;
 [ExtendObjectType("Mutation")]
 public class DanceMutation
 {
-    public Dance AddDance([Service] DanceRepository repository, string name)
+    public async Task<Dance> AddDance(
+        [Service] DanceRepository repository,
+        [Service] BlobService blobService,
+        string name, 
+        string? imageBase64)
     {
+        // TODO upload image to blob storage
+        //var blob = await blobService.Upload($"Dance_{name}", imageBase64);
+        await Task.CompletedTask;
+
         var dance = new Dance { Name = name };
         repository.AddDance(dance);
         return dance;
