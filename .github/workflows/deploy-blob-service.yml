@@ -1,4 +1,4 @@
-name: Backend Deploy Fly io
+name: Blob service Deploy Fly io
 on:
   push:
     branches: [master]
