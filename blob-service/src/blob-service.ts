@@ -6,7 +6,6 @@ export class BlobService {
 
   constructor() {
     const token = process.env.BLOB_READ_WRITE_TOKEN;
-    console.log("token:", token);
     if (!token) {
       throw new Error("BLOB_READ_WRITE_TOKEN is not set");
     }

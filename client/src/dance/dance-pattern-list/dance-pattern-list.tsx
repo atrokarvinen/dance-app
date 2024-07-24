@@ -37,7 +37,7 @@ export const DancePatternList = ({
   }
   return (
     <Box>
-      <List>
+      <List dense>
         {dancePatterns.map((pattern) => {
           const favoriteId = getFavoriteId(pattern);
           return (
