@@ -10,12 +10,13 @@ type Props = {
 
 export const FavoriteListItem = ({ favorite, onRemoveFavorite }: Props) => {
   const { dancePatternId, dancePattern, displayName } = favorite;
+  const { danceId } = dancePattern;
   return (
     <Box width="100%">
       <Stack direction="row">
         <Button
           variant="contained"
-          to={`/dance-patterns/${dancePatternId}`}
+          to={`/dances/${danceId}/dance-patterns/${dancePatternId}`}
           state={{ returnUrl: "/favorites" }}
           component={Link}
           sx={{ flex: 1 }}

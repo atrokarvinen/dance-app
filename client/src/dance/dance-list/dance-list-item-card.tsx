@@ -40,8 +40,6 @@ export const DanceListItemCard = ({ isEditMode, dance, onDelete }: Props) => {
             padding: 1,
           }}
           image={dance.imageUrl ?? defaultUrl}
-          // image="https://i3.ytimg.com/vi/JMdAFjjxus8/hqdefault.jpg"
-          // image="https://www.dance-pizazz.com/wp-content/uploads/2024/01/Waltz-scaled.jpg"
           title="dance"
         />
       </CardContent>

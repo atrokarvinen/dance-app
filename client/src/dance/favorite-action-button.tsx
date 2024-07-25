@@ -18,5 +18,15 @@ export const FavoriteActionButton = ({
   const icon = isFavorite ? <Favorite /> : <FavoriteBorder />;
   const action = isFavorite ? removeFromFavorites : addToFavorites;
   const id = favoriteId ?? dancePatternId;
-  return <IconButton onClick={() => action(id)}>{icon}</IconButton>;
+  return (
+    <IconButton
+      onClick={(e) => {
+        action(id);
+        e.stopPropagation();
+        e.preventDefault();
+      }}
+    >
+      {icon}
+    </IconButton>
+  );
 };

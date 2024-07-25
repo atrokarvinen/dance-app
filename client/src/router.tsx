@@ -47,7 +47,7 @@ export const browserRouter = createBrowserRouter([
         element: <EditDancePatternPage />,
       },
       {
-        path: "/dance-patterns/:dancePatternId",
+        path: "dances/:danceId/dance-patterns/:dancePatternId",
         element: <DancePatternDetailsPage />,
       },
       {

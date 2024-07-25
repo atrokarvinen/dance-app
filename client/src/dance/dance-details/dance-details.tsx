@@ -54,6 +54,7 @@ export const DanceDetails = ({
         dancePatterns={dance.dancePatterns}
         favorites={favorites}
         isEditMode={isEditMode}
+        viewMode={viewMode}
         onAddToFavorites={onAddToFavorites}
         onRemoveFromFavorites={onRemoveFromFavorites}
         onDeletePattern={onDeletePattern}

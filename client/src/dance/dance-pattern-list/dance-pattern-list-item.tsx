@@ -29,7 +29,7 @@ export const DancePatternListItem = ({
       <Stack direction="row">
         <Button
           component={Link}
-          to={`/dance-patterns/${id}`}
+          to={`/dances/${danceId}/dance-patterns/${id}`}
           variant="contained"
           state={{ returnUrl: `/dances/${danceId}` }}
           sx={{ flex: 1 }}

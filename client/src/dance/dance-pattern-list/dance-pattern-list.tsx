@@ -1,13 +1,13 @@
-import { Box, List, ListItem, Typography } from "@mui/material";
-import { selectIsAuthenticated } from "../../auth/auth-store";
-import { useAppSelector } from "../../redux/store";
+import { Typography } from "@mui/material";
 import { DancePattern, FavoritePattern } from "../dance";
-import { DancePatternListItem } from "./dance-pattern-list-item";
+import { DancePatternGridView } from "./dance-pattern-grid-view";
+import { DancePatternListView } from "./dance-pattern-list-view";
 
 type Props = {
   dancePatterns: DancePattern[];
   favorites: FavoritePattern[];
   isEditMode: boolean;
+  viewMode: string;
   onAddToFavorites: (dancePatternId: number) => void;
   onRemoveFromFavorites: (favoriteId: number) => void;
   onDeletePattern: (dancePattern: DancePattern) => void;
@@ -17,44 +17,36 @@ export const DancePatternList = ({
   dancePatterns,
   favorites,
   isEditMode,
+  viewMode,
   onAddToFavorites,
   onRemoveFromFavorites,
   onDeletePattern,
 }: Props) => {
-  const isAuthenticated = useAppSelector(selectIsAuthenticated);
-
-  const getFavoriteId = (pattern: DancePattern) => {
-    const favorite = favorites.find(
-      (favorite) => favorite.dancePatternId === pattern.id
-    );
-    return favorite?.id;
-  };
-
+  const isListView = viewMode === "list";
   if (dancePatterns.length === 0) {
     return (
       <Typography paragraph>No dance patterns have been added.</Typography>
     );
   }
+  if (isListView)
+    return (
+      <DancePatternListView
+        dancePatterns={dancePatterns}
+        favorites={favorites}
+        isEditMode={isEditMode}
+        onAddToFavorites={onAddToFavorites}
+        onRemoveFromFavorites={onRemoveFromFavorites}
+        onDeletePattern={onDeletePattern}
+      />
+    );
   return (
-    <Box>
-      <List dense>
-        {dancePatterns.map((pattern) => {
-          const favoriteId = getFavoriteId(pattern);
-          return (
-            <ListItem key={pattern.id}>
-              <DancePatternListItem
-                pattern={pattern}
-                favoriteId={favoriteId}
-                isAuthenticated={isAuthenticated}
-                isEditMode={isEditMode}
-                onAddToFavorites={onAddToFavorites}
-                onRemoveFromFavorites={onRemoveFromFavorites}
-                onDeletePattern={onDeletePattern}
-              />
-            </ListItem>
-          );
-        })}
-      </List>
-    </Box>
+    <DancePatternGridView
+      dancePatterns={dancePatterns}
+      favorites={favorites}
+      isEditMode={isEditMode}
+      onAddToFavorites={onAddToFavorites}
+      onRemoveFromFavorites={onRemoveFromFavorites}
+      onDeletePattern={onDeletePattern}
+    />
   );
 };

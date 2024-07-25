@@ -34,10 +34,9 @@ export const DanceList = () => {
 
   const handleConfirmDelete = async () => {
     if (!selectedDance) return;
-    const result = await deleteDance(selectedDance.id);
-    if (!result) return;
     setConfirmDeleteVisible(false);
     setSelectedDance(undefined);
+    await deleteDance(selectedDance.id);
   };
 
   const setEditMode = (mode: boolean) => {
