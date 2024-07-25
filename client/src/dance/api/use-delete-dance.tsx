@@ -15,6 +15,9 @@ const mutation = gql`
         ... on NotFoundError {
           message
         }
+        ... on BlobError {
+          message
+        }
       }
     }
   }

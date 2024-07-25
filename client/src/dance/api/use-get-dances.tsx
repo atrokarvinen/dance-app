@@ -6,6 +6,7 @@ const query = gql`
     dances {
       id
       name
+      imageUrl
       dancePatterns {
         id
         name

@@ -31,6 +31,7 @@ public class DanceRepository(ILogger<DanceRepository> _logger, DatabaseContext _
         return _context.Dances
             .Include(d => d.DancePatterns)
                 .ThenInclude(dp => dp.Variations)
+            .AsNoTracking()
             .FirstOrDefault(d => d.Id == id);
     }
 

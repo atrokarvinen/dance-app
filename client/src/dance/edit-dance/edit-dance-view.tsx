@@ -4,7 +4,7 @@ import { Loader } from "../../common/loaders";
 import { useGetDance } from "../api/use-get-dance";
 import { useUpdateDance } from "../api/use-update-dance";
 import { DanceForm } from "./dance-form";
-import { DanceFormType } from "./dance-form-type";
+import { DanceFormType, DanceFormValues } from "./dance-form-type";
 
 type Props = {
   danceId: number;
@@ -15,8 +15,13 @@ export const EditDanceView = ({ danceId }: Props) => {
   const { updateDance, loading: submitting } = useUpdateDance();
   const navigate = useNavigate();
 
-  const handleUpdateDance = async (values: DanceFormType) => {
-    const result = await updateDance({ id: danceId, name: values.name });
+  const handleUpdateDance = async (values: DanceFormValues) => {
+    const result = await updateDance({
+      id: danceId,
+      name: values.name,
+      imageBase64: values.imageBase64,
+      imageUrl: values.imageUrl,
+    });
     if (!result) return;
     navigate("/");
   };
@@ -25,7 +30,10 @@ export const EditDanceView = ({ danceId }: Props) => {
   if (error) return <ErrorPage message={error.message} />;
   if (!dance) return <ErrorPage message="Dance not found" />;
 
-  const defaultValues: DanceFormType = { name: dance.name };
+  const defaultValues: DanceFormType = {
+    name: dance.name,
+    imageUrl: dance.imageUrl ?? "",
+  };
   return (
     <DanceForm
       onCancel={() => navigate("/")}

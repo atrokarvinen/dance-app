@@ -1,64 +1,49 @@
-import { NextFunction, Request, Response } from "express";
+import { PutBlobResult } from "@vercel/blob";
+import { Request, Response } from "express";
 import { BlobService } from "./blob-service";
+import { base64ToBlob } from "./utils";
 
-export const uploadBlob = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  try {
-    const { name, fileBase64 } = req.body;
+export class BlobController {
+  blobService: BlobService;
 
-    console.log("name:", name);
-    console.log("fileBase64:", fileBase64);
-
-    const file = await base64ToBlob(fileBase64);
-
-    console.log("file:", file);
-
-    const service = new BlobService();
-    const blob = await service.uploadBlob(name, file);
-    return res.json({ message: "success", blob });
-  } catch (error) {
-    return next(error);
+  constructor() {
+    this.blobService = new BlobService();
   }
-};
 
-const base64ToBlob = async (base64: string) => {
-  const blob = await fetch(base64)
-    .then((res) => res.blob())
-    .then((blob) => {
-      console.log("blob:", blob);
-      return blob;
-    });
-  return blob;
-};
+  uploadBlob = async (req: Request, res: Response) => {
+    let errorMessage: string | undefined;
+    let blob: PutBlobResult | undefined;
+    try {
+      const { name, fileBase64 } = req.body;
 
-export const uploadBlobTest = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  try {
-    const service = new BlobService();
-    const blob = await service.uploadBlobTest();
-    return res.json({ message: "success", blob: blob });
-  } catch (error) {
-    return next(error);
-  }
-};
+      console.log("Name:", name);
+      console.log("FileBase64 start:", fileBase64?.slice(0, 10));
+      if (!name) throw new Error("File name is required");
+      if (!fileBase64) throw new Error("FileBase64 is required");
 
-export const deleteBlob = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  try {
-    const { url } = req.body;
-    const service = new BlobService();
-    await service.deleteBlob(url);
-    return res.json({ message: "success" });
-  } catch (error) {
-    return next(error);
-  }
-};
+      const file = await base64ToBlob(fileBase64);
+
+      console.log(`File size: ${file.size} bytes`);
+
+      blob = await this.blobService.uploadBlob(name, file);
+    } catch (error: any) {
+      console.log("Error uploading blob:", error);
+      console.log("message:", error.message);
+      errorMessage = error.message;
+    }
+
+    return res.json({ ...blob, error: errorMessage });
+  };
+
+  deleteBlob = async (req: Request, res: Response) => {
+    let errorMessage: string | undefined;
+    try {
+      const { url } = req.body;
+      await this.blobService.deleteBlob(url);
+    } catch (error: any) {
+      console.log("Error deleting blob:", error);
+      errorMessage = error.message;
+    }
+    return res.json({ error: errorMessage });
+  };
+}

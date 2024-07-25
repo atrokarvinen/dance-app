@@ -20,6 +20,9 @@ type Props = {
 export const DanceListItemCard = ({ isEditMode, dance, onDelete }: Props) => {
   const navigate = useNavigate();
 
+  const defaultUrl =
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTw_HeSzHfBorKS4muw4IIeVvvRgnhyO8Gn8w&s";
+
   return (
     <Card
       sx={{
@@ -36,7 +39,7 @@ export const DanceListItemCard = ({ isEditMode, dance, onDelete }: Props) => {
             backgroundSize: "contain",
             padding: 1,
           }}
-          image="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTw_HeSzHfBorKS4muw4IIeVvvRgnhyO8Gn8w&s"
+          image={dance.imageUrl ?? defaultUrl}
           // image="https://i3.ytimg.com/vi/JMdAFjjxus8/hqdefault.jpg"
           // image="https://www.dance-pizazz.com/wp-content/uploads/2024/01/Waltz-scaled.jpg"
           title="dance"

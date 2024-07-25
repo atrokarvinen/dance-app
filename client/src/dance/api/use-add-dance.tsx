@@ -1,4 +1,6 @@
 import { gql, useMutation } from "@apollo/client";
+import { getErrorMessage } from "../../common/api/error-handling";
+import { ApiError } from "../../common/api/models";
 import { addMessage } from "../../common/toast/toast-store";
 import { useAppDispatch } from "../../redux/store";
 
@@ -9,21 +11,27 @@ const mutation = gql`
         id
         name
       }
+      errors {
+        ... on BlobError {
+          message
+        }
+      }
     }
   }
 `;
 
 type AddDanceMutationResponse = {
-  __typename: string;
   addDance: {
-    __typename: string;
-    dance: { __typename: string; id: number; name: string } | null;
+    dance: { id: number; name: string } | null;
+    errors: ApiError[] | null;
   };
 };
 
 type AddDanceMutationVariables = {
   input: {
     name: string;
+    imageBase64?: string;
+    imageUrl?: string;
   };
 };
 
@@ -40,7 +48,7 @@ export const useAddDance = () => {
       const { data } = await mutationFunc({
         variables: { input: values },
         update: (cache, { data }) => {
-          if (!data) return;
+          if (!data || !data.addDance.dance) return;
           cache.modify({
             fields: {
               dances(existingDances = []) {
@@ -60,6 +68,11 @@ export const useAddDance = () => {
         },
       });
       if (!data) throw new Error("No data returned");
+      const errorMessage = getErrorMessage(data.addDance.errors);
+      if (errorMessage) {
+        dispatch(addMessage({ type: "error", message: errorMessage }));
+        return;
+      }
       return data.addDance.dance;
     } catch (error) {
       errorMessage = error;

@@ -1,15 +1,20 @@
 import { zodResolver } from "@hookform/resolvers/zod";
+import { CloudUpload, Delete } from "@mui/icons-material";
 import {
   Box,
   Button,
   CircularProgress,
+  Divider,
+  IconButton,
   Stack,
   TextField,
   Typography,
 } from "@mui/material";
-import { FormEvent } from "react";
+import { FormEvent, useState } from "react";
 import { useForm } from "react-hook-form";
 import { DanceFormType, DanceFormValues } from "./dance-form-type";
+import { ImagePreview } from "./image-preview";
+import { preprocessFileList } from "./preprocess-image";
 import { validationSchema } from "./validation";
 
 type Props = {
@@ -25,10 +30,14 @@ export const DanceForm = ({
   onSubmit,
   submitting,
 }: Props) => {
+  const [preprocessing, setPreprocessing] = useState(false);
+
   const {
     register,
     formState: { errors },
     handleSubmit,
+    watch,
+    setValue,
   } = useForm({
     defaultValues,
     resolver: zodResolver(validationSchema),
@@ -37,37 +46,30 @@ export const DanceForm = ({
   const submitHandler = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     handleSubmit(async (data) => {
-      const files = data.image as any;
       let imageBase64: string | undefined;
-      if (files.length > 0) {
-        const file = files[0];
-        imageBase64 = await fileToBase64(file);
+      try {
+        setPreprocessing(true);
+        imageBase64 = await preprocessFileList(data.image);
+      } finally {
+        setPreprocessing(false);
       }
 
       const processedData: DanceFormValues = {
         name: data.name,
         imageBase64: imageBase64,
+        imageUrl: data.imageUrl,
       };
       onSubmit(processedData);
     })();
   };
 
-  const fileToBase64 = (file: File) =>
-    new Promise<string>((resolve, reject) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => {
-        if (typeof reader.result !== "string") {
-          resolve("N/A");
-          return;
-        }
-        resolve(reader.result);
-      };
-      reader.onerror = reject;
-    });
-
   const isEdit = !!defaultValues;
   const title = isEdit ? "Edit dance" : "Create new dance";
+  const files = watch("image");
+  const fileName = files && files.length > 0 ? files[0].name : undefined;
+  const imageUrl = watch("imageUrl");
+
+  const isBusy = preprocessing || submitting;
 
   return (
     <Box>
@@ -83,17 +85,59 @@ export const DanceForm = ({
             helperText={errors.name?.message ?? " "}
             {...register("name")}
           />
-          <input type="file" accept="image/*" {...register("image")} />
+          <Button
+            component="label"
+            role={undefined}
+            variant="contained"
+            tabIndex={-1}
+            sx={{ alignSelf: "flex-start" }}
+            startIcon={<CloudUpload />}
+          >
+            Upload file
+            <input
+              {...register("image")}
+              type="file"
+              accept="image/*"
+              style={{
+                clip: "rect(0 0 0 0)",
+                clipPath: "inset(50%)",
+                height: 1,
+                overflow: "hidden",
+                position: "absolute",
+                bottom: 0,
+                left: 0,
+                whiteSpace: "nowrap",
+                width: 1,
+              }}
+            />
+          </Button>
+          <TextField
+            label="File name"
+            value={fileName ?? " "}
+            disabled
+            InputProps={{
+              endAdornment: (
+                <IconButton onClick={() => setValue("image", undefined)}>
+                  <Delete />
+                </IconButton>
+              ),
+            }}
+          />
+          <Divider>Or</Divider>
+          <TextField
+            label="Image URL"
+            variant="outlined"
+            error={!!errors.imageUrl}
+            helperText={errors.imageUrl?.message ?? " "}
+            {...register("imageUrl")}
+          />
+          <ImagePreview files={files} imageUrl={imageUrl} />
           <Stack direction="row" spacing={2} sx={{ alignSelf: "flex-end" }}>
-            <Button variant="outlined" disabled={submitting} onClick={onCancel}>
+            <Button variant="outlined" disabled={isBusy} onClick={onCancel}>
               Cancel
             </Button>
-            <Button variant="contained" type="submit" disabled={submitting}>
-              {submitting ? (
-                <CircularProgress size={24} />
-              ) : (
-                <span>Submit</span>
-              )}
+            <Button variant="contained" type="submit" disabled={isBusy}>
+              {isBusy ? <CircularProgress size={24} /> : <span>Submit</span>}
             </Button>
           </Stack>
         </Stack>
