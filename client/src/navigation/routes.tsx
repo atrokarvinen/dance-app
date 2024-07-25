@@ -44,7 +44,7 @@ export const routes: LinkType[] = [
   },
   {
     href: "/auth",
-    label: "Auth",
+    label: "Profile",
     iconActive: <Person />,
     iconInactive: <PersonOutline />,
     children: ["/auth/signup"],
