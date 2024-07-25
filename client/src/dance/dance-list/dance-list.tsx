@@ -32,9 +32,10 @@ export const DanceList = () => {
     setConfirmDeleteVisible(true);
   };
 
-  const handleConfirmDelete = () => {
+  const handleConfirmDelete = async () => {
     if (!selectedDance) return;
-    deleteDance(selectedDance.id);
+    const result = await deleteDance(selectedDance.id);
+    if (!result) return;
     setConfirmDeleteVisible(false);
     setSelectedDance(undefined);
   };

@@ -1,8 +1,8 @@
 import express from "express";
 
-import cors from "cors";
 import { config } from "dotenv";
 import { getBlobRouter } from "./blob-router";
+import { authMiddleware } from "./middleware/authMiddleware";
 
 const isDev = process.env.NODE_ENV?.trim() === "development";
 console.log("isDev:", isDev);
@@ -12,26 +12,13 @@ config({ path: isDev ? ".env.local" : ".env" });
 
 const app = express();
 
-app.use(
-  cors({
-    origin: ["http://localhost:5173/", "https://example.com"],
-  })
-);
-app.use((req, res, next) => {
-  const host = req.get("host");
-  const origin = req.get("origin");
-
-  console.log("host:", host);
-  console.log("origin:", origin);
-  return next();
-});
 app.use(express.json({ limit: "2mb" }));
 
 app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
-app.use("/blobs", getBlobRouter());
+app.use("/blobs", authMiddleware, getBlobRouter());
 
 app.listen(3000, () => {
   console.log("App running");

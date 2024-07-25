@@ -75,7 +75,7 @@ export const useDeleteDance = () => {
 
       console.log("Deleted dance", data.deleteDance.dance?.name);
 
-      return data.deleteDance.dance;
+      return data.deleteDance.dance?.name;
     } catch (error) {
       errorMessage = error;
     }

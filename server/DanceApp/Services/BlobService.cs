@@ -15,12 +15,9 @@ public class BlobService(ILogger<BlobService> _logger, IHttpClientFactory _clien
 
         try
         {
+            ValidateOptions();
             string baseUrl = _options.Value.ServiceUrl;
-            if (string.IsNullOrEmpty(baseUrl))
-            {
-                throw new Exception("Blob service URL is not set.");
-            }
-            _logger.LogInformation("Sending request to: '{url}'", baseUrl);
+            string apiKey = _options.Value.ApiKey;
 
             string url = new Uri(new Uri(baseUrl), "blobs").ToString();
             var request = new BlobUploadRequest(
@@ -28,6 +25,7 @@ public class BlobService(ILogger<BlobService> _logger, IHttpClientFactory _clien
                 FileBase64: fileBase64
             );
             var client = _clientFactory.CreateClient();
+            client.DefaultRequestHeaders.Add("Authorization", $"Bearer {apiKey}");
             var result = await client.PostAsJsonAsync(url, request);
 
             if (result.StatusCode == HttpStatusCode.NotFound)
@@ -75,16 +73,14 @@ public class BlobService(ILogger<BlobService> _logger, IHttpClientFactory _clien
 
         try
         {
+            ValidateOptions();
             string baseUrl = _options.Value.ServiceUrl;
-            if (string.IsNullOrEmpty(baseUrl))
-            {
-                throw new Exception("Blob service URL is not set.");
-            }
-            _logger.LogInformation("Sending request to: '{url}'", baseUrl);
+            string apiKey = _options.Value.ApiKey;
 
             string url = new Uri(new Uri(baseUrl), "blobs/delete").ToString();
             var request = new BlobDeleteRequest(blobUrl);
             var client = _clientFactory.CreateClient();
+            client.DefaultRequestHeaders.Add("Authorization", $"Bearer {apiKey}");
             var result = await client.PostAsJsonAsync(url, request);
 
             var content = await result.Content.ReadAsStringAsync();
@@ -101,6 +97,10 @@ public class BlobService(ILogger<BlobService> _logger, IHttpClientFactory _clien
             {
                 throw new BlobException($"Failed to delete blob: {response.Error}");
             }
+            if (!result.IsSuccessStatusCode)
+            {
+                throw new BlobException($"Failed to delete blob: {result.StatusCode}");
+            }
 
             _logger.LogInformation("Blob deleted successfully.");
         }
@@ -112,6 +112,22 @@ public class BlobService(ILogger<BlobService> _logger, IHttpClientFactory _clien
         {
             _logger.LogError(ex, "Error deleting blob.");
             throw new BlobException("Failed to delete blob");
+        }
+    }
+
+    private void ValidateOptions()
+    {
+        if (_options.Value is null)
+        {
+            throw new Exception("Blob service options are not set.");
+        }
+        if (string.IsNullOrEmpty(_options.Value.ServiceUrl))
+        {
+            throw new Exception("Blob service URL is not set.");
+        }
+        if (string.IsNullOrEmpty(_options.Value.ApiKey))
+        {
+            throw new Exception("Blob service API key is not set.");
         }
     }
 }
