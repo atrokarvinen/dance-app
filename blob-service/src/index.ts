@@ -1,5 +1,6 @@
 import express from "express";
 
+import cors from "cors";
 import { config } from "dotenv";
 import { getBlobRouter } from "./blob-router";
 
@@ -11,6 +12,11 @@ config({ path: isDev ? ".env.local" : ".env" });
 
 const app = express();
 
+app.use(
+  cors({
+    origin: "http://localhost:5173/",
+  })
+);
 app.use(express.json({ limit: "2mb" }));
 
 app.get("/", (req, res) => {
