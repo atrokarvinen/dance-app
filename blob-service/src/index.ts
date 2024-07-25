@@ -14,9 +14,17 @@ const app = express();
 
 app.use(
   cors({
-    origin: "http://localhost:5173/",
+    origin: ["http://localhost:5173/", "https://example.com"],
   })
 );
+app.use((req, res, next) => {
+  const host = req.get("host");
+  const origin = req.get("origin");
+
+  console.log("host:", host);
+  console.log("origin:", origin);
+  return next();
+});
 app.use(express.json({ limit: "2mb" }));
 
 app.get("/", (req, res) => {
