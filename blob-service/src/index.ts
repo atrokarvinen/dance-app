@@ -20,5 +20,5 @@ app.get("/", (req, res) => {
 app.use("/blobs", getBlobRouter());
 
 app.listen(3000, () => {
-  console.log("app running");
+  console.log("App running");
 });

@@ -49,6 +49,10 @@ public class BlobService(ILogger<BlobService> _logger, IHttpClientFactory _clien
             {
                 throw new BlobException($"Failed to delete blob: {response.Error}");
             }
+            if (string.IsNullOrEmpty(response.Url))
+            {
+                throw new BlobException("Failed to upload blob: Return blob URL is null or empty");
+            }
 
             _logger.LogInformation("Blob uploaded successfully.");
 

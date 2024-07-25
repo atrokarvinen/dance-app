@@ -9,7 +9,7 @@ jobs:
   deploy:
     defaults:
       run:
-        working-directory: ./server
+        working-directory: ./blob-service
     name: Deploy app
     runs-on: ubuntu-latest
     concurrency: deploy-group
