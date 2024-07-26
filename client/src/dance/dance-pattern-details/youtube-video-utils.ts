@@ -1,6 +1,12 @@
 export const parseYoutubeId = (url: string) => {
   const urlParams = new URLSearchParams(url.split("?")[1]);
   const embedId = urlParams.get("v");
+  return embedId;
+};
+
+export const parseYoutubeUrl = (url: string) => {
+  const embedId = parseYoutubeId(url);
+  const urlParams = new URLSearchParams(url.split("?")[1]);
   const start = urlParams.get("t");
 
   if (start) {
