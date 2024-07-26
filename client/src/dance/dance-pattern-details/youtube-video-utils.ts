@@ -4,8 +4,12 @@ export const parseYoutubeId = (url: string) => {
   const start = urlParams.get("t");
 
   if (start) {
-    const trimmedStart = start.replace("s", "");
-    return `${embedId}?start=${trimmedStart}`;
+    const minutes = start.match(/\d+m/g);
+    const seconds = start.match(/\d+s/g);
+    const totalMinutes = minutes ? parseInt(minutes[0].slice(0, -1)) : 0;
+    const totalSeconds = seconds ? parseInt(seconds[0].slice(0, -1)) : 0;
+    const time = totalMinutes * 60 + totalSeconds;
+    return `${embedId}?start=${time}`;
   }
   return embedId;
 };
