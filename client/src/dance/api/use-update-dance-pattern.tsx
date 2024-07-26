@@ -10,6 +10,8 @@ const mutation = gql`
       dancePattern {
         id
         name
+        description
+        videoUrl
       }
     }
   }
@@ -21,6 +23,8 @@ type UpdateDancePatternMutationResponse = {
       id: number;
       __typename: "DancePattern";
       name: string;
+      description?: string;
+      videoUrl?: string;
     } | null;
     errors: ApiError[] | null;
   };
@@ -52,30 +56,11 @@ export const useUpdateDancePattern = () => {
             __typename: "DancePattern",
             id: values.id,
             name: values.name,
+            description: values.description,
+            videoUrl: values.videoUrl,
           },
           errors: null,
         },
-      },
-      update: (cache, { data }) => {
-        if (!data) return;
-        cache.modify({
-          fields: {
-            dancePatterns(existingDancePatterns = []) {
-              const newDancePatternRef = cache.writeFragment({
-                data: data.updateDancePattern.dancePattern,
-                fragment: gql`
-                  fragment NewDancePattern on DancePattern {
-                    id
-                    name
-                  }
-                `,
-              });
-              return existingDancePatterns.map((ref: any) =>
-                ref.id === values.id ? newDancePatternRef : ref
-              );
-            },
-          },
-        });
       },
     });
   };

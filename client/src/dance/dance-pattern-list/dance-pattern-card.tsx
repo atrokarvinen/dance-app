@@ -36,7 +36,7 @@ export const DancePatternCard = ({
   const navigate = useNavigate();
 
   return (
-    <Card>
+    <Card sx={{ height: "100%" }}>
       <CardHeader
         title={
           <Stack direction="row" justifyContent="space-between">

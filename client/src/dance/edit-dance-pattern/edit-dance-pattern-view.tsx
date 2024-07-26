@@ -41,7 +41,10 @@ export const EditDancePatternView = ({ danceId, dancePatternId }: Props) => {
 
   return (
     <DancePatternForm
-      defaultValues={defaultValues}
+      defaultValues={{
+        ...defaultValues,
+        description: defaultValues.description || "",
+      }}
       onCancel={() => navigate(returnUrl)}
       onSubmit={handleSubmit}
       submitting={submitting}
