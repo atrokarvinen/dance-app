@@ -4,14 +4,23 @@ export const parseYoutubeId = (url: string) => {
   const start = urlParams.get("t");
 
   if (start) {
-    const minutes = start.match(/\d+m/g);
-    const seconds = start.match(/\d+s/g);
-    const totalMinutes = minutes ? parseInt(minutes[0].slice(0, -1)) : 0;
-    const totalSeconds = seconds ? parseInt(seconds[0].slice(0, -1)) : 0;
-    const time = totalMinutes * 60 + totalSeconds;
+    const time = parseTime(start);
     return `${embedId}?start=${time}`;
   }
   return embedId;
+};
+
+const parseTime = (time: string) => {
+  if (!time.includes("m") && !time.includes("s")) {
+    const totalTime = parseInt(time);
+    return totalTime;
+  }
+
+  const minutes = time.match(/\d+m/g);
+  const seconds = time.match(/\d+s/g);
+  const totalMinutes = minutes ? parseInt(minutes[0].slice(0, -1)) : 0;
+  const totalSeconds = seconds ? parseInt(seconds[0].slice(0, -1)) : 0;
+  return totalMinutes * 60 + totalSeconds;
 };
 
 export const getYoutubeThumbnail = (url: string | undefined) => {
