@@ -1,7 +1,20 @@
 export const parseYoutubeId = (url: string) => {
   const urlParams = new URLSearchParams(url.split("?")[1]);
-  const embedId = urlParams.get("v");
-  return embedId;
+  const urlParamsId = urlParams.get("v");
+  if (urlParamsId) {
+    return urlParamsId;
+  }
+  return getMobileSharedId(url);
+};
+
+const getMobileSharedId = (url: string) => {
+  try {
+    const splitUrl = url.split("/");
+    const lastPart = splitUrl[splitUrl.length - 1];
+    const splitLastPart = lastPart.split("?");
+    return splitLastPart[0];
+  } catch (error) {}
+  return undefined;
 };
 
 export const parseYoutubeUrl = (url: string) => {
