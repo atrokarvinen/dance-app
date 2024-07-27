@@ -28,8 +28,6 @@ export const FavoriteList = () => {
   const dispatch = useAppDispatch();
   const openFavorites = useAppSelector(selectOpenFavorites);
 
-  console.log("openFavorites:", openFavorites);
-
   if (loading) return <Loader />;
   if (error) return <ErrorPage message={error.message} />;
 

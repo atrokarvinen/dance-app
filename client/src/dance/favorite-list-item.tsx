@@ -9,7 +9,7 @@ type Props = {
 };
 
 export const FavoriteListItem = ({ favorite, onRemoveFavorite }: Props) => {
-  const { dancePatternId, dancePattern, displayName } = favorite;
+  const { id, dancePatternId, dancePattern, displayName } = favorite;
   const { danceId } = dancePattern;
   return (
     <Box width="100%">
@@ -23,7 +23,7 @@ export const FavoriteListItem = ({ favorite, onRemoveFavorite }: Props) => {
         >
           {displayName ?? dancePattern.name}
         </Button>
-        <IconButton onClick={() => onRemoveFavorite(dancePatternId)}>
+        <IconButton onClick={() => onRemoveFavorite(id)}>
           <Delete />
         </IconButton>
       </Stack>
