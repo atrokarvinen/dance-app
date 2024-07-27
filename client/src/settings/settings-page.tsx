@@ -8,8 +8,16 @@ export const SettingsPage = () => {
   const isAuthenticated = useAppSelector(selectIsAuthenticated);
   const { logout } = useAuth();
 
+  const username = localStorage.getItem("username");
+
   return (
     <Stack direction="column" spacing={5} marginTop={5} alignItems="center">
+      <Typography variant="h4">Settings</Typography>
+      {isAuthenticated && (
+        <Typography>
+          Logged in as <strong>{username}</strong>
+        </Typography>
+      )}
       {isAuthenticated && (
         <Button variant="contained" onClick={logout}>
           Logout

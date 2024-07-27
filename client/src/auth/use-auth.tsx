@@ -24,6 +24,7 @@ export const useAuth = () => {
 
   const logout = () => {
     localStorage.removeItem(LOCALSTORE_TOKEN);
+    localStorage.removeItem("username");
     dispatch(reduxLogout());
     client.clearStore();
     navigate("/auth");

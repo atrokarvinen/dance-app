@@ -15,6 +15,7 @@ export const AuthPage = () => {
     if (!token) {
       return;
     }
+    localStorage.setItem("username", values.username);
     login(token);
     console.log("Login successful.");
     navigate("/");
