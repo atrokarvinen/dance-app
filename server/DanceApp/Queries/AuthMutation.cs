@@ -32,10 +32,11 @@ public class AuthMutation
         {
             Name = username,
             Password = hashedPassword,
+            Role = "User"
         };
         context.Users.Add(user);
         context.SaveChanges();
-        var jwt = GenerateJWTToken(user.Name, user.Id.ToString(), authConfig.Value.JwtSecret);
+        var jwt = GenerateJWTToken(user.Name, user.Id.ToString(), user.Role, authConfig.Value.JwtSecret);
         return new SignupOutput()
         {
             Username = user.Name,
@@ -62,7 +63,7 @@ public class AuthMutation
         {
             throw new InvalidCredentialsException("Invalid username or password");
         }
-        var token = GenerateJWTToken(user.Name, user.Id.ToString(), jwtSecret);
+        var token = GenerateJWTToken(user.Name, user.Id.ToString(), user.Role, jwtSecret);
         var response = new LoginOutput() { Token = token };
         return response;
     }
@@ -74,12 +75,13 @@ public class AuthMutation
         return new User();
     }
 
-    private string GenerateJWTToken(string name, string userId, string secret)
+    private string GenerateJWTToken(string name, string userId, string role, string secret)
     {
         var claims = new List<Claim>
         {
             new Claim(ClaimTypes.NameIdentifier, userId),
             new Claim(ClaimTypes.Name, name),
+            new Claim(ClaimTypes.Role, role),
         };
         var signingKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secret));
         var jwtToken = new JwtSecurityToken(

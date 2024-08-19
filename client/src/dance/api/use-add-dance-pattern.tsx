@@ -11,6 +11,11 @@ const mutation = gql`
         id
         name
       }
+      errors {
+        ... on UnauthorizedError {
+          message
+        }
+      }
     }
   }
 `;
@@ -56,7 +61,7 @@ export const useAddDancePattern = () => {
         },
       },
       update: (cache, { data }) => {
-        if (!data) return;
+        if (!data || data.addDancePattern.errors) return;
 
         cache.modify({
           id: `Dance:${values.danceId}`,

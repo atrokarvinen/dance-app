@@ -18,6 +18,9 @@ const mutation = gql`
         ... on BlobError {
           message
         }
+        ... on UnauthorizedError {
+          message
+        }
       }
     }
   }
@@ -52,7 +55,7 @@ export const useDeleteDance = () => {
           },
         },
         update: (cache, { data }) => {
-          if (!data) return;
+          if (!data || data.deleteDance.errors) return;
           cache.modify({
             fields: {
               dances(existingDances = [], { readField }) {

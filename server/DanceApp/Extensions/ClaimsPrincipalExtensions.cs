@@ -29,4 +29,9 @@ public static class ClaimsPrincipalExtensions
         }
         return GetUserId(claimsPrincipal);
     }
+
+    public static bool IsAdmin(this ClaimsPrincipal claimsPrincipal)
+    {
+        return claimsPrincipal.IsInRole("Admin");
+    }
 }

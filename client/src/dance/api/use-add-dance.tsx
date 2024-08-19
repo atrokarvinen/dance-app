@@ -15,6 +15,9 @@ const mutation = gql`
         ... on BlobError {
           message
         }
+        ... on UnauthorizedError {
+          message
+        }
       }
     }
   }
@@ -48,7 +51,7 @@ export const useAddDance = () => {
       const { data } = await mutationFunc({
         variables: { input: values },
         update: (cache, { data }) => {
-          if (!data || !data.addDance.dance) return;
+          if (!data || !data.addDance.dance || data.addDance.errors) return;
           cache.modify({
             fields: {
               dances(existingDances = []) {

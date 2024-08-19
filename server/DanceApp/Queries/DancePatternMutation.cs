@@ -1,6 +1,8 @@
-﻿using Dataprovider.Exceptions;
+﻿using DanceApp.Extensions;
+using Dataprovider.Exceptions;
 using Dataprovider.Models;
 using Dataprovider.Repositories;
+using System.Security.Claims;
 
 namespace DanceApp.Queries;
 
@@ -8,14 +10,20 @@ namespace DanceApp.Queries;
 public class DancePatternMutation
 {
     [Error<NotFoundException>]
+    [Error<UnauthorizedException>]
     public DancePattern AddDancePattern(
         [Service] DancePatternRepository repository,
+        ClaimsPrincipal claims,
         string name,
         string? description,
         string? videoUrl,
         [ID] int danceId
         )
     {
+        if (!claims.IsAdmin())
+        {
+            throw new UnauthorizedException("User is not authorized to add dance patterns");
+        }
         var dancePattern = new DancePattern
         {
             Name = name,
@@ -28,8 +36,10 @@ public class DancePatternMutation
     }
 
     [Error<NotFoundException>]
+    [Error<UnauthorizedException>]
     public DancePattern UpdateDancePattern(
         [Service] DancePatternRepository repository,
+        ClaimsPrincipal claims,
         [ID] int id,
         string name,
         string? description,
@@ -37,6 +47,10 @@ public class DancePatternMutation
         [ID] int danceId
         )
     {
+        if (!claims.IsAdmin())
+        {
+            throw new UnauthorizedException("User is not authorized to update dance patterns");
+        }
         var dancePattern = new DancePattern
         {
             Id = id,
@@ -50,10 +64,16 @@ public class DancePatternMutation
     }
 
     [Error<NotFoundException>]
+    [Error<UnauthorizedException>]
     public DancePattern DeleteDancePattern(
-        [Service] DancePatternRepository repository, 
+        [Service] DancePatternRepository repository,
+        ClaimsPrincipal claims,
         [ID] int id)
     {
+        if (!claims.IsAdmin())
+        {
+            throw new UnauthorizedException("User is not authorized to delete dance patterns");
+        }
         var dancePattern = repository.DeleteDancePattern(id);
         if (dancePattern is null)
         {

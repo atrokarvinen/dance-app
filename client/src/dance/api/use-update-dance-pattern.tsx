@@ -13,6 +13,11 @@ const mutation = gql`
         description
         videoUrl
       }
+      errors {
+        ... on UnauthorizedError {
+          message
+        }
+      }
     }
   }
 `;

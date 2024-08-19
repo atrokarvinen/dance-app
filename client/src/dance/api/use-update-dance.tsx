@@ -16,6 +16,9 @@ const mutation = gql`
         ... on BlobError {
           message
         }
+        ... on UnauthorizedError {
+          message
+        }
       }
     }
   }
