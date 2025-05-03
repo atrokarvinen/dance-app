@@ -1,8 +1,7 @@
-version: "3.9"
-
 name: dance-app
 services:
   postgres:
+    container_name: postgres
     image: postgres:alpine
     ports:
       - 5432:5432
@@ -13,3 +12,11 @@ services:
       - POSTGRES_USER=myuser
       - POSTGRES_DB=danceDb
     restart: always
+  pgAdmin:
+    container_name: pgadmin
+    image: dpage/pgadmin4:latest
+    ports:
+      - 8080:80
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=user@domain.com
+      - PGADMIN_DEFAULT_PASSWORD=catsarecool
