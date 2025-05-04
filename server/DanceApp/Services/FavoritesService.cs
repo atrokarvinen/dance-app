@@ -2,7 +2,7 @@
 using Dataprovider.Models;
 using Dataprovider.Repositories;
 
-namespace Dataprovider.Services;
+namespace DanceApp.Services;
 
 public class FavoritesService(
     FavoritesRepository _favoritesRepository,

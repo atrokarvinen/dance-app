@@ -2,7 +2,6 @@
 using DanceApp.Extensions;
 using Dataprovider.Exceptions;
 using Dataprovider.Models;
-using Dataprovider.Services;
 using System.Security.Claims;
 
 namespace DanceApp.Queries;

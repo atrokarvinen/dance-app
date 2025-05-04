@@ -5,7 +5,6 @@ using DanceApp.Queries;
 using DanceApp.Services;
 using Dataprovider;
 using Dataprovider.Repositories;
-using Dataprovider.Services;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);

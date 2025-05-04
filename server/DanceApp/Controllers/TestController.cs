@@ -2,7 +2,6 @@
 using DanceApp.Auth.Models;
 using Dataprovider;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace DanceApp.Controllers;
 
