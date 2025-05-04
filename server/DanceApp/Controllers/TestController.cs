@@ -1,4 +1,6 @@
-﻿using Dataprovider;
+﻿using DanceApp.Auth;
+using DanceApp.Auth.Models;
+using Dataprovider;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -6,13 +8,16 @@ namespace DanceApp.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class TestController(DatabaseContext dbContext) : ControllerBase
+public class TestController(
+    DatabaseContext dbContext,
+    AuthService authService
+    ) : ControllerBase
 {
     [HttpPost]
     [Route("auth")]
-    public async Task<IActionResult> CreateUser([FromBody] string user)
+    public async Task<IActionResult> CreateUser([FromBody] SignupPayload payload)
     {
-        await Task.CompletedTask;
+        await authService.Signup(payload);
         return Ok();
     }
 
@@ -20,9 +25,7 @@ public class TestController(DatabaseContext dbContext) : ControllerBase
     [Route("auth")]
     public async Task<IActionResult> DeleteUser([FromQuery] string username)
     {
-        await dbContext.Users
-            .Where(u => u.Name == username)
-            .ExecuteDeleteAsync();
+        await authService.DeleteUser(username);
         return Ok();
     }
 }

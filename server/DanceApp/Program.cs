@@ -1,3 +1,4 @@
+using DanceApp.Auth;
 using DanceApp.Config;
 using DanceApp.Extensions;
 using DanceApp.Queries;
@@ -47,6 +48,8 @@ builder.Services
     .AddType<UploadType>()
     .AddMutationConventions()
     ;
+
+builder.Services.AddScoped<AuthService>();
 
 builder.Host.UseSerilog((context, config) =>
     config.ReadFrom.Configuration(context.Configuration)
