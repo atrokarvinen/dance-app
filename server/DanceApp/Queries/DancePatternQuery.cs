@@ -1,5 +1,6 @@
 ﻿using DanceApp.Extensions;
 using DanceApp.Outputs;
+using DanceApp.Services;
 using Dataprovider.Models;
 using Dataprovider.Repositories;
 using System.Security.Claims;

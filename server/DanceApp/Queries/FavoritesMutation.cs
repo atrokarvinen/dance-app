@@ -1,5 +1,6 @@
 ﻿using DanceApp.Exceptions;
 using DanceApp.Extensions;
+using DanceApp.Services;
 using Dataprovider.Exceptions;
 using Dataprovider.Models;
 using System.Security.Claims;
