@@ -12,7 +12,7 @@ export const DanceListView = ({ dances, isEditMode, onDelete }: Props) => {
   return (
     <List dense>
       {dances.map((dance) => (
-        <ListItem key={dance.id}>
+        <ListItem key={dance.id} data-testid="dance-list-item">
           <DanceListItemCompact
             isEditMode={isEditMode}
             dance={dance}

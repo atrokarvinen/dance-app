@@ -16,7 +16,7 @@ namespace DanceApp.Auth;
 
 public class AuthService(DatabaseContext dbContext, IOptions<AuthConfig> authConfig)
 {
-    public async Task<SignupOutput> Signup(SignupPayload payload)
+    public async Task<SignupOutput> Signup(SignupPayload payload, string? role = null)
     {
         var (username, password) = payload;
         var userExists = await dbContext.Users.AnyAsync(u => u.Name == username);
@@ -29,7 +29,7 @@ public class AuthService(DatabaseContext dbContext, IOptions<AuthConfig> authCon
         {
             Name = username,
             Password = hashedPassword,
-            Role = "User"
+            Role = role ?? "User"
         };
         await dbContext.Users.AddAsync(user);
         await dbContext.SaveChangesAsync();

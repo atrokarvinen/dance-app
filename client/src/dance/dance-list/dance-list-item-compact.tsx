@@ -27,10 +27,17 @@ export const DanceListItemCompact = ({
 
       {isEditMode && (
         <>
-          <IconButton to={`/dances/edit/${dance.id}`} component={Link}>
+          <IconButton
+            data-testid="edit-dance"
+            to={`/dances/edit/${dance.id}`}
+            component={Link}
+          >
             <Edit />
           </IconButton>
-          <IconButton onClick={() => onDelete(dance)}>
+          <IconButton
+            data-testid="delete-dance"
+            onClick={() => onDelete(dance)}
+          >
             <Delete />
           </IconButton>
         </>

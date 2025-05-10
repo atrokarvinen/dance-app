@@ -12,8 +12,16 @@ export class ApiPageModel {
     this.page = page;
   }
 
-  createUser(username: string, password: string) {
-    const url = `${backendUrl}/test/auth`;
+  createUser(
+    username: string,
+    password: string,
+    role: string | undefined = "Admin"
+  ) {
+    let url = `${backendUrl}/test/auth`;
+    if (role) {
+      url += `?role=${role}`;
+    }
+
     return this.page.request.post(url, {
       ...defaultOptions,
       data: { username, password },
@@ -22,6 +30,11 @@ export class ApiPageModel {
 
   deleteUser(username: string) {
     const url = `${backendUrl}/test/auth?username=${username}`;
+    return this.page.request.delete(url, { ...defaultOptions });
+  }
+
+  deleteDance(danceName: string) {
+    const url = `${backendUrl}/test/dances?name=${danceName}`;
     return this.page.request.delete(url, { ...defaultOptions });
   }
 }

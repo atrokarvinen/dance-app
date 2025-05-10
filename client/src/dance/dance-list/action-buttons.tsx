@@ -30,6 +30,7 @@ export const ActionButtons = ({
       <Stack direction="row" spacing={2}>
         {isEditMode && (
           <IconButton
+            data-testid="add-new-dance"
             to={addNewUrl}
             component={Link}
             sx={{ alignSelf: "flex-end" }}
@@ -38,6 +39,7 @@ export const ActionButtons = ({
           </IconButton>
         )}
         <IconButton
+          data-testid="edit-mode"
           onClick={() => onEditModeChange(!isEditMode)}
           color={isEditMode ? "primary" : "default"}
         >

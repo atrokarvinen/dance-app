@@ -25,6 +25,7 @@ export const DanceListItemCard = ({ isEditMode, dance, onDelete }: Props) => {
 
   return (
     <Card
+      data-testid="dance-list-item"
       sx={{
         width: "100%",
         height: "100%",
@@ -47,10 +48,16 @@ export const DanceListItemCard = ({ isEditMode, dance, onDelete }: Props) => {
         <>
           <Divider />
           <CardActions sx={{ justifyContent: "flex-end" }}>
-            <IconButton onClick={() => navigate(`/dances/edit/${dance.id}`)}>
+            <IconButton
+              data-testid="edit-dance"
+              onClick={() => navigate(`/dances/edit/${dance.id}`)}
+            >
               <Edit />
             </IconButton>
-            <IconButton onClick={() => onDelete(dance)}>
+            <IconButton
+              data-testid="delete-dance"
+              onClick={() => onDelete(dance)}
+            >
               <Delete />
             </IconButton>
           </CardActions>
