@@ -35,7 +35,17 @@ public class TestController(
     [Route("dances")]
     public async Task<IActionResult> CreateDance([FromBody] DanceSeedDto dance)
     {
-        await dbContext.Dances.AddAsync(new Dance { Name = dance.Name, });
+        var dancePatterns = dance.Patterns?.Select(dp => new DancePattern
+        {
+            Name = dp.Name,
+            Description = dp.Description ?? "",
+            VideoUrl = dp.VideoUrl,
+        }).ToList() ?? [];
+        await dbContext.Dances.AddAsync(new Dance
+        {
+            Name = dance.Name,
+            DancePatterns = dancePatterns,
+        });
         await dbContext.SaveChangesAsync();
         return Ok();
     }
@@ -44,7 +54,7 @@ public class TestController(
     [Route("dances")]
     public async Task<IActionResult> DeleteDance([FromQuery] string name)
     {
-        var dance = await dbContext.Dances.Where(d => d.Name == name).ToListAsync();
+        var dance = await dbContext.Dances.Where(d => d.Name.ToLower() == name.ToLower()).ToListAsync();
         if (dance == null) return Ok();
         dbContext.Dances.RemoveRange(dance);
         await dbContext.SaveChangesAsync();

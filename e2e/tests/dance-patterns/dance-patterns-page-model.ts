@@ -91,4 +91,12 @@ export class DancePatternPageModel {
       await expect(this.videoUrlInput).toHaveValue(videoUrl);
     }
   }
+
+  async addToFavorites(patternName: string) {
+    const dancePatternListItem = this.getDancePattern(patternName);
+    const alreadyFavoriteIcon =
+      dancePatternListItem.getByTestId("FavoriteIcon");
+    if (await alreadyFavoriteIcon.isVisible()) return;
+    await dancePatternListItem.getByTestId("FavoriteBorderIcon").click();
+  }
 }

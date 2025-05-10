@@ -1,6 +1,6 @@
 import { Page } from "@playwright/test";
 import { backendUrl } from "./constants";
-import { Dance } from "./dance";
+import { Dance } from "./models/dance";
 
 const defaultOptions = {
   failOnStatusCode: true,

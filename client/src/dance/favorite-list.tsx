@@ -66,7 +66,7 @@ export const FavoriteList = () => {
       </Typography>
       <List>
         {danceNames.map((danceName) => (
-          <ListItem key={danceName}>
+          <ListItem key={danceName} data-testid="favorite-dance-list-item">
             <Accordion
               sx={{ width: "100%" }}
               onChange={handleAccordionExpandedChange(danceName)}
@@ -80,7 +80,10 @@ export const FavoriteList = () => {
                   {favoritesByDance[danceName].map((favorite) => {
                     const { id } = favorite;
                     return (
-                      <ListItem key={id}>
+                      <ListItem
+                        key={id}
+                        data-testid="favorite-dance-pattern-list-item"
+                      >
                         <FavoriteListItem
                           favorite={favorite}
                           onRemoveFavorite={handleRemoveFromFavorites}
