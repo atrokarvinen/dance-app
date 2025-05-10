@@ -7,7 +7,7 @@ test("creates, updates and deletes a dance", async ({ dancePage }) => {
   const imageUrl = "https://example.com/image.jpg";
   const dance: DanceForm = { name: danceName, imageUrl };
 
-  await dancePage.goto();
+  await dancePage.goTo();
 
   // Create
   await dancePage.createDance(dance);
@@ -15,7 +15,7 @@ test("creates, updates and deletes a dance", async ({ dancePage }) => {
 
   await dancePage.openEditDance(danceName);
   await dancePage.verifyDanceForm(dance);
-  await dancePage.goto();
+  await dancePage.goTo();
 
   // Update
   const updatedDance: DanceForm = { ...dance, name: "Updated Dance" };
@@ -31,7 +31,7 @@ test("creates, updates and deletes a dance", async ({ dancePage }) => {
 test("loads dances after page refresh", async ({ dancePage }) => {
   const dance: DanceForm = { name: "Test Dance" };
 
-  await dancePage.goto();
+  await dancePage.goTo();
   await dancePage.createDance(dance);
   await expect(dancePage.getDance(dance.name)).toBeVisible();
 

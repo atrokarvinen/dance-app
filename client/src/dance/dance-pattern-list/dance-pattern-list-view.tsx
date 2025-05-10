@@ -35,7 +35,7 @@ export const DancePatternListView = ({
       {dancePatterns.map((pattern) => {
         const favoriteId = getFavoriteId(pattern);
         return (
-          <ListItem key={pattern.id}>
+          <ListItem key={pattern.id} data-testid="dance-pattern-list-item">
             <DancePatternListItem
               pattern={pattern}
               favoriteId={favoriteId}

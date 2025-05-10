@@ -7,7 +7,7 @@ export class FavoritePageModel {
     this.page = page;
   }
 
-  async goto() {
+  async goTo() {
     await this.page.getByRole("link", { name: "Profile" }).click();
   }
 }

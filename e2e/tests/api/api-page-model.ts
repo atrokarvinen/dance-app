@@ -1,5 +1,6 @@
 import { Page } from "@playwright/test";
 import { backendUrl } from "./constants";
+import { Dance } from "./dance";
 
 const defaultOptions = {
   failOnStatusCode: true,
@@ -31,6 +32,11 @@ export class ApiPageModel {
   deleteUser(username: string) {
     const url = `${backendUrl}/test/auth?username=${username}`;
     return this.page.request.delete(url, { ...defaultOptions });
+  }
+
+  createDance(dance: Dance) {
+    const url = `${backendUrl}/test/dances`;
+    return this.page.request.post(url, { ...defaultOptions, data: dance });
   }
 
   deleteDance(danceName: string) {

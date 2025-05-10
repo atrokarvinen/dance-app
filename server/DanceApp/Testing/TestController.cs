@@ -1,10 +1,12 @@
 ﻿using DanceApp.Auth;
 using DanceApp.Auth.Models;
+using DanceApp.Testing.Models;
 using Dataprovider;
+using Dataprovider.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace DanceApp.Controllers;
+namespace DanceApp.Testing;
 
 [ApiController]
 [Route("[controller]")]
@@ -26,6 +28,15 @@ public class TestController(
     public async Task<IActionResult> DeleteUser([FromQuery] string username)
     {
         await authService.DeleteUser(username);
+        return Ok();
+    }
+
+    [HttpPost]
+    [Route("dances")]
+    public async Task<IActionResult> CreateDance([FromBody] DanceSeedDto dance)
+    {
+        await dbContext.Dances.AddAsync(new Dance { Name = dance.Name, });
+        await dbContext.SaveChangesAsync();
         return Ok();
     }
 

@@ -12,7 +12,7 @@ export class DancePageModel {
     this.imageUrlInput = page.getByLabel("Image URL");
   }
 
-  async goto() {
+  async goTo() {
     await this.page.getByRole("link", { name: "Home" }).click();
   }
 
@@ -23,7 +23,7 @@ export class DancePageModel {
   }
 
   async createDance(dance: DanceForm) {
-    await this.goto();
+    await this.goTo();
     await this.enableEditMode();
     await this.openAddDance();
     await this.fillDanceForm(dance);
@@ -31,7 +31,7 @@ export class DancePageModel {
   }
 
   async updateDance(name: string, dance: DanceForm) {
-    await this.goto();
+    await this.goTo();
     await this.enableEditMode();
     await this.openEditDance(name);
     await this.fillDanceForm(dance);

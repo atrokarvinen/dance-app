@@ -7,17 +7,17 @@ export class AuthPageModel {
     this.page = page;
   }
 
-  async gotoLogin() {
+  async goToLogin() {
     await this.page.getByRole("link", { name: "Profile" }).click();
   }
 
-  async gotoSignup() {
+  async goToSignup() {
     await this.page.getByRole("link", { name: "Sign up" }).click();
   }
 
   async signup(username: string, password: string) {
-    await this.gotoLogin();
-    await this.gotoSignup();
+    await this.goToLogin();
+    await this.goToSignup();
 
     await this.page.getByLabel("Username").fill(username);
     await this.page.getByLabel("Password").fill(password);
@@ -28,7 +28,7 @@ export class AuthPageModel {
   }
 
   async login(username: string, password: string) {
-    await this.gotoLogin();
+    await this.goToLogin();
 
     await this.page.getByLabel("Username").fill(username);
     await this.page.getByLabel("Password").fill(password);
