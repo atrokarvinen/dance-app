@@ -1,6 +1,7 @@
 import { Page } from "@playwright/test";
 import { backendUrl } from "./constants";
 import { Dance } from "./models/dance";
+import { User } from "./models/user";
 
 const defaultOptions = {
   failOnStatusCode: true,
@@ -13,11 +14,8 @@ export class ApiPageModel {
     this.page = page;
   }
 
-  createUser(
-    username: string,
-    password: string,
-    role: string | undefined = "Admin"
-  ) {
+  createUser(user: User) {
+    const { username, password, role } = user;
     let url = `${backendUrl}/test/auth`;
     if (role) {
       url += `?role=${role}`;

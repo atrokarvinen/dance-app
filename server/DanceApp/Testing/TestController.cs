@@ -17,7 +17,7 @@ public class TestController(
 {
     [HttpPost]
     [Route("auth")]
-    public async Task<IActionResult> CreateUser([FromBody] SignupPayload payload, [FromQuery] string role)
+    public async Task<IActionResult> CreateUser([FromBody] SignupPayload payload, [FromQuery] string? role)
     {
         await authService.Signup(payload, role);
         return Ok();

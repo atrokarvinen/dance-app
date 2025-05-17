@@ -1,3 +1,4 @@
+import { User } from "../api/models/user";
 import { test } from "./auth-fixture";
 
 test("sign up and login", async ({ authPage }) => {
@@ -6,7 +7,11 @@ test("sign up and login", async ({ authPage }) => {
 });
 
 test("logout", async ({ authPage, api }) => {
-  await api.createUser("testuser", "password");
+  const user: User = {
+    username: "testuser",
+    password: "password",
+  };
+  await api.createUser(user);
   await authPage.login("testuser", "password");
   await authPage.logout();
 });
