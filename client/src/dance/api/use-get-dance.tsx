@@ -1,39 +1,16 @@
-import { gql, useQuery } from "@apollo/client";
-import { Dance } from "../dance";
-
-const query = gql`
-  query GetDance($id: ID!) {
-    dance(id: $id) {
-      id
-      name
-      imageUrl
-      dancePatterns {
-        id
-        danceId
-        name
-        description
-        imageUrl
-        videoUrl
-      }
-    }
-  }
-`;
-
-type GetDanceResponse = {
-  dance: Dance;
-};
-
-type GetDanceVariables = {
-  id: number;
-};
+import { useQuery } from "@tanstack/react-query";
+import { getDance } from "./api";
 
 export const useGetDance = (danceId: number) => {
-  const queryResult = useQuery<GetDanceResponse, GetDanceVariables>(query, {
-    variables: { id: danceId },
+  const queryResult = useQuery({
+    queryKey: ["dance", danceId],
+    queryFn: () => getDance(danceId),
   });
 
   return {
-    dance: queryResult.data?.dance,
-    ...queryResult,
+    error: queryResult.error,
+    loading: queryResult.isLoading,
+    dance: queryResult.data?.data,
+    refetch: queryResult.refetch,
   };
 };

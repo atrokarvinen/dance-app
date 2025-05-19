@@ -1,6 +1,6 @@
 import { Box, Button, Card, CardContent, Divider, Stack } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
-import { useLogin } from "./api/use-login";
+import { loginRequest } from "./api/api";
 import { LoginForm } from "./login-form";
 import { LoginFormType } from "./models/login-form-type";
 import { useAuth } from "./use-auth";
@@ -8,10 +8,10 @@ import { useAuth } from "./use-auth";
 export const AuthPage = () => {
   const navigate = useNavigate();
   const { login } = useAuth();
-  const { login: loginMutation } = useLogin();
 
   const handleLogin = async (values: LoginFormType) => {
-    const token = await loginMutation(values);
+    const data = await loginRequest(values);
+    const token = data.data?.token;
     if (!token) {
       return;
     }

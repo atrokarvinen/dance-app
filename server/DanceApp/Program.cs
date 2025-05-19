@@ -1,5 +1,7 @@
 using DanceApp.Auth;
 using DanceApp.Config;
+using DanceApp.DancePatterns;
+using DanceApp.Dances;
 using DanceApp.Extensions;
 using DanceApp.Queries;
 using DanceApp.Services;
@@ -49,6 +51,8 @@ builder.Services
     ;
 
 builder.Services.AddScoped<AuthService>();
+builder.Services.AddScoped<DanceService>();
+builder.Services.AddScoped<DancePatternService>();
 
 builder.Host.UseSerilog((context, config) =>
     config.ReadFrom.Configuration(context.Configuration)
@@ -59,9 +63,14 @@ var app = builder.Build();
 app.MapGraphQL();
 
 app.UseCors(builder => builder
-    .AllowAnyOrigin()
+    .WithOrigins([
+        "http://localhost:5173",
+        "http://localhost:4173"
+    ])
     .AllowAnyMethod()
-    .AllowAnyHeader());
+    .AllowAnyHeader()
+    .AllowCredentials()
+    );
 
 app.UseSerilogRequestLogging();
 app.UseHttpsRedirection();

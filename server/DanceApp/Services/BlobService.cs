@@ -81,7 +81,8 @@ public class BlobService(ILogger<BlobService> _logger, IHttpClientFactory _clien
             var request = new BlobDeleteRequest(blobUrl);
             var client = _clientFactory.CreateClient();
             client.DefaultRequestHeaders.Add("Authorization", $"Bearer {apiKey}");
-            var result = await client.PostAsJsonAsync(url, request);
+            var ct = new CancellationTokenSource(TimeSpan.FromSeconds(2)).Token;
+            var result = await client.PostAsJsonAsync(url, request, cancellationToken: ct);
 
             var content = await result.Content.ReadAsStringAsync();
             var jsonOptions = new JsonSerializerOptions() { PropertyNameCaseInsensitive = true, };

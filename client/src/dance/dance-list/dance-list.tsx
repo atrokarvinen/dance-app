@@ -18,7 +18,7 @@ import { Page, usePreferredViewMode } from "./use-preferred-view-mode";
 
 export const DanceList = () => {
   const dispatch = useAppDispatch();
-  const { error, loading, dances } = useGetDances();
+  const { error, loading, dances, refetch } = useGetDances();
   const { deleteDance } = useDeleteDance();
   const isEditMode = useAppSelector(selectIsDanceEditMode);
   const { viewMode, setViewMode } = usePreferredViewMode(Page.DANCE);
@@ -37,6 +37,7 @@ export const DanceList = () => {
     setConfirmDeleteVisible(false);
     setSelectedDance(undefined);
     await deleteDance(selectedDance.id);
+    refetch();
   };
 
   const setEditMode = (mode: boolean) => {

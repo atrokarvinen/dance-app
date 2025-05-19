@@ -86,4 +86,20 @@ public class AuthService(DatabaseContext dbContext, IOptions<AuthConfig> authCon
         var jwt = new JwtSecurityTokenHandler().WriteToken(jwtToken);
         return jwt;
     }
+
+    public User WhoAmI(ClaimsPrincipal claims)
+    {
+        var userId = claims.FindFirstValue(ClaimTypes.NameIdentifier);
+        var name = claims.FindFirstValue(ClaimTypes.Name);
+
+        _ = int.TryParse(userId, out int parsedId);
+
+        var user = new User()
+        {
+            Name = name ?? "N/A",
+            Id = parsedId,
+        };
+
+        return user;
+    }
 }

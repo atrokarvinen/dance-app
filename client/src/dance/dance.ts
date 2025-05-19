@@ -2,7 +2,6 @@ export type Dance = {
   id: number;
   name: string;
   imageUrl?: string;
-  dancePatterns: DancePattern[];
 };
 
 export type DancePattern = {

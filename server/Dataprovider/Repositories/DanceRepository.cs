@@ -7,7 +7,7 @@ namespace Dataprovider.Repositories;
 
 public class DanceRepository(ILogger<DanceRepository> _logger, DatabaseContext _context)
 {
-    public List<Dance> GetDances()
+    public Task<List<Dance>> GetDances()
     {
         _logger.LogInformation("Getting all dances");
         return _context.Dances
@@ -15,47 +15,47 @@ public class DanceRepository(ILogger<DanceRepository> _logger, DatabaseContext _
                 .ThenInclude(dp => dp.Variations)
             .AsNoTracking()
             .OrderBy(x => x.Name)
-            .ToList();
+            .ToListAsync();
     }
 
-    public Dance GetDanceById(int id)
+    public async Task<Dance> GetDanceById(int id)
     {
-        var dance = FindDanceById(id);
+        var dance = await FindDanceById(id);
         if (dance == null)
             throw new NotFoundException($"Failed to find dance with id ({id})");
         return dance;
     }
 
-    public Dance? FindDanceById(int id)
+    public Task<Dance?> FindDanceById(int id)
     {
         return _context.Dances
             .Include(d => d.DancePatterns)
                 .ThenInclude(dp => dp.Variations)
             .AsNoTracking()
-            .FirstOrDefault(d => d.Id == id);
+            .FirstOrDefaultAsync(d => d.Id == id);
     }
 
-    public Dance AddDance(Dance dance)
+    public async Task<Dance> AddDance(Dance dance)
     {
-        _context.Dances.Add(dance);
-        _context.SaveChanges();
+        await _context.Dances.AddAsync(dance);
+        await _context.SaveChangesAsync();
         return dance;
     }
 
-    public Dance UpdateDance(Dance dance)
+    public async Task<Dance> UpdateDance(Dance dance)
     {
         _context.Dances.Update(dance);
-        _context.SaveChanges();
+        await _context.SaveChangesAsync();
         return dance;
     }
 
-    public Dance? DeleteDance(int id)
+    public async Task<Dance?> DeleteDance(int id)
     {
-        var dance = _context.Dances.FirstOrDefault(d => d.Id == id);
+        var dance = await _context.Dances.FirstOrDefaultAsync(d => d.Id == id);
         if (dance != null)
         {
             _context.Dances.Remove(dance);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
         return dance;
     }

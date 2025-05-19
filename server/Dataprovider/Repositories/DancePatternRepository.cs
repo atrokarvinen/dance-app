@@ -8,53 +8,62 @@ public class DancePatternRepository(DatabaseContext context)
 {
     private readonly DatabaseContext _context = context;
 
-    public List<DancePattern> GetDancePatterns()
+    public Task<List<DancePattern>> GetDancePatterns()
     {
         return _context.DancePatterns
             .Include(dp => dp.Dance)
-            .ToList();
+            .AsNoTracking()
+            .ToListAsync();
     }
 
-    public DancePattern GetDancePatternById(int id)
+    public Task<List<DancePattern>> GetDancePatterns(int danceId)
     {
-        var dancePattern = FindDancePatternById(id);
+        return _context.DancePatterns
+            .Where(dp => dp.DanceId == danceId)
+            .AsNoTracking()
+            .ToListAsync();
+    }
+
+    public async Task<DancePattern> GetDancePatternById(int id)
+    {
+        var dancePattern = await FindDancePatternById(id);
         if (dancePattern == null)
             throw new NotFoundException($"Failed to find dance pattern with id ({id})");
         return dancePattern;
     }
 
-    public DancePattern? FindDancePatternById(int id)
+    public Task<DancePattern?> FindDancePatternById(int id)
     {
         return _context.DancePatterns
             .Include(dp => dp.Dance)
             .AsNoTracking()
-            .FirstOrDefault(d => d.Id == id);
+            .FirstOrDefaultAsync(d => d.Id == id);
     }
 
-    public DancePattern AddDancePattern(DancePattern dancePattern)
+    public async Task<DancePattern> AddDancePattern(DancePattern dancePattern)
     {
-        _context.DancePatterns.Add(dancePattern);
-        _context.SaveChanges();
+        await _context.DancePatterns.AddAsync(dancePattern);
+        await _context.SaveChangesAsync();
         return dancePattern;
     }
 
-    public DancePattern UpdateDancePattern(DancePattern dancePattern)
+    public async Task<DancePattern> UpdateDancePattern(DancePattern dancePattern)
     {
-        var existingDancePattern = FindDancePatternById(dancePattern.Id);
+        var existingDancePattern = await FindDancePatternById(dancePattern.Id);
         if (existingDancePattern == null)
             throw new NotFoundException($"Failed to find dance pattern with id ({dancePattern.Id})");
         _context.DancePatterns.Update(dancePattern);
-        _context.SaveChanges();
+        await _context.SaveChangesAsync();
         return dancePattern;
     }
 
-    public DancePattern? DeleteDancePattern(int id)
+    public async Task<DancePattern?> DeleteDancePattern(int id)
     {
-        var dancePattern = _context.DancePatterns.FirstOrDefault(d => d.Id == id);
+        var dancePattern = await _context.DancePatterns.FirstOrDefaultAsync(d => d.Id == id);
         if (dancePattern != null)
         {
             _context.DancePatterns.Remove(dancePattern);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
         return dancePattern;
     }

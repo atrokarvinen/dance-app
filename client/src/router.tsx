@@ -10,7 +10,6 @@ import { EditDancePatternPage } from "./dance/edit-dance-pattern/edit-dance-patt
 import { AddDancePage } from "./dance/edit-dance/add-dance-page";
 import { EditDancePage } from "./dance/edit-dance/edit-dance-page";
 import { FavoriteList } from "./dance/favorite-list";
-import { TestPage } from "./dance/test-page/test-page";
 import { SettingsPage } from "./settings/settings-page";
 
 export const browserRouter = createBrowserRouter([
@@ -61,10 +60,6 @@ export const browserRouter = createBrowserRouter([
       {
         path: "/settings",
         element: <SettingsPage />,
-      },
-      {
-        path: "/test",
-        element: <TestPage />,
       },
     ],
   },

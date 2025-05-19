@@ -4,9 +4,7 @@ using Dataprovider.Repositories;
 
 namespace DanceApp.Services;
 
-public class FavoritesService(
-    FavoritesRepository _favoritesRepository,
-    DancePatternRepository _dancePatternRepository
+public class FavoritesService(FavoritesRepository _favoritesRepository
     )
 {
     public bool? IsFavoritePattern(int dancePatternId, int? userId)
@@ -16,7 +14,6 @@ public class FavoritesService(
             return null;
         }
         var favorites = _favoritesRepository.GetFavoritesByUser(userId.Value);
-        var dancePattern = _dancePatternRepository.GetDancePatternById(dancePatternId);
         var isFavorite = favorites.Any(fp => fp.DancePatternId == dancePatternId);
         return isFavorite;
     }

@@ -11,7 +11,7 @@ public class DancePatternMutation
 {
     [Error<NotFoundException>]
     [Error<UnauthorizedException>]
-    public DancePattern AddDancePattern(
+    public async Task<DancePattern> AddDancePattern(
         [Service] DancePatternRepository repository,
         ClaimsPrincipal claims,
         string name,
@@ -31,13 +31,13 @@ public class DancePatternMutation
             VideoUrl = videoUrl,
             DanceId = danceId,
         };
-        repository.AddDancePattern(dancePattern);
+        await repository.AddDancePattern(dancePattern);
         return dancePattern;
     }
 
     [Error<NotFoundException>]
     [Error<UnauthorizedException>]
-    public DancePattern UpdateDancePattern(
+    public async Task<DancePattern> UpdateDancePattern(
         [Service] DancePatternRepository repository,
         ClaimsPrincipal claims,
         [ID] int id,
@@ -59,13 +59,13 @@ public class DancePatternMutation
             VideoUrl = videoUrl,
             DanceId = danceId,
         };
-        repository.UpdateDancePattern(dancePattern);
+        await repository.UpdateDancePattern(dancePattern);
         return dancePattern;
     }
 
     [Error<NotFoundException>]
     [Error<UnauthorizedException>]
-    public DancePattern DeleteDancePattern(
+    public async Task<DancePattern> DeleteDancePattern(
         [Service] DancePatternRepository repository,
         ClaimsPrincipal claims,
         [ID] int id)
@@ -74,7 +74,7 @@ public class DancePatternMutation
         {
             throw new UnauthorizedException("User is not authorized to delete dance patterns");
         }
-        var dancePattern = repository.DeleteDancePattern(id);
+        var dancePattern = await repository.DeleteDancePattern(id);
         if (dancePattern is null)
         {
             throw new NotFoundException("Dance pattern not found");

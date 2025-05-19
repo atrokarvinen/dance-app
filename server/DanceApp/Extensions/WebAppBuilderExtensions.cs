@@ -36,8 +36,6 @@ public static class WebAppBuilderExtensions
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
             var databaseProvider = builder.Configuration.GetSection("DatabaseProvider").Value;
             var env = builder.Environment.EnvironmentName;
-            logger.LogInformation("Using database provider: {databaseProvider}", databaseProvider);
-            logger.LogInformation("Environment: {env}", env);
             if (databaseProvider == "PostgreSQL")
             {
                 optionsBuilder.UseNpgsql(connectionString, o =>

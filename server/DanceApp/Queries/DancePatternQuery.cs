@@ -3,6 +3,7 @@ using DanceApp.Outputs;
 using DanceApp.Services;
 using Dataprovider.Models;
 using Dataprovider.Repositories;
+using System.Runtime.CompilerServices;
 using System.Security.Claims;
 
 namespace DanceApp.Queries;
@@ -10,13 +11,13 @@ namespace DanceApp.Queries;
 [ExtendObjectType("Query")]
 public class DancePatternQuery
 {
-    public IEnumerable<DancePattern> GetDancePatterns([Service] DancePatternRepository repository)
+    public async Task<IEnumerable<DancePattern>> GetDancePatterns([Service] DancePatternRepository repository)
     {
-        var dancePatterns = repository.GetDancePatterns();
+        var dancePatterns = await repository.GetDancePatterns();
         return dancePatterns;
     }
 
-    public GetDancePatternOutput GetDancePattern(
+    public async Task<GetDancePatternOutput> GetDancePattern(
         [Service] DancePatternRepository repository,
         [Service] FavoritesService favoritesService,
         [ID] int id,
@@ -25,7 +26,7 @@ public class DancePatternQuery
     {
         var userId = claims.TryGetUserId();
         var isFavorite = favoritesService.IsFavoritePattern(id, userId);
-        var dancePattern = repository.GetDancePatternById(id);
+        var dancePattern = await repository.GetDancePatternById(id);
         return new GetDancePatternOutput()
         {
             DancePattern = dancePattern,

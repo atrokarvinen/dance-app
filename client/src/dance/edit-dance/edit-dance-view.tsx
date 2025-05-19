@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useNavigate } from "react-router";
 import { ErrorPage } from "../../common/error-page";
 import { Loader } from "../../common/loaders";
@@ -11,19 +12,26 @@ type Props = {
 };
 
 export const EditDanceView = ({ danceId }: Props) => {
-  const { dance, error, loading } = useGetDance(danceId);
-  const { updateDance, loading: submitting } = useUpdateDance();
+  const { dance, error, loading, refetch } = useGetDance(danceId);
+  const [submitting, setSubmitting] = useState(false);
+  const { updateDance } = useUpdateDance();
   const navigate = useNavigate();
 
   const handleUpdateDance = async (values: DanceFormValues) => {
-    const result = await updateDance({
-      id: danceId,
-      name: values.name,
-      imageBase64: values.imageBase64,
-      imageUrl: values.imageUrl,
-    });
-    if (!result) return;
-    navigate("/");
+    try {
+      setSubmitting(true);
+      const result = await updateDance({
+        id: danceId,
+        name: values.name,
+        imageBase64: values.imageBase64,
+        imageUrl: values.imageUrl,
+      });
+      if (!result) return;
+      refetch();
+      navigate("/");
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   if (loading) return <Loader />;

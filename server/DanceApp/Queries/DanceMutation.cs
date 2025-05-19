@@ -38,7 +38,7 @@ public class DanceMutation
             Name = name,
             ImageUrl = imageUrl,
         };
-        repository.AddDance(dance);
+        await repository.AddDance(dance);
         return dance;
     }
 
@@ -59,7 +59,7 @@ public class DanceMutation
         {
             throw new UnauthorizedException("User is not authorized to update dances");
         }
-        var danceToUpdate = repository.GetDanceById(id);
+        var danceToUpdate = await repository.GetDanceById(id);
         bool imageChanged = !string.IsNullOrEmpty(imageBase64) || imageUrl != danceToUpdate.ImageUrl;
         var previousImageUrl = danceToUpdate.ImageUrl;
         if (imageChanged && !string.IsNullOrEmpty(previousImageUrl))
@@ -79,7 +79,7 @@ public class DanceMutation
             Name = name,
             ImageUrl = string.IsNullOrEmpty(imageUrl) ? null : imageUrl,
         };
-        repository.UpdateDance(dance);
+        await repository.UpdateDance(dance);
         return dance;
     }
 
@@ -98,7 +98,7 @@ public class DanceMutation
         {
             throw new UnauthorizedException("User is not authorized to delete dances");
         }
-        var dance = repository.DeleteDance(danceId);
+        var dance = await repository.DeleteDance(danceId);
         if (!string.IsNullOrEmpty(dance?.ImageUrl))
         {
             await blobService.Delete(dance.ImageUrl);

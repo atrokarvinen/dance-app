@@ -1,5 +1,6 @@
 import { test as base } from "@playwright/test";
 import { ApiPageModel } from "../api/api-page-model";
+import { adminUser } from "../api/models/user";
 import { AuthPageModel } from "../auth/auth-page-model";
 import { DancePageModel } from "./dances-page-model";
 
@@ -17,17 +18,17 @@ export const test = base.extend<DanceFixture>({
     const loginPage = new AuthPageModel(page);
     const dancePage = new DancePageModel(page);
 
-    await api.deleteUser("testuser");
+    await api.deleteUser(adminUser.username);
     await api.deleteDance("Test Dance");
     await api.deleteDance("Updated Dance");
-    await api.createUser("testuser", "password");
+    await api.createUser(adminUser);
 
     await page.goto("/");
-    await loginPage.login("testuser", "password");
+    await loginPage.login(adminUser.username, adminUser.password);
 
     await use(dancePage);
 
-    await api.deleteUser("testuser");
+    await api.deleteUser(adminUser.username);
     await api.deleteDance("Test Dance");
     await api.deleteDance("Updated Dance");
   },

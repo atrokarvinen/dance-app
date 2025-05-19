@@ -1,8 +1,10 @@
+import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router";
 import { ConfirmDialog } from "../../common/confirm-dialog";
 import { ErrorPage } from "../../common/error-page";
 import { Loader } from "../../common/loaders";
+import { getDancePatterns } from "../api/api";
 import { useAddToFavorites } from "../api/use-add-to-favorites";
 import { useDeleteDancePattern } from "../api/use-delete-dance-pattern";
 import { useGetDance } from "../api/use-get-dance";
@@ -29,6 +31,14 @@ export const DanceDetailsView = ({ danceId }: Props) => {
     error: favoritesError,
     loading: favoritesLoading,
   } = useGetFavorites();
+  const {
+    data,
+    isLoading: dancePatternsLoading,
+    refetch,
+  } = useQuery({
+    queryKey: ["dancePatterns", danceId],
+    queryFn: () => getDancePatterns(danceId),
+  });
   const { addToFavorites } = useAddToFavorites();
   const { removeFromFavorites } = useRemoveFromFavorites();
   const { deleteDancePattern } = useDeleteDancePattern();
@@ -55,19 +65,24 @@ export const DanceDetailsView = ({ danceId }: Props) => {
     setConfirmDeleteVisible(true);
   };
 
-  const handleConfirmDelete = () => {
+  const handleConfirmDelete = async () => {
     if (!selectedDancePattern) return;
-    deleteDancePattern(selectedDancePattern.id);
+    await deleteDancePattern(selectedDancePattern.id);
     setConfirmDeleteVisible(false);
     setSelectedDancePattern(undefined);
+    await refetch();
   };
 
-  if (danceLoading || favoritesLoading) return <Loader />;
+  if (danceLoading || favoritesLoading || dancePatternsLoading)
+    return <Loader />;
   if (danceError || favoritesError) {
     const message = danceError?.message ?? favoritesError?.message ?? "Error";
     return <ErrorPage message={message} />;
   }
   if (!dance) return <div>Dance not found</div>;
+
+  const dancePatterns = data?.data ?? [];
+
   return (
     <>
       <ConfirmDialog
@@ -79,6 +94,7 @@ export const DanceDetailsView = ({ danceId }: Props) => {
       />
       <DanceDetails
         dance={dance}
+        dancePatterns={dancePatterns}
         favorites={favorites}
         onAddToFavorites={handleAddFavorite}
         onRemoveFromFavorites={handleRemoveFavorite}

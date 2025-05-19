@@ -15,6 +15,7 @@ import { DancePatternList } from "../dance-pattern-list/dance-pattern-list";
 
 type Props = {
   dance: Dance;
+  dancePatterns: DancePattern[];
   favorites: FavoritePattern[];
   onAddToFavorites: (dancePatternId: number) => void;
   onRemoveFromFavorites: (favoriteId: number) => void;
@@ -24,6 +25,7 @@ type Props = {
 
 export const DanceDetails = ({
   dance,
+  dancePatterns,
   favorites,
   onAddToFavorites,
   onRemoveFromFavorites,
@@ -51,7 +53,7 @@ export const DanceDetails = ({
         onViewModeChange={setViewMode}
       />
       <DancePatternList
-        dancePatterns={dance.dancePatterns}
+        dancePatterns={dancePatterns}
         favorites={favorites}
         isEditMode={isEditMode}
         viewMode={viewMode}

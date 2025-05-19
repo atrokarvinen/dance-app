@@ -1,14 +1,14 @@
 import { useNavigate } from "react-router";
-import { useSignup } from "./api/use-signup";
+import { signupRequest } from "./api/api";
 import { SignupFormType } from "./models/signup-form-type";
 import { SignupForm } from "./signup-form";
 
 export const SignupView = () => {
   const navigate = useNavigate();
-  const { signup } = useSignup();
 
   const handleSignup = async (values: SignupFormType) => {
-    const result = await signup(values);
+    const data = await signupRequest(values);
+    const result = data.data;
     if (!result) {
       return;
     }
