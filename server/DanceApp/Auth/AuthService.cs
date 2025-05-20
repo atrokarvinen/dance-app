@@ -3,6 +3,7 @@ using DanceApp.Config;
 using DanceApp.Exceptions;
 using DanceApp.Outputs;
 using Dataprovider;
+using Dataprovider.Enums;
 using Dataprovider.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -14,7 +15,10 @@ using System.Text;
 
 namespace DanceApp.Auth;
 
-public class AuthService(DatabaseContext dbContext, IOptions<AuthConfig> authConfig)
+public class AuthService(
+    DatabaseContext dbContext, 
+    IOptions<AuthConfig> authConfig,
+    IPasswordProvider passwordProvider)
 {
     public async Task<SignupOutput> Signup(SignupPayload payload, string? role = null)
     {
@@ -24,12 +28,17 @@ public class AuthService(DatabaseContext dbContext, IOptions<AuthConfig> authCon
         {
             throw new UsernameTakenException("User already exists");
         }
-        var hashedPassword = new PasswordHasher<User>().HashPassword(new User(), password);
+        var hashedPassword = passwordProvider.HashPassword(password);
+        var userRole = UserRole.User;
+        if (role != null)
+        {
+            userRole = Enum.Parse<UserRole>(role);
+        }
         var user = new User
         {
             Name = username,
             Password = hashedPassword,
-            Role = role ?? "User"
+            Role = userRole.ToString(),
         };
         await dbContext.Users.AddAsync(user);
         await dbContext.SaveChangesAsync();
@@ -51,8 +60,8 @@ public class AuthService(DatabaseContext dbContext, IOptions<AuthConfig> authCon
         {
             throw new InvalidCredentialsException("Invalid username or password");
         }
-        var passwordMatches = new PasswordHasher<User>().VerifyHashedPassword(new User(), user.Password, password);
-        if (passwordMatches == PasswordVerificationResult.Failed)
+        var passwordMatches = passwordProvider.VerifyPassword(user.Password, password);
+        if (!passwordMatches)
         {
             throw new InvalidCredentialsException("Invalid username or password");
         }

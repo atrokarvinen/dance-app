@@ -1,4 +1,5 @@
 ﻿using Dataprovider.Models;
+using Dataprovider.Seed;
 using Microsoft.EntityFrameworkCore;
 
 namespace Dataprovider;

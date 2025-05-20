@@ -3,10 +3,12 @@ using DanceApp.Config;
 using DanceApp.DancePatterns;
 using DanceApp.Dances;
 using DanceApp.Extensions;
+using DanceApp.Initialization;
 using DanceApp.Queries;
 using DanceApp.Services;
 using Dataprovider;
 using Dataprovider.Repositories;
+using Dataprovider.Seed;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -53,6 +55,10 @@ builder.Services
 builder.Services.AddScoped<AuthService>();
 builder.Services.AddScoped<DanceService>();
 builder.Services.AddScoped<DancePatternService>();
+builder.Services.AddScoped<UserSeeder>();
+builder.Services.AddScoped<IPasswordProvider, PasswordProvider>();
+
+builder.Services.AddHostedService<DbSeeder>();
 
 builder.Host.UseSerilog((context, config) =>
     config.ReadFrom.Configuration(context.Configuration)

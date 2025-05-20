@@ -7,8 +7,8 @@ type Props = {
 };
 
 export const LoginForm = ({ onSubmit }: Props) => {
-  const [username, setUsername] = useState("test user");
-  const [password, setPassword] = useState("123");
+  const [username, setUsername] = useState("Admin");
+  const [password, setPassword] = useState("1");
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();

@@ -1,7 +1,7 @@
 ﻿using Dataprovider.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace Dataprovider;
+namespace Dataprovider.Seed;
 
 public class DataSeeder
 {

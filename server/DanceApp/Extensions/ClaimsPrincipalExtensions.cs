@@ -1,4 +1,5 @@
 ﻿using DanceApp.Exceptions;
+using Dataprovider.Enums;
 using System.Security.Claims;
 
 namespace DanceApp.Extensions;
@@ -32,6 +33,6 @@ public static class ClaimsPrincipalExtensions
 
     public static bool IsAdmin(this ClaimsPrincipal claimsPrincipal)
     {
-        return claimsPrincipal.IsInRole("Admin");
+        return claimsPrincipal.IsInRole(UserRole.Admin.ToString());
     }
 }
