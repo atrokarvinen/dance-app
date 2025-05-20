@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useNavigate } from "react-router";
 import { ErrorPage } from "../../common/error-page";
 import { Loader } from "../../common/loaders";
@@ -16,23 +17,27 @@ export const EditDancePatternView = ({ danceId, dancePatternId }: Props) => {
     dancePattern: defaultValues,
     loading,
     error,
-  } = useGetDancePattern({
-    id: dancePatternId,
-  });
+  } = useGetDancePattern({ id: dancePatternId });
   const navigate = useNavigate();
-  const { updateDancePattern, loading: submitting } = useUpdateDancePattern();
+  const { updateDancePattern } = useUpdateDancePattern();
   const returnUrl = `/dances/${danceId}`;
 
+  const [submitting, setSubmitting] = useState(false);
+
   const handleSubmit = async (values: DancePatternFormType) => {
-    const created = await updateDancePattern({
-      id: dancePatternId,
-      name: values.name,
-      description: values.description,
-      videoUrl: values.videoUrl,
-      danceId: danceId,
-    });
-    if (!created) return;
-    navigate(returnUrl);
+    try {
+      setSubmitting(true);
+      await updateDancePattern({
+        id: dancePatternId,
+        name: values.name,
+        description: values.description,
+        videoUrl: values.videoUrl,
+        danceId: danceId,
+      });
+      navigate(returnUrl);
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   if (loading) return <Loader />;

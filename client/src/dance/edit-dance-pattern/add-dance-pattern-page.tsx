@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import { useAddDancePattern } from "../api/use-add-dance-pattern";
 import { DancePatternForm } from "./dance-pattern-form";
@@ -10,23 +11,29 @@ type RouteParams = {
 export const AddDancePatternPage = () => {
   const { danceId: danceIdStr } = useParams<RouteParams>();
   const navigate = useNavigate();
-  const { addDancePattern, loading } = useAddDancePattern();
+  const { addDancePattern } = useAddDancePattern();
   const returnUrl = `/dances/${danceIdStr}`;
+
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (values: DancePatternFormType) => {
     if (!danceIdStr) {
       console.error(`Invalid dance ID '${danceIdStr}'`);
       return;
     }
-    const danceId = parseInt(danceIdStr);
-    const created = await addDancePattern({
-      name: values.name,
-      description: values.description,
-      videoUrl: values.videoUrl,
-      danceId: danceId,
-    });
-    if (!created) return;
-    navigate(returnUrl);
+    try {
+      setLoading(true);
+      const danceId = parseInt(danceIdStr);
+      await addDancePattern({
+        name: values.name,
+        description: values.description,
+        videoUrl: values.videoUrl,
+        danceId: danceId,
+      });
+      navigate(returnUrl);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (

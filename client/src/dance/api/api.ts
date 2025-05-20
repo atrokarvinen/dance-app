@@ -1,5 +1,5 @@
 import { axios } from "../../common/axios";
-import { Dance } from "../dance";
+import { Dance, DancePattern } from "../dance";
 
 export const getDances = () => {
   return axios.get<Dance[]>("/dances");
@@ -23,11 +23,11 @@ export const deleteDance = (id: number) => {
 
 // Dance patterns
 export const getDancePatterns = (danceId: number) => {
-  return axios.get(`dance-patterns/dance/${danceId}`);
+  return axios.get<DancePattern[]>(`dance-patterns/dance/${danceId}`);
 };
 
 export const getDancePattern = (id: number) => {
-  return axios.get(`dance-patterns/${id}`);
+  return axios.get<DancePattern>(`dance-patterns/${id}`);
 };
 
 export const addDancePattern = (data: any) => {

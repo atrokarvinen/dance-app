@@ -29,14 +29,13 @@ public class DancePatternService(DancePatternRepository dancePatternRepository)
 
     public async Task<DancePatternDto> CreateDancePattern(CreateDancePatternDto dto)
     {
-        var name = dto.Name;
-        var imageBase64 = dto.ImageBase64;
-        var imageUrl = dto.ImageUrl;
-
         var dancePattern = new DancePattern()
         {
-            Name = name,
-            ImageUrl = imageUrl,
+            Name = dto.Name,
+            Description = dto.Description,
+            ImageUrl = dto.ImageUrl,
+            VideoUrl = dto.VideoUrl,
+            DanceId = dto.DanceId,
         };
         await dancePatternRepository.AddDancePattern(dancePattern);
         var createdDancePattern = await dancePatternRepository.GetDancePatternById(dancePattern.Id);
@@ -46,19 +45,16 @@ public class DancePatternService(DancePatternRepository dancePatternRepository)
 
     public async Task UpdateDancePattern(int dancePatternId, UpdateDancePatternDto dto)
     {
-        var name = dto.Name;
-        var imageBase64 = dto.ImageBase64;
-        var imageUrl = dto.ImageUrl;
-
-        var dancePatternToUpdate = await dancePatternRepository.GetDancePatternById(dancePatternId);
-
-        var dance = new DancePattern
+        var dancePattern = new DancePattern
         {
             Id = dto.Id,
-            Name = name,
-            ImageUrl = string.IsNullOrEmpty(imageUrl) ? null : imageUrl,
+            Name = dto.Name,
+            Description = dto.Description,
+            ImageUrl = dto.ImageUrl,
+            VideoUrl = dto.VideoUrl,
+            DanceId = dto.DanceId,
         };
-        await dancePatternRepository.UpdateDancePattern(dance);
+        await dancePatternRepository.UpdateDancePattern(dancePattern);
     }
 
     public async Task DeleteDancePattern(int dancePatternId)
