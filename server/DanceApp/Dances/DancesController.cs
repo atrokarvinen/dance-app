@@ -1,6 +1,7 @@
 ﻿using DanceApp.Auth.Models;
 using DanceApp.Dances;
 using DanceApp.Dances.Models;
+using DanceApp.Extensions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DanceApp.Auth;
@@ -21,6 +22,19 @@ public class DancesController(DanceService danceService) : ControllerBase
     public async Task<IActionResult> GetDance(int danceId)
     {
         var dance = await danceService.GetDance(danceId);
+        if (dance == null)
+        {
+            return NotFound();
+        }
+        return Ok(dance);
+    }
+
+    [HttpGet]
+    [Route("{danceId:int}/details")]
+    public async Task<IActionResult> GetDanceDetails(int danceId)
+    {
+        var userId = User.TryGetUserId();
+        var dance = await danceService.GetDanceDetails(danceId, userId);
         if (dance == null)
         {
             return NotFound();

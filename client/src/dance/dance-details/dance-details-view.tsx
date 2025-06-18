@@ -5,13 +5,11 @@ import { ConfirmDialog } from "../../common/confirm-dialog";
 import { ErrorPage } from "../../common/error-page";
 import { Loader } from "../../common/loaders";
 import { useAddToFavorites } from "../../favorites/api/use-add-to-favorites";
-import { useGetFavorites } from "../../favorites/api/use-get-favorites";
 import { useRemoveFromFavorites } from "../../favorites/api/use-remove-from-favorites";
-import { getDancePatterns } from "../api/api";
 import { useDeleteDancePattern } from "../api/use-delete-dance-pattern";
-import { useGetDance } from "../api/use-get-dance";
-import { DancePattern } from "../dance";
+import { getDanceDetails } from "./api";
 import { DanceDetails } from "./dance-details";
+import { DancePattern } from "./models/dance-details-type";
 
 type Props = {
   danceId: number;
@@ -21,24 +19,11 @@ export const DanceDetailsView = ({ danceId }: Props) => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const {
-    dance,
-    error: danceError,
-    loading: danceLoading,
-  } = useGetDance(danceId);
-  const {
-    favorites,
-    error: favoritesError,
-    loading: favoritesLoading,
-  } = useGetFavorites();
-  const {
-    data,
-    isLoading: dancePatternsLoading,
-    refetch,
-  } = useQuery({
-    queryKey: ["dancePatterns", danceId],
-    queryFn: () => getDancePatterns(danceId),
+  const { data, error, isLoading, refetch } = useQuery({
+    queryKey: ["dance", danceId],
+    queryFn: () => getDanceDetails(danceId),
   });
+
   const { addToFavorites } = useAddToFavorites();
   const { removeFromFavorites } = useRemoveFromFavorites();
   const { deleteDancePattern } = useDeleteDancePattern();
@@ -73,15 +58,13 @@ export const DanceDetailsView = ({ danceId }: Props) => {
     await refetch();
   };
 
-  if (danceLoading || favoritesLoading || dancePatternsLoading)
-    return <Loader />;
-  if (danceError || favoritesError) {
-    const message = danceError?.message ?? favoritesError?.message ?? "Error";
-    return <ErrorPage message={message} />;
-  }
-  if (!dance) return <div>Dance not found</div>;
+  if (isLoading) return <Loader />;
+  if (error) return <ErrorPage message={error.message} />;
+  if (!data?.data) return <div>Dance not found</div>;
 
-  const dancePatterns = data?.data ?? [];
+  const dance = data.data;
+  const dancePatterns = dance.dancePatterns || [];
+  const favorites = dance.favorites || [];
 
   return (
     <>

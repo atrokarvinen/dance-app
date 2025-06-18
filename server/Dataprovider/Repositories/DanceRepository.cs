@@ -26,6 +26,17 @@ public class DanceRepository(ILogger<DanceRepository> _logger, DatabaseContext _
         return dance;
     }
 
+    public Task<Dance> GetDanceDetailsById(int danceId)
+    {
+        var dance = _context.Dances
+            .Include(d => d.DancePatterns)
+            .AsNoTracking()
+            .FirstOrDefaultAsync(d => d.Id == danceId);
+        if (dance == null)
+            throw new NotFoundException($"Failed to find dance with id ({danceId})");
+        return dance!;
+    }
+
     public Task<Dance?> FindDanceById(int id)
     {
         return _context.Dances
@@ -59,4 +70,6 @@ public class DanceRepository(ILogger<DanceRepository> _logger, DatabaseContext _
         }
         return dance;
     }
+
+    
 }

@@ -9,6 +9,13 @@ public class FavoriteRepository(DatabaseContext _context)
     public Task<List<FavoritePattern>> GetFavoritesByUser(int userId)
     {
         return _context.FavoritePatterns
+            .Where(fp => fp.UserId == userId)
+            .ToListAsync();
+    }
+
+    public Task<List<FavoritePattern>> GetFavoritesListView(int userId)
+    {
+        return _context.FavoritePatterns
             .Include(fp => fp.DancePattern)
                 .ThenInclude(dp => dp.Dance)
             .Where(fp => fp.UserId == userId)

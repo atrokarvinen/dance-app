@@ -22,6 +22,19 @@ public class FavoritesController(FavoriteService favoriteService) : ControllerBa
         return Ok(favorites);
     }
 
+    [HttpGet]
+    [Route("list-view")]
+    public async Task<IActionResult> GetFavoritesListView()
+    {
+        var userId = User.TryGetUserId();
+        if (userId == null)
+        {
+            return Ok(new List<FavoriteListItemDto>());
+        }
+        var favorites = await favoriteService.GetFavoritesListView(userId.Value);
+        return Ok(favorites);
+    }
+
     [HttpPost]
     public async Task<IActionResult> AddFavorite([FromBody] CreateFavoriteDto favorite)
     {

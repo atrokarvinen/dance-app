@@ -8,6 +8,7 @@ namespace DanceApp.Dances;
 public class DanceService(
     ILogger<DanceService> logger,
     DanceRepository danceRepository,
+    FavoriteRepository favoriteRepository,
     BlobService blobService
     )
 {
@@ -22,6 +23,28 @@ public class DanceService(
     {
         var dance = await danceRepository.GetDanceById(danceId);
         var dto = ToDto(dance);
+        return dto;
+    }
+
+    internal async Task<DanceDetailsDto> GetDanceDetails(int danceId, int? userId)
+    {
+        var dance = await danceRepository.GetDanceDetailsById(danceId);
+        var favorites = await favoriteRepository.GetFavoritesByUser(userId ?? 0);
+        var dto = new DanceDetailsDto()
+        {
+            Id = dance.Id,
+            Name = dance.Name,
+            DancePatterns = dance.DancePatterns.Select(dp => new DanceDetailsPatternDto
+            {
+                Id = dp.Id,
+                Name = dp.Name,
+            }).ToList(),
+            Favorites = favorites.Select(f => new DanceDetailsFavoritePatternDto
+            {
+                Id = f.Id,
+                DancePatternId = f.DancePatternId,
+            }).ToList(),
+        };
         return dto;
     }
 
@@ -105,4 +128,6 @@ public class DanceService(
             // Map properties from the DTO to the entity
         };
     }
+
+    
 }

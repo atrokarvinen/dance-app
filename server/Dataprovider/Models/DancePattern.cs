@@ -17,6 +17,8 @@ public class DancePattern
     public int DanceId { get; set; }
     public Dance Dance { get; set; } = null!;
 
+    public ICollection<FavoritePattern> FavoritePatterns { get; set; } = [];
+
     [InverseProperty(nameof(DancePatternVariation.Original))]
     public List<DancePatternVariation> Variations { get; set; } = new List<DancePatternVariation>();
     //public List<DancePattern> Predecessors { get; set; } = new List<DancePattern>();

@@ -1,6 +1,9 @@
 import { Grid } from "@mui/material";
 import { Link } from "react-router-dom";
-import { DancePattern, FavoritePattern } from "../dance";
+import {
+  DancePattern,
+  FavoritePattern,
+} from "../dance-details/models/dance-details-type";
 import { DancePatternCard } from "./dance-pattern-card";
 
 type Props = {

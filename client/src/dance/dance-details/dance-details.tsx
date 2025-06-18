@@ -5,16 +5,20 @@ import {
   selectIsDancePatternEditMode,
 } from "../../layout/ui-store";
 import { useAppDispatch, useAppSelector } from "../../redux/store";
-import { Dance, DancePattern, FavoritePattern } from "../dance";
 import { ActionButtons } from "../dance-list/action-buttons";
 import {
   Page,
   usePreferredViewMode,
 } from "../dance-list/use-preferred-view-mode";
 import { DancePatternList } from "../dance-pattern-list/dance-pattern-list";
+import {
+  DanceDetailsType,
+  DancePattern,
+  FavoritePattern,
+} from "./models/dance-details-type";
 
 type Props = {
-  dance: Dance;
+  dance: DanceDetailsType;
   dancePatterns: DancePattern[];
   favorites: FavoritePattern[];
   onAddToFavorites: (dancePatternId: number) => void;

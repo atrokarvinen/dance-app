@@ -1,7 +1,7 @@
 import { Delete } from "@mui/icons-material";
 import { Box, Button, IconButton, Stack } from "@mui/material";
 import { Link } from "react-router-dom";
-import { FavoritePattern } from "../dance/dance";
+import { FavoritePattern } from "./models/list-view-favorite";
 
 type Props = {
   favorite: FavoritePattern;
@@ -9,14 +9,14 @@ type Props = {
 };
 
 export const FavoriteListItem = ({ favorite, onRemoveFavorite }: Props) => {
-  const { id, dancePatternId, dancePattern } = favorite;
-  const { danceId } = dancePattern;
+  const { id, dancePattern } = favorite;
+  const { dance } = dancePattern;
   return (
     <Box width="100%">
       <Stack direction="row">
         <Button
           variant="contained"
-          to={`/dances/${danceId}/dance-patterns/${dancePatternId}`}
+          to={`/dances/${dance.id}/dance-patterns/${dancePattern.id}`}
           state={{ returnUrl: "/favorites" }}
           component={Link}
           sx={{ flex: 1 }}

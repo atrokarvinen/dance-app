@@ -14,6 +14,26 @@ public class FavoriteService(FavoriteRepository favoriteRepository)
         return dtos;
     }
 
+    public async Task<List<FavoriteListItemDto>> GetFavoritesListView(int userId)
+    {
+        var favorites = await favoriteRepository.GetFavoritesListView(userId);
+        var dtos = favorites.Select(x => new FavoriteListItemDto()
+        {
+            Id = x.Id,
+            DancePattern = new FavoriteListItemPatternDto
+            {
+                Id = x.DancePattern.Id,
+                Name = x.DancePattern.Name,
+                Dance = new FavoriteListItemDanceDto
+                {
+                    Id = x.DancePattern.Dance.Id,
+                    Name = x.DancePattern.Dance.Name,
+                },
+            },
+        }).ToList();
+        return dtos;
+    }
+
     public async Task<FavoritePattern> AddFavorite(int dancePatternId, int userId)
     {
         var favorites = await favoriteRepository.GetFavoritesByUser(userId);
@@ -50,4 +70,6 @@ public class FavoriteService(FavoriteRepository favoriteRepository)
             // Map properties from the DTO to the entity
         };
     }
+
+
 }

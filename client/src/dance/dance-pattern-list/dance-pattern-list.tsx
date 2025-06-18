@@ -1,5 +1,8 @@
 import { Typography } from "@mui/material";
-import { DancePattern, FavoritePattern } from "../dance";
+import {
+  DancePattern,
+  FavoritePattern,
+} from "../dance-details/models/dance-details-type";
 import { DancePatternGridView } from "./dance-pattern-grid-view";
 import { DancePatternListView } from "./dance-pattern-list-view";
 
