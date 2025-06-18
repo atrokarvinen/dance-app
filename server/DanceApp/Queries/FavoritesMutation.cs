@@ -11,7 +11,7 @@ namespace DanceApp.Queries;
 public class FavoritesMutation
 {
     [Error<FavoritePatternException>]
-    public FavoritePattern AddFavorite(
+    public Task< FavoritePattern >AddFavorite(
         [Service] FavoritesService favoritesService,
         [ID] int dancePatternId,
         ClaimsPrincipal claims
@@ -24,7 +24,7 @@ public class FavoritesMutation
     [Error<NotFoundException>]
     [Error<UnauthorizedException>]
     [Error<FavoritePatternException>]
-    public FavoritePattern RemoveFavorite(
+    public Task<FavoritePattern> RemoveFavorite(
         [Service] FavoritesService favoritesService,
         [ID] int id,
         ClaimsPrincipal claims

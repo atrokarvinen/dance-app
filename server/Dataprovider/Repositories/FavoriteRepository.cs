@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Dataprovider.Repositories;
 
-public class FavoritesRepository(DatabaseContext _context)
+public class FavoriteRepository(DatabaseContext _context)
 {
-    public List<FavoritePattern> GetFavoritesByUser(int userId)
+    public Task<List<FavoritePattern>> GetFavoritesByUser(int userId)
     {
         return _context.FavoritePatterns
             .Include(fp => fp.DancePattern)
@@ -14,20 +14,20 @@ public class FavoritesRepository(DatabaseContext _context)
             .Where(fp => fp.UserId == userId)
             .OrderBy(x => x.DancePattern.Dance.Name)
                 .ThenBy(x => x.DancePattern.Name)
-            .ToList();
+            .ToListAsync();
     }
 
-    public FavoritePattern AddFavorite(FavoritePattern favorite)
+    public async Task<FavoritePattern> AddFavorite(FavoritePattern favorite)
     {
-        _context.FavoritePatterns.Add(favorite);
-        _context.SaveChanges();
+        await _context.FavoritePatterns.AddAsync(favorite);
+        await _context.SaveChangesAsync();
 
         return favorite;
     }
 
-    public FavoritePattern RemoveFavorite(int id, int userId)
+    public async Task<FavoritePattern> RemoveFavorite(int id, int userId)
     {
-        var favorite = _context.FavoritePatterns.FirstOrDefault(f => f.Id == id);
+        var favorite = await _context.FavoritePatterns.FirstOrDefaultAsync(f => f.Id == id);
         if (favorite is null)
         {
             throw new NotFoundException("Favorite not found");
@@ -37,7 +37,7 @@ public class FavoritesRepository(DatabaseContext _context)
             throw new UnauthorizedException("Unauthorized");
         }
         _context.FavoritePatterns.Remove(favorite);
-        _context.SaveChanges();
+        await _context.SaveChangesAsync();
         return favorite;
     }
 }

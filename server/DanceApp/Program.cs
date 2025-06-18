@@ -3,6 +3,7 @@ using DanceApp.Config;
 using DanceApp.DancePatterns;
 using DanceApp.Dances;
 using DanceApp.Extensions;
+using DanceApp.Favorites;
 using DanceApp.Initialization;
 using DanceApp.Queries;
 using DanceApp.Services;
@@ -31,7 +32,7 @@ builder.AddAuth();
 builder.AddDatabase();
 builder.Services.AddScoped<DanceRepository>();
 builder.Services.AddScoped<DancePatternRepository>();
-builder.Services.AddScoped<FavoritesRepository>();
+builder.Services.AddScoped<FavoriteRepository>();
 builder.Services.AddScoped<FavoritesService>();
 builder.Services.AddScoped<BlobService>();
 builder.Services
@@ -55,6 +56,7 @@ builder.Services
 builder.Services.AddScoped<AuthService>();
 builder.Services.AddScoped<DanceService>();
 builder.Services.AddScoped<DancePatternService>();
+builder.Services.AddScoped<FavoriteService>();
 builder.Services.AddScoped<UserSeeder>();
 builder.Services.AddScoped<IPasswordProvider, PasswordProvider>();
 

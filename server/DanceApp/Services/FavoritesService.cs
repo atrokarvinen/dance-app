@@ -4,23 +4,22 @@ using Dataprovider.Repositories;
 
 namespace DanceApp.Services;
 
-public class FavoritesService(FavoritesRepository _favoritesRepository
-    )
+public class FavoritesService(FavoriteRepository _favoritesRepository)
 {
-    public bool? IsFavoritePattern(int dancePatternId, int? userId)
+    public async Task<bool?> IsFavoritePattern(int dancePatternId, int? userId)
     {
         if (userId is null)
         {
             return null;
         }
-        var favorites = _favoritesRepository.GetFavoritesByUser(userId.Value);
+        var favorites = await _favoritesRepository.GetFavoritesByUser(userId.Value);
         var isFavorite = favorites.Any(fp => fp.DancePatternId == dancePatternId);
         return isFavorite;
     }
 
-    public FavoritePattern AddFavorite(int dancePatternId, int userId)
+    public async Task< FavoritePattern> AddFavorite(int dancePatternId, int userId)
     {
-        var favorites = _favoritesRepository.GetFavoritesByUser(userId);
+        var favorites = await _favoritesRepository.GetFavoritesByUser(userId);
         var isAlreadyFavorite = favorites.Any(fp => fp.DancePatternId == dancePatternId);
         if (isAlreadyFavorite)
             throw new FavoritePatternException("Pattern is already a favorite");
@@ -31,14 +30,14 @@ public class FavoritesService(FavoritesRepository _favoritesRepository
             UserId = userId
         };
 
-        _favoritesRepository.AddFavorite(favorite);
+        await _favoritesRepository.AddFavorite(favorite);
 
         return favorite;
     }
 
-    public FavoritePattern RemoveFavorite(int id, int userId)
+    public async Task<FavoritePattern> RemoveFavorite(int id, int userId)
     {
-        var favorite = _favoritesRepository.RemoveFavorite(id, userId);
+        var favorite = await _favoritesRepository.RemoveFavorite(id, userId);
         return favorite;
     }
 }

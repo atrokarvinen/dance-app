@@ -25,7 +25,7 @@ public class DancePatternQuery
         )
     {
         var userId = claims.TryGetUserId();
-        var isFavorite = favoritesService.IsFavoritePattern(id, userId);
+        var isFavorite = await favoritesService.IsFavoritePattern(id, userId);
         var dancePattern = await repository.GetDancePatternById(id);
         return new GetDancePatternOutput()
         {

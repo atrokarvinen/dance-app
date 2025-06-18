@@ -24,9 +24,6 @@ export type DancePattern = {
 
 export type FavoritePattern = {
   id: number;
-  displayName?: string;
-
-  userId: number;
 
   dancePatternId: number;
   dancePattern: DancePattern;
