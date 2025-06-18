@@ -1,7 +1,7 @@
 import { ArrowBack } from "@mui/icons-material";
 import { Box, IconButton, Stack, Typography } from "@mui/material";
+import { FavoriteActionButton } from "../../favorites/favorite-action-button";
 import { DancePattern } from "../dance";
-import { FavoriteActionButton } from "../favorite-action-button";
 import { Video } from "./video";
 
 type Props = {

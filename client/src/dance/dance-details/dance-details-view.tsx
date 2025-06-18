@@ -4,12 +4,12 @@ import { useLocation, useNavigate } from "react-router";
 import { ConfirmDialog } from "../../common/confirm-dialog";
 import { ErrorPage } from "../../common/error-page";
 import { Loader } from "../../common/loaders";
+import { useAddToFavorites } from "../../favorites/api/use-add-to-favorites";
+import { useGetFavorites } from "../../favorites/api/use-get-favorites";
+import { useRemoveFromFavorites } from "../../favorites/api/use-remove-from-favorites";
 import { getDancePatterns } from "../api/api";
-import { useAddToFavorites } from "../api/use-add-to-favorites";
 import { useDeleteDancePattern } from "../api/use-delete-dance-pattern";
 import { useGetDance } from "../api/use-get-dance";
-import { useGetFavorites } from "../api/use-get-favorites";
-import { useRemoveFromFavorites } from "../api/use-remove-from-favorites";
 import { DancePattern } from "../dance";
 import { DanceDetails } from "./dance-details";
 

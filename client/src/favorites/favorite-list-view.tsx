@@ -10,26 +10,24 @@ import {
 } from "@mui/material";
 import _ from "lodash";
 import { SyntheticEvent } from "react";
-import { ErrorPage } from "../common/error-page";
-import { Loader } from "../common/loaders";
+import { FavoritePattern } from "../dance/dance";
 import {
   onCloseFavorite,
   onOpenFavorite,
   selectOpenFavorites,
 } from "../layout/ui-store";
 import { useAppDispatch, useAppSelector } from "../redux/store";
-import { useGetFavorites } from "./api/use-get-favorites";
 import { useRemoveFromFavorites } from "./api/use-remove-from-favorites";
 import { FavoriteListItem } from "./favorite-list-item";
 
-export const FavoriteList = () => {
-  const { error, favorites, loading } = useGetFavorites();
+type Props = {
+  favorites: FavoritePattern[];
+};
+
+export const FavoriteListView = ({ favorites }: Props) => {
   const { removeFromFavorites } = useRemoveFromFavorites();
   const dispatch = useAppDispatch();
   const openFavorites = useAppSelector(selectOpenFavorites);
-
-  if (loading) return <Loader />;
-  if (error) return <ErrorPage message={error.message} />;
 
   const handleRemoveFromFavorites = async (id: number) => {
     await removeFromFavorites(id);

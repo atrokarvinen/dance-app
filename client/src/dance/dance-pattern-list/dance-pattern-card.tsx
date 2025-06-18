@@ -10,9 +10,9 @@ import {
   Stack,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { FavoriteActionButton } from "../../favorites/favorite-action-button";
 import { DancePattern } from "../dance";
 import { getYoutubeThumbnail } from "../dance-pattern-details/youtube-video-utils";
-import { FavoriteActionButton } from "../favorite-action-button";
 
 type Props = {
   isEditMode: boolean;

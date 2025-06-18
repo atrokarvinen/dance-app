@@ -1,7 +1,7 @@
 import { Delete } from "@mui/icons-material";
 import { Box, Button, IconButton, Stack } from "@mui/material";
 import { Link } from "react-router-dom";
-import { FavoritePattern } from "./dance";
+import { FavoritePattern } from "../dance/dance";
 
 type Props = {
   favorite: FavoritePattern;

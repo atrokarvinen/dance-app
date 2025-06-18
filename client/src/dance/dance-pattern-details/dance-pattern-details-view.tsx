@@ -2,10 +2,10 @@ import { useNavigate } from "react-router";
 import { selectIsAuthenticated } from "../../auth/auth-store";
 import { ErrorPage } from "../../common/error-page";
 import { Loader } from "../../common/loaders";
+import { useAddToFavorites } from "../../favorites/api/use-add-to-favorites";
+import { useRemoveFromFavorites } from "../../favorites/api/use-remove-from-favorites";
 import { useAppSelector } from "../../redux/store";
-import { useAddToFavorites } from "../api/use-add-to-favorites";
 import { useGetDancePattern } from "../api/use-get-dance-pattern";
-import { useRemoveFromFavorites } from "../api/use-remove-from-favorites";
 import { DancePatternDetails } from "./dance-pattern-details";
 
 type Props = {

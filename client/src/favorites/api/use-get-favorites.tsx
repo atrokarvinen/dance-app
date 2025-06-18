@@ -1,8 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import { selectIsAuthenticated } from "../../auth/auth-store";
 import { axios } from "../../common/axios";
+import { FavoritePattern } from "../../dance/dance";
 import { useAppSelector } from "../../redux/store";
-import { FavoritePattern } from "../dance";
 
 export const useGetFavorites = () => {
   const isAuthenticated = useAppSelector(selectIsAuthenticated);

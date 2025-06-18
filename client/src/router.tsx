@@ -9,7 +9,7 @@ import { AddDancePatternPage } from "./dance/edit-dance-pattern/add-dance-patter
 import { EditDancePatternPage } from "./dance/edit-dance-pattern/edit-dance-pattern-page";
 import { AddDancePage } from "./dance/edit-dance/add-dance-page";
 import { EditDancePage } from "./dance/edit-dance/edit-dance-page";
-import { FavoriteList } from "./dance/favorite-list";
+import { FavoritePage } from "./favorites/favorite-page";
 import { SettingsPage } from "./settings/settings-page";
 
 export const browserRouter = createBrowserRouter([
@@ -35,7 +35,7 @@ export const browserRouter = createBrowserRouter([
       },
       {
         path: "/favorites",
-        element: <FavoriteList />,
+        element: <FavoritePage />,
       },
       {
         path: "dances/:danceId/dance-patterns/new",
