@@ -6,7 +6,7 @@ export const preprocessFileList = async (files: FileList | undefined) => {
   return preprocessFile(files[0]);
 };
 
-export const preprocessFile = async (file: File) => {
+const preprocessFile = async (file: File) => {
   console.log("original size:", file.size);
   const compressedFile = await compress(file, {
     maxSizeMB: 0.1,
@@ -20,7 +20,7 @@ export const preprocessFile = async (file: File) => {
   return imageBase64;
 };
 
-export const fileToBase64 = (file: File) =>
+const fileToBase64 = (file: File) =>
   new Promise<string>((resolve, reject) => {
     const reader = new FileReader();
     reader.readAsDataURL(file);
@@ -34,14 +34,3 @@ export const fileToBase64 = (file: File) =>
     };
     reader.onerror = reject;
   });
-
-export const base64ToBlob = (base64: string) => {
-  try {
-    const blob = fetch(base64).then((res) => res.blob());
-    console.log("Converted base64 to blob");
-    return blob;
-  } catch (error) {
-    console.log("Error converting base64 to blob:", error);
-    throw new Error("Error converting base64 to blob");
-  }
-};

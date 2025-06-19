@@ -1,4 +1,4 @@
-export const parseYoutubeId = (url: string) => {
+const parseYoutubeId = (url: string) => {
   const urlParams = new URLSearchParams(url.split("?")[1]);
   const urlParamsId = urlParams.get("v");
   if (urlParamsId) {

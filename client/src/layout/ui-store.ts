@@ -63,7 +63,6 @@ export const {
 export const selectIsDarkMode = (state: RootState) =>
   state.ui.lightMode === "dark";
 export const selectLightMode = (state: RootState) => state.ui.lightMode;
-export const selectContentScroll = (state: RootState) => state.ui.contentScroll;
 export const selectContentScrollOfPage = (path: string) => (state: RootState) =>
   state.ui.contentScroll[path];
 export const selectOpenFavorites = (state: RootState) => state.ui.openFavorites;

@@ -1,8 +1,8 @@
-import { axios } from "../../common/axios";
+import { deleteDancePattern as deleteDancePatternRequest } from "./api";
 
 export const useDeleteDancePattern = () => {
   const deleteDancePattern = (dancePatternId: number) => {
-    return axios.delete(`/dance-patterns/${dancePatternId}`);
+    return deleteDancePatternRequest(dancePatternId);
   };
 
   return { deleteDancePattern };

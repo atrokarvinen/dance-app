@@ -21,10 +21,3 @@ export type DancePattern = {
 
   isFavorite?: boolean;
 };
-
-export type FavoritePattern = {
-  id: number;
-
-  dancePatternId: number;
-  dancePattern: DancePattern;
-};

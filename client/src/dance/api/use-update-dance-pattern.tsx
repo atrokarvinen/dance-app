@@ -1,8 +1,8 @@
-import { axios } from "../../common/axios";
+import { updateDancePattern as updateDancePatternRequest } from "./api";
 
 export const useUpdateDancePattern = () => {
   const updateDancePattern = (values: any) => {
-    return axios.put(`/dance-patterns/${values.id}`, values);
+    return updateDancePatternRequest(values);
   };
 
   return { updateDancePattern };

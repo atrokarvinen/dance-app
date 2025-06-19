@@ -22,10 +22,6 @@ export const deleteDance = (id: number) => {
 };
 
 // Dance patterns
-export const getDancePatterns = (danceId: number) => {
-  return axios.get<DancePattern[]>(`dance-patterns/dance/${danceId}`);
-};
-
 export const getDancePattern = (id: number) => {
   return axios.get<DancePattern>(`dance-patterns/${id}`);
 };

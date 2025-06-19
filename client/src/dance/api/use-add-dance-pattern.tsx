@@ -1,8 +1,8 @@
 import { useMutation } from "@tanstack/react-query";
 import { useApiError } from "../../common/api/use-api-error";
-import { axios } from "../../common/axios";
 import { addMessage } from "../../common/toast/toast-store";
 import { useAppDispatch } from "../../redux/store";
+import { addDancePattern as addDancePatternRequest } from "./api";
 
 export const useAddDancePattern = () => {
   const dispatch = useAppDispatch();
@@ -10,7 +10,7 @@ export const useAddDancePattern = () => {
 
   const mutation = useMutation({
     mutationFn: async (values: any) => {
-      const created = await axios.post("/dance-patterns", values);
+      const created = await addDancePatternRequest(values);
       return created;
     },
     onError: (error) => {
