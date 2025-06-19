@@ -1,10 +1,8 @@
-﻿using DanceApp.Auth.Models;
-using DanceApp.Dances;
-using DanceApp.Dances.Models;
+﻿using DanceApp.Dances.Models;
 using DanceApp.Extensions;
 using Microsoft.AspNetCore.Mvc;
 
-namespace DanceApp.Auth;
+namespace DanceApp.Dances;
 
 [ApiController]
 [Route("[controller]")]

@@ -12,7 +12,7 @@ public class DancePatternService(DancePatternRepository dancePatternRepository)
         var dtos = dancePatterns.Select(d => ToDto(d)).ToList();
         return dtos;
     }
-    
+
     public async Task<List<DancePatternDto>> GetDancePatterns(int danceId)
     {
         var dancePatterns = await dancePatternRepository.GetDancePatterns(danceId);

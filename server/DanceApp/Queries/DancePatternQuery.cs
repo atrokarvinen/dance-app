@@ -3,7 +3,6 @@ using DanceApp.Outputs;
 using DanceApp.Services;
 using Dataprovider.Models;
 using Dataprovider.Repositories;
-using System.Runtime.CompilerServices;
 using System.Security.Claims;
 
 namespace DanceApp.Queries;

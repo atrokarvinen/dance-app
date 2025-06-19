@@ -1,5 +1,4 @@
-﻿using DanceApp.Auth.Models;
-using DanceApp.Extensions;
+﻿using DanceApp.Extensions;
 using DanceApp.Favorites.Models;
 using Dataprovider.Exceptions;
 using Microsoft.AspNetCore.Mvc;

@@ -1,7 +1,4 @@
-﻿using DanceApp.Auth.Models;
-using DanceApp.DancePatterns.Models;
-using DanceApp.Dances;
-using DanceApp.Dances.Models;
+﻿using DanceApp.DancePatterns.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DanceApp.DancePatterns;
@@ -16,7 +13,7 @@ public class DancesPatternsController(DancePatternService dancePatternService) :
         var DancePatterns = await dancePatternService.GetDancePatterns();
         return Ok(DancePatterns);
     }
-    
+
     [HttpGet]
     [Route("dance/{danceId:int}")]
     public async Task<IActionResult> GetDancePatternsForDance(int danceId)

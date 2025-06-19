@@ -71,5 +71,5 @@ public class DanceRepository(ILogger<DanceRepository> _logger, DatabaseContext _
         return dance;
     }
 
-    
+
 }

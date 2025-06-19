@@ -5,7 +5,6 @@ using DanceApp.Outputs;
 using Dataprovider;
 using Dataprovider.Enums;
 using Dataprovider.Models;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -16,7 +15,7 @@ using System.Text;
 namespace DanceApp.Auth;
 
 public class AuthService(
-    DatabaseContext dbContext, 
+    DatabaseContext dbContext,
     IOptions<AuthConfig> authConfig,
     IPasswordProvider passwordProvider)
 {

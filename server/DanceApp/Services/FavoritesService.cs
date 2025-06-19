@@ -17,7 +17,7 @@ public class FavoritesService(FavoriteRepository _favoritesRepository)
         return isFavorite;
     }
 
-    public async Task< FavoritePattern> AddFavorite(int dancePatternId, int userId)
+    public async Task<FavoritePattern> AddFavorite(int dancePatternId, int userId)
     {
         var favorites = await _favoritesRepository.GetFavoritesByUser(userId);
         var isAlreadyFavorite = favorites.Any(fp => fp.DancePatternId == dancePatternId);
