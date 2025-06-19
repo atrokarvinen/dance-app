@@ -1,4 +1,3 @@
-import { useApolloClient } from "@apollo/client";
 import { useCallback } from "react";
 import { useNavigate } from "react-router";
 import { removeAuthToken, setAuthToken } from "../common/axios";
@@ -9,7 +8,6 @@ import { login as reduxLogin, logout as reduxLogout } from "./auth-store";
 export const useAuth = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const client = useApolloClient();
 
   const login = (token: string) => {
     localStorage.setItem(LOCALSTORE_TOKEN, token);
@@ -30,7 +28,6 @@ export const useAuth = () => {
     localStorage.removeItem(LOCALSTORE_TOKEN);
     localStorage.removeItem("username");
     dispatch(reduxLogout());
-    client.clearStore();
     removeAuthToken();
     navigate("/auth");
   };
