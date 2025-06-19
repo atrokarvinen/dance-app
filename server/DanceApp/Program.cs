@@ -5,7 +5,6 @@ using DanceApp.Dances;
 using DanceApp.Extensions;
 using DanceApp.Favorites;
 using DanceApp.Initialization;
-using DanceApp.Queries;
 using DanceApp.Services;
 using Dataprovider;
 using Dataprovider.Repositories;
@@ -34,24 +33,7 @@ builder.Services.AddScoped<DancePatternRepository>();
 builder.Services.AddScoped<FavoriteRepository>();
 builder.Services.AddScoped<FavoritesService>();
 builder.Services.AddScoped<BlobService>();
-builder.Services
-    .AddGraphQLServer()
-    .AddAuthorization()
-    .RegisterDbContext<DatabaseContext>()
-    .AddQueryType(q => q.Name("Query"))
-    .AddMutationType(m => m.Name("Mutation"))
-    .AddType<AuthQuery>()
-    .AddType<AuthMutation>()
-    .AddType<DanceQuery>()
-    .AddType<DanceMutation>()
-    .AddType<DancePatternQuery>()
-    .AddType<DancePatternMutation>()
-    .AddType<FavoritesQuery>()
-    .AddType<FavoritesMutation>()
-    .AddType<UploadType>()
-    .AddMutationConventions()
-    ;
-
+builder.Services.AddAuthorization();
 builder.Services.AddScoped<AuthService>();
 builder.Services.AddScoped<DanceService>();
 builder.Services.AddScoped<DancePatternService>();
@@ -66,8 +48,6 @@ builder.Host.UseSerilog((context, config) =>
 );
 
 var app = builder.Build();
-
-app.MapGraphQL();
 
 app.UseCors(builder => builder
     .WithOrigins([
