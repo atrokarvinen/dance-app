@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "unused-exports": "ts-unused-exports ./tsconfig.app.json"
   },
   "dependencies": {
     "@apollo/client": "^3.10.8",
@@ -19,7 +20,6 @@
     "@mui/material": "^5.16.4",
     "@reduxjs/toolkit": "^2.2.6",
     "@tanstack/react-query": "^5.76.1",
-    "@types/lodash": "^4.17.6",
     "axios": "^1.9.0",
     "browser-image-compression": "^2.0.2",
     "graphql": "^16.9.0",
@@ -33,6 +33,7 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
+    "@types/lodash": "^4.17.18",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
     "@typescript-eslint/eslint-plugin": "^7.13.1",
@@ -41,6 +42,7 @@
     "eslint": "^8.57.0",
     "eslint-plugin-react-hooks": "^4.6.2",
     "eslint-plugin-react-refresh": "^0.4.7",
+    "ts-unused-exports": "^11.0.1",
     "typescript": "^5.2.2",
     "vite": "^5.3.1"
   }

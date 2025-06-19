@@ -18,7 +18,8 @@ test("common user cannot create dances", async ({
 
   await dancePage.goTo();
   await dancePage.createDance({ name: danceName });
-  const error = "User is not authorized to add dances";
+  const error =
+    "Forbidden access. You do not have permission to perform this action.";
   await expect(dancePage.page.getByText(error)).toBeVisible();
 });
 
@@ -52,6 +53,7 @@ test("common user cannot create dance patterns", async ({
 
   await dancePatternPage.goToDance(danceName);
   await dancePatternPage.createDancePattern({ name: dancePatternName });
-  const error = "User is not authorized to add dance patterns";
+  const error =
+    "Forbidden access. You do not have permission to perform this action.";
   await expect(dancePatternPage.page.getByText(error)).toBeVisible();
 });

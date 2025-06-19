@@ -1,4 +1,5 @@
 ﻿using DanceApp.DancePatterns.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DanceApp.DancePatterns;
@@ -35,6 +36,7 @@ public class DancesPatternsController(DancePatternService dancePatternService) :
     }
 
     [HttpPost]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> CreateDancePattern([FromBody] CreateDancePatternDto dto)
     {
         var createdDance = await dancePatternService.CreateDancePattern(dto);
@@ -43,6 +45,7 @@ public class DancesPatternsController(DancePatternService dancePatternService) :
 
     [HttpPut]
     [Route("{dancePatternId:int}")]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> UpdateDancePattern(int dancePatternId, [FromBody] UpdateDancePatternDto dto)
     {
         await dancePatternService.UpdateDancePattern(dancePatternId, dto);
@@ -51,6 +54,7 @@ public class DancesPatternsController(DancePatternService dancePatternService) :
 
     [HttpDelete]
     [Route("{dancePatternId:int}")]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> DeleteDancePattern(int dancePatternId)
     {
         await dancePatternService.DeleteDancePattern(dancePatternId);

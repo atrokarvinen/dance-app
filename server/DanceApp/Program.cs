@@ -14,8 +14,6 @@ using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
 builder.Configuration
     .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
     .AddJsonFile("appsettings.Development.json", optional: true, reloadOnChange: true)
@@ -26,10 +24,11 @@ builder.Services.Configure<BlobConfig>(builder.Configuration.GetSection("Blob"))
 builder.Services.AddOptions();
 builder.Services.AddControllers();
 builder.Services.AddHttpClient();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
+
 builder.AddAuth();
 builder.AddDatabase();
+
 builder.Services.AddScoped<DanceRepository>();
 builder.Services.AddScoped<DancePatternRepository>();
 builder.Services.AddScoped<FavoriteRepository>();

@@ -1,5 +1,6 @@
 ﻿using DanceApp.Dances.Models;
 using DanceApp.Extensions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DanceApp.Dances;
@@ -41,6 +42,7 @@ public class DancesController(DanceService danceService) : ControllerBase
     }
 
     [HttpPost]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> CreateDance([FromBody] CreateDanceDto dance)
     {
         var createdDance = await danceService.CreateDance(dance);
@@ -49,6 +51,7 @@ public class DancesController(DanceService danceService) : ControllerBase
 
     [HttpPut]
     [Route("{danceId:int}")]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> UpdateDance(int danceId, [FromBody] UpdateDanceDto dance)
     {
         await danceService.UpdateDance(danceId, dance);
@@ -57,6 +60,7 @@ public class DancesController(DanceService danceService) : ControllerBase
 
     [HttpDelete]
     [Route("{danceId:int}")]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> DeleteDance(int danceId)
     {
         await danceService.DeleteDance(danceId);

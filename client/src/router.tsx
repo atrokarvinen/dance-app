@@ -17,26 +17,11 @@ export const browserRouter = createBrowserRouter([
     path: "/",
     element: <App />,
     children: [
-      {
-        path: "/",
-        element: <DanceList />,
-      },
-      {
-        path: "/dances/:danceId",
-        element: <DanceDetailsPage />,
-      },
-      {
-        path: "/dances/new",
-        element: <AddDancePage />,
-      },
-      {
-        path: "/dances/edit/:danceId",
-        element: <EditDancePage />,
-      },
-      {
-        path: "/favorites",
-        element: <FavoritePage />,
-      },
+      { path: "/", element: <DanceList /> },
+      { path: "/dances/:danceId", element: <DanceDetailsPage /> },
+      { path: "/dances/new", element: <AddDancePage /> },
+      { path: "/dances/edit/:danceId", element: <EditDancePage /> },
+      { path: "/favorites", element: <FavoritePage /> },
       {
         path: "dances/:danceId/dance-patterns/new",
         element: <AddDancePatternPage />,
@@ -49,18 +34,9 @@ export const browserRouter = createBrowserRouter([
         path: "dances/:danceId/dance-patterns/:dancePatternId",
         element: <DancePatternDetailsPage />,
       },
-      {
-        path: "/auth",
-        element: <AuthPage />,
-      },
-      {
-        path: "/auth/signup",
-        element: <SignupView />,
-      },
-      {
-        path: "/settings",
-        element: <SettingsPage />,
-      },
+      { path: "/auth", element: <AuthPage /> },
+      { path: "/auth/signup", element: <SignupView /> },
+      { path: "/settings", element: <SettingsPage /> },
     ],
   },
 ]);
