@@ -1,11 +1,18 @@
 import { PaletteMode } from "@mui/material";
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import { LOCALSTORE_LIGHT_MODE } from "../common/localstore-constants";
 import { useAppDispatch } from "../redux/store";
 import { setDarkMode } from "./ui-store";
 
 export const useCheckPrefersDark = () => {
   const dispatch = useAppDispatch();
+
+  const listener = useCallback(
+    (e: MediaQueryListEvent) => {
+      dispatch(setDarkMode(e.matches ? "dark" : "light"));
+    },
+    [dispatch]
+  );
 
   useEffect(() => {
     const uiDefault = localStorage.getItem(LOCALSTORE_LIGHT_MODE) as
@@ -23,9 +30,5 @@ export const useCheckPrefersDark = () => {
         .matchMedia("(prefers-color-scheme: dark)")
         .removeEventListener("change", listener);
     };
-  }, []);
-
-  const listener = (e: MediaQueryListEvent) => {
-    dispatch(setDarkMode(e.matches ? "dark" : "light"));
-  };
+  }, [dispatch, listener]);
 };

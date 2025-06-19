@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useLocation } from "react-router";
 import { useAppDispatch, useAppSelector } from "../redux/store";
 import { selectContentScrollOfPage, setContentScroll } from "./ui-store";
@@ -41,7 +41,34 @@ export const useScrollRestoration = (
     setScrollInitialized(false);
     setPathing({ from: previousPath ?? "", to: pathname });
     setPreviousPath(pathname);
-  }, [pathname]);
+  }, [pathname, previousPath]);
+
+  const findRestorationOption = useCallback(
+    (from: string, to: string) => {
+      if (from === to) {
+        console.log("from === to");
+        return undefined;
+      }
+      const options = scrollRestoreOptions.filter((opt) =>
+        testRouteMatches(to, opt.to)
+      );
+      if (options.length === 0) {
+        return undefined;
+      }
+      const exactMatch = options
+        .filter((opt) => opt.from)
+        .find((opt) => testRouteMatches(from, opt.from!));
+      const defaultMatch = options.find((opt) => !opt.from);
+      const option = exactMatch || defaultMatch;
+
+      console.log(
+        `Matched '${from}' => '${to}' to scroll behavior: ${option?.behavior}. Target: ${initialScroll}`
+      );
+
+      return option;
+    },
+    [initialScroll]
+  );
 
   useEffect(() => {
     if (!scrollInitialized && pathing) {
@@ -61,31 +88,13 @@ export const useScrollRestoration = (
       };
       scrollCallback(options);
     }
-  }, [initialScroll, scrollInitialized]);
-
-  const findRestorationOption = (from: string, to: string) => {
-    if (from === to) {
-      console.log("from === to");
-      return undefined;
-    }
-    const options = scrollRestoreOptions.filter((opt) =>
-      testRouteMatches(to, opt.to)
-    );
-    if (options.length === 0) {
-      return undefined;
-    }
-    const exactMatch = options
-      .filter((opt) => opt.from)
-      .find((opt) => testRouteMatches(from, opt.from!));
-    const defaultMatch = options.find((opt) => !opt.from);
-    const option = exactMatch || defaultMatch;
-
-    console.log(
-      `Matched '${from}' => '${to}' to scroll behavior: ${option?.behavior}. Target: ${initialScroll}`
-    );
-
-    return option;
-  };
+  }, [
+    initialScroll,
+    scrollInitialized,
+    findRestorationOption,
+    pathing,
+    scrollCallback,
+  ]);
 
   const testRouteMatches = (route: string, expected: string) => {
     const parts = route.split("/");
@@ -108,7 +117,7 @@ export const useScrollRestoration = (
     return matches.every((match) => match);
   };
 
-  const handleScroll = (_: any) => {
+  const handleScroll = () => {
     // const scroll = e.currentTarget.scrollTop;
     const scroll = window.scrollY;
     dispatch(setContentScroll({ path: pathname, scroll }));

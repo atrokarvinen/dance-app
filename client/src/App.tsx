@@ -12,7 +12,7 @@ export const App = () => {
 
   useEffect(() => {
     initialLogin();
-  }, []);
+  }, [initialLogin]);
 
   if (isSm) {
     return (

@@ -13,8 +13,9 @@ const getMobileSharedId = (url: string) => {
     const lastPart = splitUrl[splitUrl.length - 1];
     const splitLastPart = lastPart.split("?");
     return splitLastPart[0];
-  } catch (error) {}
-  return undefined;
+  } catch {
+    return undefined;
+  }
 };
 
 export const parseYoutubeUrl = (url: string) => {
