@@ -5,6 +5,7 @@ import { selectIsAuthenticated } from "../auth/auth-store";
 import { useAuth } from "../auth/use-auth";
 import { DarkModeButton } from "../layout/dark-mode-button";
 import { useAppSelector } from "../redux/store";
+import { LanguageSelection } from "./language-selection";
 
 export const SettingsPage = () => {
   const isAuthenticated = useAppSelector(selectIsAuthenticated);
@@ -29,6 +30,7 @@ export const SettingsPage = () => {
         <Typography>Dark mode:</Typography>
         <DarkModeButton />
       </Stack>
+      <LanguageSelection />
     </Stack>
   );
 };

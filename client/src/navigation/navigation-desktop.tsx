@@ -3,9 +3,10 @@ import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import Toolbar from "@mui/material/Toolbar";
 import { Link as ReactLink, useLocation } from "react-router-dom";
-import { routes } from "./routes";
+import { useRoutes } from "./routes";
 
 export const NavigationDesktop = () => {
+  const { routes } = useRoutes();
   const { pathname } = useLocation();
   return (
     <AppBar position="static">

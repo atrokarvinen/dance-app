@@ -8,9 +8,11 @@ import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { selectIsAuthenticated } from "../auth/auth-store";
 import { useAppSelector } from "../redux/store";
-import { routes, RouteVisibility } from "./routes";
+import { RouteVisibility } from "./route-visibility";
+import { useRoutes } from "./routes";
 
 export const NavigationMobile = () => {
+  const { routes } = useRoutes();
   const location = useLocation();
   const [value, setValue] = useState<number>();
   const isAuthenticated = useAppSelector(selectIsAuthenticated);

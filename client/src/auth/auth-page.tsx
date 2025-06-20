@@ -4,6 +4,7 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Divider from "@mui/material/Divider";
 import Stack from "@mui/material/Stack";
+import { useTranslation } from "react-i18next";
 import { Link, useNavigate } from "react-router-dom";
 import { loginRequest } from "./api/api";
 import { LoginForm } from "./login-form";
@@ -11,6 +12,7 @@ import type { LoginFormType } from "./models/login-form-type";
 import { useAuth } from "./use-auth";
 
 export const AuthPage = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const { login } = useAuth();
 
@@ -39,14 +41,14 @@ export const AuthPage = () => {
         <CardContent>
           <Stack direction="column" spacing={5}>
             <LoginForm onSubmit={handleLogin} />
-            <Divider>Or</Divider>
+            <Divider>{t("Or")}</Divider>
             <Button
               variant="contained"
               to="/auth/signup"
               component={Link}
               sx={{ alignSelf: "center" }}
             >
-              Sign up
+              {t("Sign up")}
             </Button>
           </Stack>
         </CardContent>
