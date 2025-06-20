@@ -1,13 +1,12 @@
 import { useMutation } from "@tanstack/react-query";
 import { useApiError } from "../../common/api/use-api-error";
-import { addMessage } from "../../common/toast/toast-store";
-import { useAppDispatch } from "../../redux/store";
+import { useToast } from "../../common/toast/use-toast";
 import type { Dance } from "../dance";
 import { addDance as addDanceRequest } from "./api";
 
 export const useAddDance = () => {
-  const dispatch = useAppDispatch();
   const { getError } = useApiError();
+  const { showErrorToast } = useToast();
 
   const mutation = useMutation({
     mutationFn: async (values: Dance) => {
@@ -20,7 +19,7 @@ export const useAddDance = () => {
     onError: (error) => {
       console.error("Error adding dance:", error);
       const message = getError(error) || "Failed to add dance.";
-      dispatch(addMessage({ message, type: "error" }));
+      showErrorToast(message);
     },
   });
 
