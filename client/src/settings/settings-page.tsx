@@ -29,7 +29,7 @@ export const SettingsPage = () => {
         </Button>
       )}
       <Stack direction="row" alignItems="center">
-        <Typography>{t("Dark mode:")}</Typography>
+        <Typography>{t("Dark mode")}</Typography>
         <DarkModeButton />
       </Stack>
       <LanguageSelection />
