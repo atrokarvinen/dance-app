@@ -27,9 +27,7 @@ export const DancePatternList = ({
 }: Props) => {
   const isListView = viewMode === "list";
   if (dancePatterns.length === 0) {
-    return (
-      <Typography paragraph>No dance patterns have been added.</Typography>
-    );
+    return <Typography>No dance patterns have been added.</Typography>;
   }
   if (isListView)
     return (

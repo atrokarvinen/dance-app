@@ -19,9 +19,6 @@ export const DancePatternDetailsView = ({ id, returnUrl }: Props) => {
   const { addToFavorites } = useAddToFavorites();
   const { removeFromFavorites } = useRemoveFromFavorites();
   const isAuthenticated = useAppSelector(selectIsAuthenticated);
-  if (loading) return <Loader />;
-  if (error) return <ErrorPage message={error.message} />;
-  if (!dancePattern) return <ErrorPage message="Dance pattern not found" />;
 
   const handleAddToFavorites = async (dancePatternId: number) => {
     await addToFavorites(dancePatternId);
@@ -32,10 +29,14 @@ export const DancePatternDetailsView = ({ id, returnUrl }: Props) => {
   };
 
   const handleNavigateBack = () => {
+    if (!dancePattern) return;
     const defaultReturnUrl = "/dances/" + dancePattern.danceId;
     navigate(returnUrl || defaultReturnUrl);
   };
 
+  if (loading) return <Loader />;
+  if (error) return <ErrorPage message={error.message} />;
+  if (!dancePattern) return <ErrorPage message="Dance pattern not found" />;
   return (
     <DancePatternDetails
       dancePattern={dancePattern}

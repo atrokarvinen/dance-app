@@ -1,4 +1,5 @@
 ﻿using DanceApp.DancePatterns.Models;
+using DanceApp.Extensions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -28,6 +29,19 @@ public class DancesPatternsController(DancePatternService dancePatternService) :
     public async Task<IActionResult> GetDancePattern(int dancePatternId)
     {
         var dance = await dancePatternService.GetDancePattern(dancePatternId);
+        if (dance == null)
+        {
+            return NotFound();
+        }
+        return Ok(dance);
+    }
+
+    [HttpGet]
+    [Route("{dancePatternId:int}/details")]
+    public async Task<IActionResult> GetDancePatternDetails(int dancePatternId)
+    {
+        var userId = User.TryGetUserId();
+        var dance = await dancePatternService.GetDancePatternDetails(dancePatternId, userId);
         if (dance == null)
         {
             return NotFound();

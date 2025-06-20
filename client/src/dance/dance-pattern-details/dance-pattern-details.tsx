@@ -4,11 +4,11 @@ import IconButton from "@mui/material/IconButton";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import { FavoriteActionButton } from "../../favorites/favorite-action-button";
-import type { DancePattern } from "../dance";
+import type { DancePatternDetailsType } from "./models/dance-pattern-details-type";
 import { Video } from "./video";
 
 type Props = {
-  dancePattern: DancePattern;
+  dancePattern: DancePatternDetailsType;
   isAuthenticated: boolean;
   addToFavorites: (dancePatternId: number) => void;
   removeFromFavorites: (dancePatternId: number) => void;
@@ -22,7 +22,8 @@ export const DancePatternDetails = ({
   removeFromFavorites,
   onNavigateBack,
 }: Props) => {
-  const { imageUrl, videoUrl, name, description, id } = dancePattern;
+  const { imageUrl, videoUrl, name, description, id, favoriteId } =
+    dancePattern;
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column" }}>
@@ -39,12 +40,12 @@ export const DancePatternDetails = ({
               dancePatternId={id}
               addToFavorites={addToFavorites}
               removeFromFavorites={removeFromFavorites}
-              favoriteId={id}
+              favoriteId={favoriteId || undefined}
             />
           </Box>
         )}
       </Stack>
-      <Typography paragraph>{description}</Typography>
+      <Typography>{description}</Typography>
       {imageUrl && <img src={imageUrl} alt={name} />}
       {videoUrl && <Video url={videoUrl} />}
     </Box>

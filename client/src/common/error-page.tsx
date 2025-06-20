@@ -17,7 +17,7 @@ export const ErrorPage = ({ message }: Props) => {
       }}
     >
       <Typography variant="h1">Error</Typography>
-      <Typography paragraph>{message}</Typography>
+      <Typography>{message}</Typography>
     </Container>
   );
 };

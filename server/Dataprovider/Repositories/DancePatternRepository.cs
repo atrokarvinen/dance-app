@@ -32,6 +32,16 @@ public class DancePatternRepository(DatabaseContext context)
         return dancePattern;
     }
 
+    public async Task<DancePattern> GetDancePatternDetails(int dancePatternId)
+    {
+        var dancePattern = await _context.DancePatterns
+            .AsNoTracking()
+            .FirstOrDefaultAsync(dp => dp.Id == dancePatternId);
+        if (dancePattern == null)
+            throw new NotFoundException($"Failed to find dance pattern with id ({dancePatternId})");
+        return dancePattern;
+    }
+
     public Task<DancePattern?> FindDancePatternById(int id)
     {
         return _context.DancePatterns
@@ -67,4 +77,6 @@ public class DancePatternRepository(DatabaseContext context)
         }
         return dancePattern;
     }
+
+    
 }

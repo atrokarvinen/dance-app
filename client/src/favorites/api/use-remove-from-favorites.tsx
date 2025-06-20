@@ -7,6 +7,7 @@ export const useRemoveFromFavorites = () => {
   const removeFromFavorites = async (id: number) => {
     await axios.delete(`/favorites/${id}`);
     await queryClient.invalidateQueries({ queryKey: ["favorites"] });
+    await queryClient.invalidateQueries({ queryKey: ["dancePattern"] });
   };
 
   return { removeFromFavorites };

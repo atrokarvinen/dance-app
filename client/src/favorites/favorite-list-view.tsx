@@ -51,7 +51,7 @@ export const FavoriteListView = ({ favorites }: Props) => {
         <Typography component="h1" variant="h3">
           Favorites
         </Typography>
-        <Typography paragraph>No favorites have been added.</Typography>
+        <Typography>No favorites have been added.</Typography>
       </Box>
     );
   }

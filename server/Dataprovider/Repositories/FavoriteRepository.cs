@@ -24,6 +24,13 @@ public class FavoriteRepository(DatabaseContext _context)
             .ToListAsync();
     }
 
+    public async Task<FavoritePattern?> GetFavoriteDancePattern(int? userId, int dancePatternId)
+    {
+        if (userId is null) return null;
+        return await _context.FavoritePatterns
+            .FirstOrDefaultAsync(fp => fp.UserId == userId && fp.DancePatternId == dancePatternId);
+    }
+
     public async Task<FavoritePattern> AddFavorite(FavoritePattern favorite)
     {
         await _context.FavoritePatterns.AddAsync(favorite);
@@ -47,4 +54,5 @@ public class FavoriteRepository(DatabaseContext _context)
         await _context.SaveChangesAsync();
         return favorite;
     }
+
 }

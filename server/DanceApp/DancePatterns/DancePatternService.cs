@@ -4,7 +4,10 @@ using Dataprovider.Repositories;
 
 namespace DanceApp.DancePatterns;
 
-public class DancePatternService(DancePatternRepository dancePatternRepository)
+public class DancePatternService(
+    DancePatternRepository dancePatternRepository,
+    FavoriteRepository favoriteRepository
+    )
 {
     public async Task<List<DancePatternDto>> GetDancePatterns()
     {
@@ -25,6 +28,23 @@ public class DancePatternService(DancePatternRepository dancePatternRepository)
         var dancePattern = await dancePatternRepository.GetDancePatternById(dancePatternId);
         var dto = ToDto(dancePattern);
         return dto;
+    }
+
+    internal async Task<DancePatternDetailsDto> GetDancePatternDetails(int dancePatternId, int? userId)
+    {
+        var dancePattern = await dancePatternRepository.GetDancePatternDetails(dancePatternId);
+        var favorite = await favoriteRepository.GetFavoriteDancePattern(userId, dancePatternId);
+        return new DancePatternDetailsDto
+        {
+            Id = dancePattern.Id,
+            Name = dancePattern.Name,
+            Description = dancePattern.Description,
+            VideoUrl = dancePattern.VideoUrl,
+            ImageUrl = dancePattern.ImageUrl,
+            DanceId = dancePattern.DanceId,
+            FavoriteId = favorite?.Id,
+            IsFavorite = favorite is not null,
+        };
     }
 
     public async Task<DancePatternDto> CreateDancePattern(CreateDancePatternDto dto)
@@ -74,11 +94,5 @@ public class DancePatternService(DancePatternRepository dancePatternRepository)
             );
     }
 
-    private DancePattern ToEntity(DancePatternDto dancePatternDto)
-    {
-        return new DancePattern()
-        {
-            // Map properties from the DTO to the entity
-        };
-    }
+
 }

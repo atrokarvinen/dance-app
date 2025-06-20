@@ -1,5 +1,6 @@
 import { axios } from "../../common/axios";
-import type { Dance, DancePattern } from "../dance";
+import type { Dance } from "../dance";
+import type { DancePatternDetailsType } from "../dance-pattern-details/models/dance-pattern-details-type";
 
 export const getDances = () => {
   return axios.get<Dance[]>("/dances");
@@ -23,7 +24,7 @@ export const deleteDance = (id: number) => {
 
 // Dance patterns
 export const getDancePattern = (id: number) => {
-  return axios.get<DancePattern>(`dance-patterns/${id}`);
+  return axios.get<DancePatternDetailsType>(`dance-patterns/${id}/details`);
 };
 
 export const addDancePattern = (data: any) => {
