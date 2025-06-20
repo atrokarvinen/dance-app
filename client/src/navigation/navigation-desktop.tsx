@@ -14,10 +14,7 @@ export const NavigationDesktop = () => {
         <Stack
           direction="row"
           gap={3}
-          sx={{
-            width: "100%",
-            justifyContent: "space-between",
-          }}
+          sx={{ width: "100%", justifyContent: "space-between" }}
         >
           {routes.map((route) => {
             const { href, label } = route;

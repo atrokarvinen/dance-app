@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useLocation, useNavigate } from "react-router-dom";
 import { ConfirmDialog } from "../../common/confirm-dialog";
 import { ErrorPage } from "../../common/error-page";
@@ -16,6 +17,7 @@ type Props = {
 };
 
 export const DanceDetailsView = ({ danceId }: Props) => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -69,8 +71,10 @@ export const DanceDetailsView = ({ danceId }: Props) => {
   return (
     <>
       <ConfirmDialog
-        title="Confirm Delete"
-        message={`Are you sure you want to delete '${selectedDancePattern?.name}'?`}
+        title={t("Confirm Delete")}
+        message={t("Are you sure you want to delete '{{name}}'?", {
+          name: selectedDancePattern?.name,
+        })}
         onCancel={() => setConfirmDeleteVisible(false)}
         onConfirm={handleConfirmDelete}
         open={confirmDeleteVisible}

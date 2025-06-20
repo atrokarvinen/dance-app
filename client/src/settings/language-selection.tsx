@@ -16,7 +16,6 @@ export const LanguageSelection = () => {
     <Select
       label={t("Language")}
       value={i18n.language}
-      // style={{ maxWidth: "200px" }}
       data-testid="language-selection"
       onChange={(e) => onLanguageChanged(e.target.value)}
     >

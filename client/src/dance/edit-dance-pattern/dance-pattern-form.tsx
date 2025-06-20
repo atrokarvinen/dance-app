@@ -6,6 +6,7 @@ import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import { Video } from "../dance-pattern-details/video";
 import type { DancePatternFormType } from "./dance-pattern-form-type";
 import { validationSchema } from "./validation";
@@ -23,6 +24,7 @@ export const DancePatternForm = ({
   onSubmit,
   submitting,
 }: Props) => {
+  const { t } = useTranslation();
   const {
     handleSubmit,
     register,
@@ -34,8 +36,8 @@ export const DancePatternForm = ({
   });
 
   const title = defaultValues
-    ? "Edit dance pattern"
-    : "Create new dance pattern";
+    ? t("Edit dance pattern")
+    : t("Create new dance pattern");
   const videoUrl = watch("videoUrl");
   return (
     <Box>
@@ -45,21 +47,21 @@ export const DancePatternForm = ({
       <form onSubmit={handleSubmit(onSubmit)}>
         <Stack spacing={2}>
           <TextField
-            label="Name"
+            label={t("Name")}
             variant="outlined"
             error={!!errors.name}
             helperText={errors.name?.message ?? " "}
             {...register("name")}
           />
           <TextField
-            label="Description"
+            label={t("Description")}
             variant="outlined"
             error={!!errors.description}
             helperText={errors.description?.message ?? " "}
             {...register("description")}
           />
           <TextField
-            label="Video URL"
+            label={t("Video URL")}
             variant="outlined"
             error={!!errors.videoUrl}
             helperText={errors.videoUrl?.message ?? " "}
@@ -67,16 +69,16 @@ export const DancePatternForm = ({
           />
           {videoUrl && (
             <Box mb={2}>
-              <Typography>Video preview</Typography>
+              <Typography>{t("Video preview")}</Typography>
               <Video url={videoUrl} />
             </Box>
           )}
           <Stack direction="row" spacing={2} sx={{ alignSelf: "flex-end" }}>
             <Button variant="outlined" onClick={onCancel} disabled={submitting}>
-              Cancel
+              {t("Cancel")}
             </Button>
             <Button variant="contained" type="submit" disabled={submitting}>
-              {submitting ? <CircularProgress size={24} /> : "Submit"}
+              {submitting ? <CircularProgress size={24} /> : t("Submit")}
             </Button>
           </Stack>
         </Stack>

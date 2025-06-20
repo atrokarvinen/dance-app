@@ -4,6 +4,7 @@ import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import { type FormEvent, useState } from "react";
+import { useTranslation } from "react-i18next";
 import type { SignupFormType } from "./models/signup-form-type";
 
 type Props = {
@@ -12,6 +13,7 @@ type Props = {
 };
 
 export const SignupForm = ({ onSubmit, onCancel }: Props) => {
+  const { t } = useTranslation();
   const [username, setUsername] = useState("test user");
   const [password, setPassword] = useState("123");
 
@@ -23,7 +25,7 @@ export const SignupForm = ({ onSubmit, onCancel }: Props) => {
   return (
     <Box>
       <Typography component="h1" variant="h3" marginBottom={3}>
-        Signup
+        {t("Signup")}
       </Typography>
       <form
         onSubmit={handleSubmit}
@@ -31,22 +33,22 @@ export const SignupForm = ({ onSubmit, onCancel }: Props) => {
       >
         <Stack direction="column" spacing={2}>
           <TextField
-            label="Username"
+            label={t("Username")}
             value={username}
             onChange={(e) => setUsername(e.target.value)}
           />
           <TextField
-            label="Password"
+            label={t("Password")}
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
           <Stack direction="row" spacing={2} sx={{ alignSelf: "flex-end" }}>
             <Button variant="outlined" onClick={onCancel}>
-              Cancel
+              {t("Cancel")}
             </Button>
             <Button variant="contained" type="submit">
-              Submit
+              {t("Submit")}
             </Button>
           </Stack>
         </Stack>

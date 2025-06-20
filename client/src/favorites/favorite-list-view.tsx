@@ -8,6 +8,7 @@ import ListItem from "@mui/material/ListItem";
 import Typography from "@mui/material/Typography";
 import groupBy from "lodash/groupBy";
 import { type SyntheticEvent } from "react";
+import { useTranslation } from "react-i18next";
 import {
   onCloseFavorite,
   onOpenFavorite,
@@ -23,6 +24,7 @@ type Props = {
 };
 
 export const FavoriteListView = ({ favorites }: Props) => {
+  const { t } = useTranslation();
   const { removeFromFavorites } = useRemoveFromFavorites();
   const dispatch = useAppDispatch();
   const openFavorites = useAppSelector(selectOpenFavorites);
@@ -49,16 +51,16 @@ export const FavoriteListView = ({ favorites }: Props) => {
     return (
       <Box>
         <Typography component="h1" variant="h3">
-          Favorites
+          {t("Favorites")}
         </Typography>
-        <Typography>No favorites have been added.</Typography>
+        <Typography>{t("No favorites have been added.")}</Typography>
       </Box>
     );
   }
   return (
     <Box>
       <Typography component="h1" variant="h3">
-        Favorites
+        {t("Favorites")}
       </Typography>
       <List>
         {danceNames.map((danceName) => (

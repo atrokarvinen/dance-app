@@ -4,6 +4,7 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
+import { useTranslation } from "react-i18next";
 
 type Props = {
   open: boolean;
@@ -20,6 +21,7 @@ export const ConfirmDialog = ({
   message,
   title,
 }: Props) => {
+  const { t } = useTranslation();
   return (
     <Dialog open={open} onClose={onCancel}>
       <DialogTitle>{title}</DialogTitle>
@@ -28,10 +30,10 @@ export const ConfirmDialog = ({
       </DialogContent>
       <DialogActions>
         <Button variant="outlined" onClick={onCancel}>
-          Cancel
+          {t("Cancel")}
         </Button>
         <Button variant="contained" onClick={onConfirm}>
-          Confirm
+          {t("Confirm")}
         </Button>
       </DialogActions>
     </Dialog>

@@ -4,6 +4,7 @@ import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import { useState, type FormEvent } from "react";
+import { useTranslation } from "react-i18next";
 import type { LoginFormType } from "./models/login-form-type";
 
 type Props = {
@@ -11,6 +12,7 @@ type Props = {
 };
 
 export const LoginForm = ({ onSubmit }: Props) => {
+  const { t } = useTranslation();
   const [username, setUsername] = useState("Admin");
   const [password, setPassword] = useState("1");
 
@@ -22,17 +24,17 @@ export const LoginForm = ({ onSubmit }: Props) => {
   return (
     <Box>
       <Typography component="h1" variant="h4" sx={{ marginBottom: 3 }}>
-        Login
+        {t("Login")}
       </Typography>
       <form onSubmit={handleSubmit}>
         <Stack direction="column" spacing={2}>
           <TextField
-            label="Username"
+            label={t("Username")}
             value={username}
             onChange={(e) => setUsername(e.target.value)}
           />
           <TextField
-            label="Password"
+            label={t("Password")}
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
@@ -42,7 +44,7 @@ export const LoginForm = ({ onSubmit }: Props) => {
             type="submit"
             sx={{ alignSelf: "center" }}
           >
-            Submit
+            {t("Submit")}
           </Button>
         </Stack>
       </form>

@@ -1,6 +1,7 @@
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { ConfirmDialog } from "../../common/confirm-dialog";
 import { ErrorPage } from "../../common/error-page";
 import { Loader } from "../../common/loaders";
@@ -18,6 +19,7 @@ import { DanceListView } from "./dance-list-view";
 import { Page, usePreferredViewMode } from "./use-preferred-view-mode";
 
 export const DanceList = () => {
+  const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const { error, loading, dances, refetch } = useGetDances();
   const { deleteDance } = useDeleteDance();
@@ -54,11 +56,13 @@ export const DanceList = () => {
         open={confirmDeleteVisible}
         onConfirm={handleConfirmDelete}
         onCancel={() => setConfirmDeleteVisible(false)}
-        message={`Are you sure you want to delete '${selectedDance?.name}'?`}
-        title="Confirm Delete"
+        message={t("Are you sure you want to delete '{{name}}'?", {
+          name: selectedDance?.name,
+        })}
+        title={t("Confirm Delete")}
       />
       <Typography component="h1" variant="h3">
-        Dances
+        {t("Dances")}
       </Typography>
       <ActionButtons
         viewMode={viewMode}

@@ -12,6 +12,7 @@ import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import { type FormEvent, useState } from "react";
 import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import type { DanceFormType, DanceFormValues } from "./dance-form-type";
 import { ImagePreview } from "./image-preview";
 import { preprocessFileList } from "./preprocess-image";
@@ -30,6 +31,7 @@ export const DanceForm = ({
   onSubmit,
   submitting,
 }: Props) => {
+  const { t } = useTranslation();
   const [preprocessing, setPreprocessing] = useState(false);
 
   const {
@@ -64,7 +66,7 @@ export const DanceForm = ({
   };
 
   const isEdit = !!defaultValues;
-  const title = isEdit ? "Edit dance" : "Create new dance";
+  const title = isEdit ? t("Edit dance") : t("Create new dance");
   const files = watch("image");
   const fileName = files && files.length > 0 ? files[0].name : undefined;
   const imageUrl = watch("imageUrl");
@@ -79,7 +81,7 @@ export const DanceForm = ({
       <form onSubmit={submitHandler}>
         <Stack spacing={2}>
           <TextField
-            label="Name"
+            label={t("Name")}
             variant="outlined"
             error={!!errors.name}
             helperText={errors.name?.message ?? " "}
@@ -93,7 +95,7 @@ export const DanceForm = ({
             sx={{ alignSelf: "flex-start" }}
             startIcon={<CloudUpload />}
           >
-            Upload file
+            {t("Upload file")}
             <input
               {...register("image")}
               type="file"
@@ -112,7 +114,7 @@ export const DanceForm = ({
             />
           </Button>
           <TextField
-            label="File name"
+            label={t("File name")}
             value={fileName ?? " "}
             disabled
             InputProps={{
@@ -123,9 +125,9 @@ export const DanceForm = ({
               ),
             }}
           />
-          <Divider>Or</Divider>
+          <Divider>{t("Or")}</Divider>
           <TextField
-            label="Image URL"
+            label={t("Image URL")}
             variant="outlined"
             error={!!errors.imageUrl}
             helperText={errors.imageUrl?.message ?? " "}
@@ -134,10 +136,14 @@ export const DanceForm = ({
           <ImagePreview files={files} imageUrl={imageUrl} />
           <Stack direction="row" spacing={2} sx={{ alignSelf: "flex-end" }}>
             <Button variant="outlined" disabled={isBusy} onClick={onCancel}>
-              Cancel
+              {t("Cancel")}
             </Button>
             <Button variant="contained" type="submit" disabled={isBusy}>
-              {isBusy ? <CircularProgress size={24} /> : <span>Submit</span>}
+              {isBusy ? (
+                <CircularProgress size={24} />
+              ) : (
+                <span>{t("Submit")}</span>
+              )}
             </Button>
           </Stack>
         </Stack>

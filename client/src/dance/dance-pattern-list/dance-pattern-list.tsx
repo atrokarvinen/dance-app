@@ -1,4 +1,5 @@
 import Typography from "@mui/material/Typography";
+import { useTranslation } from "react-i18next";
 import type {
   DancePattern,
   FavoritePattern,
@@ -25,9 +26,10 @@ export const DancePatternList = ({
   onRemoveFromFavorites,
   onDeletePattern,
 }: Props) => {
+  const { t } = useTranslation();
   const isListView = viewMode === "list";
   if (dancePatterns.length === 0) {
-    return <Typography>No dance patterns have been added.</Typography>;
+    return <Typography>{t("No dance patterns have been added.")}</Typography>;
   }
   if (isListView)
     return (
