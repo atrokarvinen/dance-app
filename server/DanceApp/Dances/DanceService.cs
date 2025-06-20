@@ -38,6 +38,8 @@ public class DanceService(
             {
                 Id = dp.Id,
                 Name = dp.Name,
+                DanceId = dp.DanceId,
+                VideoUrl = dp.VideoUrl,
             }).ToList(),
             Favorites = favorites.Select(f => new DanceDetailsFavoritePatternDto
             {

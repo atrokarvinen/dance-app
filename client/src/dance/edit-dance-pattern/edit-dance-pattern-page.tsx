@@ -11,13 +11,15 @@ export const EditDancePatternPage = () => {
   const { danceId: danceIdStr, dancePatternId: dancePatternIdStr } =
     useParams<RouteParams>();
 
-  if (!danceIdStr)
-    return <ErrorPage message={`Invalid dance ID '${danceIdStr}'`} />;
-  if (!dancePatternIdStr)
-    return <ErrorPage message={`Invalid dance ID '${danceIdStr}'`} />;
+  const danceId = Number(danceIdStr);
+  const dancePatternId = Number(dancePatternIdStr);
 
-  const danceId = parseInt(danceIdStr);
-  const dancePatternId = parseInt(dancePatternIdStr);
+  if (!danceIdStr || isNaN(danceId) || danceId <= 0)
+    return <ErrorPage message={`Invalid dance ID '${danceIdStr}'`} />;
+  if (!dancePatternIdStr || isNaN(dancePatternId) || dancePatternId <= 0)
+    return (
+      <ErrorPage message={`Invalid dance pattern ID '${dancePatternIdStr}'`} />
+    );
 
   return (
     <EditDancePatternView danceId={danceId} dancePatternId={dancePatternId} />

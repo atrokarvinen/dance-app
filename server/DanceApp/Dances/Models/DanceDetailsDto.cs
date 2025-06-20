@@ -13,6 +13,7 @@ public class DanceDetailsPatternDto
     public int Id { get; set; }
     public string Name { get; set; } = string.Empty;
     public string? VideoUrl { get; set; }
+    public required int DanceId { get; set; }
 }
 
 public class DanceDetailsFavoritePatternDto
