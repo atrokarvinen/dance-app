@@ -1,4 +1,5 @@
-import { CircularProgress, Container } from "@mui/material";
+import CircularProgress from "@mui/material/CircularProgress";
+import Container from "@mui/material/Container";
 
 export const Loader = () => {
   return (

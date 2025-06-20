@@ -2,16 +2,14 @@ import { zodResolver } from "@hookform/resolvers/zod";
 
 import CloudUpload from "@mui/icons-material/CloudUpload";
 import Delete from "@mui/icons-material/Delete";
-import {
-  Box,
-  Button,
-  CircularProgress,
-  Divider,
-  IconButton,
-  Stack,
-  TextField,
-  Typography,
-} from "@mui/material";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import CircularProgress from "@mui/material/CircularProgress";
+import Divider from "@mui/material/Divider";
+import IconButton from "@mui/material/IconButton";
+import Stack from "@mui/material/Stack";
+import TextField from "@mui/material/TextField";
+import Typography from "@mui/material/Typography";
 import { type FormEvent, useState } from "react";
 import { useForm } from "react-hook-form";
 import type { DanceFormType, DanceFormValues } from "./dance-form-type";

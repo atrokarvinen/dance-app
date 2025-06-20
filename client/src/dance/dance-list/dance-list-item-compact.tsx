@@ -1,6 +1,7 @@
 import Delete from "@mui/icons-material/Delete";
 import Edit from "@mui/icons-material/Edit";
-import { Button, IconButton } from "@mui/material";
+import Button from "@mui/material/Button";
+import IconButton from "@mui/material/IconButton";
 import { Link } from "react-router-dom";
 import type { Dance } from "../dance";
 

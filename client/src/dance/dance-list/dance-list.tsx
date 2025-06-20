@@ -1,4 +1,5 @@
-import { Box, Typography } from "@mui/material";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
 import { useState } from "react";
 import { ConfirmDialog } from "../../common/confirm-dialog";
 import { ErrorPage } from "../../common/error-page";

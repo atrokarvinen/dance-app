@@ -1,6 +1,9 @@
 import Delete from "@mui/icons-material/Delete";
 import Edit from "@mui/icons-material/Edit";
-import { Box, Button, IconButton, Stack } from "@mui/material";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import IconButton from "@mui/material/IconButton";
+import Stack from "@mui/material/Stack";
 import { Link } from "react-router-dom";
 import { FavoriteActionButton } from "../../favorites/favorite-action-button";
 import type { DancePattern } from "../dance-details/models/dance-details-type";

@@ -1,4 +1,6 @@
-import { Button, Stack, Typography } from "@mui/material";
+import Button from "@mui/material/Button";
+import Stack from "@mui/material/Stack";
+import Typography from "@mui/material/Typography";
 import { selectIsAuthenticated } from "../auth/auth-store";
 import { useAuth } from "../auth/use-auth";
 import { DarkModeButton } from "../layout/dark-mode-button";

@@ -1,4 +1,5 @@
-import { List, ListItem } from "@mui/material";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
 import { selectIsAuthenticated } from "../../auth/auth-store";
 import { useAppSelector } from "../../redux/store";
 import type {

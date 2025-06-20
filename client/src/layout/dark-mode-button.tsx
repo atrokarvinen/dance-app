@@ -1,6 +1,7 @@
 import Brightness4 from "@mui/icons-material/Brightness4";
 import Brightness7 from "@mui/icons-material/Brightness7";
-import { IconButton, type PaletteMode } from "@mui/material";
+import IconButton from "@mui/material/IconButton";
+import type { PaletteMode } from "@mui/material/styles";
 import { LOCALSTORE_LIGHT_MODE } from "../common/localstore-constants";
 import { useAppDispatch, useAppSelector } from "../redux/store";
 import { selectIsDarkMode, setDarkMode } from "./ui-store";

@@ -1,4 +1,4 @@
-import type { PaletteMode } from "@mui/material";
+import type { PaletteMode } from "@mui/material/styles";
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import type { RootState } from "../redux/store";
 

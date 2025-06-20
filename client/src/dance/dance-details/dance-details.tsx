@@ -1,5 +1,7 @@
 import ArrowBack from "@mui/icons-material/ArrowBack";
-import { Box, IconButton, Typography } from "@mui/material";
+import Box from "@mui/material/Box";
+import IconButton from "@mui/material/IconButton";
+import Typography from "@mui/material/Typography";
 import {
   onSetDancePatternEditMode,
   selectIsDancePatternEditMode,

@@ -1,4 +1,4 @@
-import { type PaletteMode } from "@mui/material";
+import type { PaletteMode } from "@mui/material/styles";
 import { useCallback, useEffect } from "react";
 import { LOCALSTORE_LIGHT_MODE } from "../common/localstore-constants";
 import { useAppDispatch } from "../redux/store";

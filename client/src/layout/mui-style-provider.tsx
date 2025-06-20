@@ -1,5 +1,6 @@
 import { ThemeProvider } from "@emotion/react";
-import { createTheme, CssBaseline, type Theme } from "@mui/material";
+import CssBaseline from "@mui/material/CssBaseline";
+import { createTheme, type Theme } from "@mui/material/styles";
 import { type ReactNode } from "react";
 import { useAppSelector } from "../redux/store";
 import { theme as baseTheme } from "../theme";

@@ -1,4 +1,7 @@
-import { AppBar, Button, Stack, Toolbar } from "@mui/material";
+import AppBar from "@mui/material/AppBar";
+import Button from "@mui/material/Button";
+import Stack from "@mui/material/Stack";
+import Toolbar from "@mui/material/Toolbar";
 import { Link as ReactLink, useLocation } from "react-router-dom";
 import { routes } from "./routes";
 

@@ -1,6 +1,6 @@
 import Favorite from "@mui/icons-material/Favorite";
 import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
-import { IconButton } from "@mui/material";
+import IconButton from "@mui/material/IconButton";
 
 type Props = {
   dancePatternId: number;

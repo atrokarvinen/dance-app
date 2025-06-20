@@ -3,7 +3,9 @@ import Edit from "@mui/icons-material/Edit";
 import EditOff from "@mui/icons-material/EditOff";
 import ViewList from "@mui/icons-material/ViewList";
 import ViewModule from "@mui/icons-material/ViewModule";
-import { Box, IconButton, Stack } from "@mui/material";
+import Box from "@mui/material/Box";
+import IconButton from "@mui/material/IconButton";
+import Stack from "@mui/material/Stack";
 import { Link } from "react-router-dom";
 
 type Props = {
