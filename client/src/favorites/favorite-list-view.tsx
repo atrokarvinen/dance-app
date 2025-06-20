@@ -8,7 +8,7 @@ import {
   ListItem,
   Typography,
 } from "@mui/material";
-import _ from "lodash";
+import groupBy from "lodash/groupBy";
 import { type SyntheticEvent } from "react";
 import {
   onCloseFavorite,
@@ -42,7 +42,7 @@ export const FavoriteListView = ({ favorites }: Props) => {
       }
     };
 
-  const favoritesByDance = _.groupBy(
+  const favoritesByDance = groupBy(
     favorites,
     (favorite) => favorite.dancePattern.dance.name
   );
