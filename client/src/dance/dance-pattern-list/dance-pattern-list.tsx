@@ -1,5 +1,5 @@
 import { Typography } from "@mui/material";
-import {
+import type {
   DancePattern,
   FavoritePattern,
 } from "../dance-details/models/dance-details-type";

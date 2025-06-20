@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { useNavigate, useParams } from "react-router";
+import { useNavigate, useParams } from "react-router-dom";
 import { useAddDancePattern } from "../api/use-add-dance-pattern";
 import { DancePatternForm } from "./dance-pattern-form";
-import { DancePatternFormType } from "./dance-pattern-form-type";
+import type { DancePatternFormType } from "./dance-pattern-form-type";
 
 type RouteParams = {
   danceId: string;

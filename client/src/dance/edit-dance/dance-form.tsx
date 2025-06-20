@@ -1,5 +1,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { CloudUpload, Delete } from "@mui/icons-material";
+
+import CloudUpload from "@mui/icons-material/CloudUpload";
+import Delete from "@mui/icons-material/Delete";
 import {
   Box,
   Button,
@@ -10,9 +12,9 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { FormEvent, useState } from "react";
+import { type FormEvent, useState } from "react";
 import { useForm } from "react-hook-form";
-import { DanceFormType, DanceFormValues } from "./dance-form-type";
+import type { DanceFormType, DanceFormValues } from "./dance-form-type";
 import { ImagePreview } from "./image-preview";
 import { preprocessFileList } from "./preprocess-image";
 import { validationSchema } from "./validation";

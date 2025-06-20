@@ -1,5 +1,5 @@
 import { Container, Stack } from "@mui/material";
-import { ReactNode, useEffect } from "react";
+import { type ReactNode, useEffect } from "react";
 import { NavigationMobile } from "../navigation/navigation-mobile";
 import { useScrollRestoration } from "./use-scroll-restoration";
 

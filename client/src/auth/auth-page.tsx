@@ -2,7 +2,7 @@ import { Box, Button, Card, CardContent, Divider, Stack } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import { loginRequest } from "./api/api";
 import { LoginForm } from "./login-form";
-import { LoginFormType } from "./models/login-form-type";
+import type { LoginFormType } from "./models/login-form-type";
 import { useAuth } from "./use-auth";
 
 export const AuthPage = () => {

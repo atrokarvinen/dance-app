@@ -1,4 +1,4 @@
-import { ExpandMore } from "@mui/icons-material";
+import ExpandMore from "@mui/icons-material/ExpandMore";
 import {
   Accordion,
   AccordionDetails,
@@ -9,7 +9,7 @@ import {
   Typography,
 } from "@mui/material";
 import _ from "lodash";
-import { SyntheticEvent } from "react";
+import { type SyntheticEvent } from "react";
 import {
   onCloseFavorite,
   onOpenFavorite,
@@ -18,7 +18,7 @@ import {
 import { useAppDispatch, useAppSelector } from "../redux/store";
 import { useRemoveFromFavorites } from "./api/use-remove-from-favorites";
 import { FavoriteListItem } from "./favorite-list-item";
-import { FavoritePattern } from "./models/list-view-favorite";
+import type { FavoritePattern } from "./models/list-view-favorite";
 
 type Props = {
   favorites: FavoritePattern[];

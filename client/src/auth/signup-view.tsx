@@ -1,6 +1,6 @@
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 import { signupRequest } from "./api/api";
-import { SignupFormType } from "./models/signup-form-type";
+import type { SignupFormType } from "./models/signup-form-type";
 import { SignupForm } from "./signup-form";
 
 export const SignupView = () => {

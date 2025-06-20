@@ -1,4 +1,4 @@
-import { useLocation, useParams } from "react-router";
+import { useLocation, useParams } from "react-router-dom";
 import { ErrorPage } from "../../common/error-page";
 import { DancePatternDetailsView } from "./dance-pattern-details-view";
 

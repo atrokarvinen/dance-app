@@ -1,4 +1,4 @@
-import { Dance } from "./dance";
+import type { Dance } from "./dance";
 
 export type DancePattern = {
   id: number;

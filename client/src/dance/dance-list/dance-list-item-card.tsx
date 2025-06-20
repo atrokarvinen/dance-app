@@ -1,4 +1,5 @@
-import { Delete, Edit } from "@mui/icons-material";
+import Delete from "@mui/icons-material/Delete";
+import Edit from "@mui/icons-material/Edit";
 import {
   Card,
   CardActions,
@@ -9,7 +10,7 @@ import {
   IconButton,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { Dance } from "../dance";
+import type { Dance } from "../dance";
 
 type Props = {
   isEditMode: boolean;

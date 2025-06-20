@@ -10,7 +10,7 @@ import {
 import { useAppDispatch, useAppSelector } from "../../redux/store";
 import { useDeleteDance } from "../api/use-delete-dance";
 import { useGetDances } from "../api/use-get-dances";
-import { Dance } from "../dance";
+import type { Dance } from "../dance";
 import { ActionButtons } from "./action-buttons";
 import { DanceListGridView } from "./dance-list-grid-view";
 import { DanceListView } from "./dance-list-view";

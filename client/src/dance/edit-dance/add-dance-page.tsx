@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 import { useAddDance } from "../api/use-add-dance";
 import { DanceForm } from "./dance-form";
-import { DanceFormValues } from "./dance-form-type";
+import type { DanceFormValues } from "./dance-form-type";
 
 export const AddDancePage = () => {
   const [loading, setLoading] = useState(false);

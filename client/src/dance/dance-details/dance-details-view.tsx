@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
-import { useLocation, useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router-dom";
 import { ConfirmDialog } from "../../common/confirm-dialog";
 import { ErrorPage } from "../../common/error-page";
 import { Loader } from "../../common/loaders";
@@ -9,7 +9,7 @@ import { useRemoveFromFavorites } from "../../favorites/api/use-remove-from-favo
 import { useDeleteDancePattern } from "../api/use-delete-dance-pattern";
 import { getDanceDetails } from "./api";
 import { DanceDetails } from "./dance-details";
-import { DancePattern } from "./models/dance-details-type";
+import type { DancePattern } from "./models/dance-details-type";
 
 type Props = {
   danceId: number;

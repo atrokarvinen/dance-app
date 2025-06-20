@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 
-export enum Page {
-  DANCE,
-  DANCE_PATTERN,
-}
+export const Page = {
+  DANCE: "dance",
+  DANCE_PATTERN: "dance_pattern",
+};
+export type Page = (typeof Page)[keyof typeof Page];
 
 const getKey = (page: Page) => {
   switch (page) {

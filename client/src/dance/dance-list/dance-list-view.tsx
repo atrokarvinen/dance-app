@@ -1,5 +1,5 @@
 import { List, ListItem } from "@mui/material";
-import { Dance } from "../dance";
+import type { Dance } from "../dance";
 import { DanceListItemCompact } from "./dance-list-item-compact";
 
 type Props = {

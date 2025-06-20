@@ -1,5 +1,5 @@
 import { useMediaQuery } from "@mui/material";
-import { Breakpoint, useTheme } from "@mui/material/styles";
+import { type Breakpoint, useTheme } from "@mui/material/styles";
 
 export const useBreakpoint = (breakpoint: Breakpoint) => {
   const theme = useTheme();

@@ -1,4 +1,4 @@
-import { ArrowBack } from "@mui/icons-material";
+import ArrowBack from "@mui/icons-material/ArrowBack";
 import { Box, IconButton, Typography } from "@mui/material";
 import {
   onSetDancePatternEditMode,
@@ -11,7 +11,7 @@ import {
   usePreferredViewMode,
 } from "../dance-list/use-preferred-view-mode";
 import { DancePatternList } from "../dance-pattern-list/dance-pattern-list";
-import {
+import type {
   DanceDetailsType,
   DancePattern,
   FavoritePattern,

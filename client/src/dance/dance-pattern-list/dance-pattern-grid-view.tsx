@@ -1,6 +1,6 @@
 import { Grid } from "@mui/material";
 import { Link } from "react-router-dom";
-import {
+import type {
   DancePattern,
   FavoritePattern,
 } from "../dance-details/models/dance-details-type";
@@ -32,7 +32,7 @@ export const DancePatternGridView = ({
         const favoriteId = favorite?.id;
         const { danceId, id } = pattern;
         return (
-          <Grid item key={id} xs={12} sm={6} md={4} lg={3}>
+          <Grid key={id} size={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
             <Link
               to={`/dances/${danceId}/dance-patterns/${id}`}
               state={{ returnUrl: `/dances/${danceId}` }}

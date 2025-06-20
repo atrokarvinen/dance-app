@@ -1,5 +1,5 @@
 import { useCallback } from "react";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 import { removeAuthToken, setAuthToken } from "../common/axios";
 import { LOCALSTORE_TOKEN } from "../common/localstore-constants";
 import { useAppDispatch } from "../redux/store";

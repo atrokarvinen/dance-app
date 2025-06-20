@@ -2,7 +2,7 @@ import { useMutation } from "@tanstack/react-query";
 import { useApiError } from "../../common/api/use-api-error";
 import { addMessage } from "../../common/toast/toast-store";
 import { useAppDispatch } from "../../redux/store";
-import { Dance } from "../dance";
+import type { Dance } from "../dance";
 import { addDance as addDanceRequest } from "./api";
 
 export const useAddDance = () => {

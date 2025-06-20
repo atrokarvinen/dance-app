@@ -1,4 +1,4 @@
-import { useParams } from "react-router";
+import { useParams } from "react-router-dom";
 import { ErrorPage } from "../../common/error-page";
 import { EditDanceView } from "./edit-dance-view";
 

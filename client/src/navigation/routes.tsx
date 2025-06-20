@@ -1,14 +1,12 @@
-import {
-  Favorite,
-  FavoriteBorder,
-  Home,
-  HomeOutlined,
-  Person,
-  PersonOutline,
-  Settings,
-  SettingsOutlined,
-} from "@mui/icons-material";
-import { ReactNode } from "react";
+import Favorite from "@mui/icons-material/Favorite";
+import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
+import Home from "@mui/icons-material/Home";
+import HomeOutlined from "@mui/icons-material/HomeOutlined";
+import Person from "@mui/icons-material/Person";
+import PersonOutline from "@mui/icons-material/PersonOutline";
+import Settings from "@mui/icons-material/Settings";
+import SettingsOutlined from "@mui/icons-material/SettingsOutlined";
+import { type ReactNode } from "react";
 
 type LinkType = {
   href: string;
@@ -16,14 +14,16 @@ type LinkType = {
   iconActive?: ReactNode;
   iconInactive?: ReactNode;
   children: string[];
-  visibility: RouteVisibility;
+  visibility: RouteVisibilityType;
 };
 
-export enum RouteVisibility {
-  ALWAYS,
-  AUTH,
-  UNAUTH,
-}
+export const RouteVisibility = {
+  ALWAYS: "always" as const,
+  AUTH: "auth" as const,
+  UNAUTH: "unauth" as const,
+};
+export type RouteVisibilityType =
+  (typeof RouteVisibility)[keyof typeof RouteVisibility];
 
 export const routes: LinkType[] = [
   {

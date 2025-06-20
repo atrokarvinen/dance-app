@@ -1,6 +1,6 @@
 import { Box, Button, Stack, TextField, Typography } from "@mui/material";
-import { FormEvent, useState } from "react";
-import { SignupFormType } from "./models/signup-form-type";
+import { type FormEvent, useState } from "react";
+import type { SignupFormType } from "./models/signup-form-type";
 
 type Props = {
   onSubmit: (values: SignupFormType) => void;

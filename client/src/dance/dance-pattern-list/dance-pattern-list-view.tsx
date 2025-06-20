@@ -1,7 +1,7 @@
 import { List, ListItem } from "@mui/material";
 import { selectIsAuthenticated } from "../../auth/auth-store";
 import { useAppSelector } from "../../redux/store";
-import {
+import type {
   DancePattern,
   FavoritePattern,
 } from "../dance-details/models/dance-details-type";

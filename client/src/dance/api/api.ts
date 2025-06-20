@@ -1,5 +1,5 @@
 import { axios } from "../../common/axios";
-import { Dance, DancePattern } from "../dance";
+import type { Dance, DancePattern } from "../dance";
 
 export const getDances = () => {
   return axios.get<Dance[]>("/dances");

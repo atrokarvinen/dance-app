@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from "../../redux/store";
 import {
   removeMessage,
   selectToastMessages,
-  ToastMessage,
+  type ToastMessage,
 } from "./toast-store";
 
 export const ToastProvider = () => {

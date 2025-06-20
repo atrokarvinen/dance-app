@@ -1,4 +1,8 @@
-import { Add, Edit, EditOff, ViewList, ViewModule } from "@mui/icons-material";
+import Add from "@mui/icons-material/Add";
+import Edit from "@mui/icons-material/Edit";
+import EditOff from "@mui/icons-material/EditOff";
+import ViewList from "@mui/icons-material/ViewList";
+import ViewModule from "@mui/icons-material/ViewModule";
 import { Box, IconButton, Stack } from "@mui/material";
 import { Link } from "react-router-dom";
 

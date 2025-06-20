@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import { useLocation } from "react-router";
+import { useLocation } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../redux/store";
 import { selectContentScrollOfPage, setContentScroll } from "./ui-store";
 

@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { Video } from "../dance-pattern-details/video";
-import { DancePatternFormType } from "./dance-pattern-form-type";
+import type { DancePatternFormType } from "./dance-pattern-form-type";
 import { validationSchema } from "./validation";
 
 type Props = {

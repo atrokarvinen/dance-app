@@ -1,6 +1,6 @@
-import { PaletteMode } from "@mui/material";
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { RootState } from "../redux/store";
+import type { PaletteMode } from "@mui/material";
+import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
+import type { RootState } from "../redux/store";
 
 type UiState = {
   lightMode: PaletteMode;

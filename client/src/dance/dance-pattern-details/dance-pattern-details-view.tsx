@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 import { selectIsAuthenticated } from "../../auth/auth-store";
 import { ErrorPage } from "../../common/error-page";
 import { Loader } from "../../common/loaders";

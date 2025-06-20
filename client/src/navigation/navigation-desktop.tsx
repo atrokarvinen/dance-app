@@ -3,7 +3,7 @@ import { Link as ReactLink, useLocation } from "react-router-dom";
 import { routes } from "./routes";
 
 export const NavigationDesktop = () => {
-  const location = useLocation();
+  const { pathname } = useLocation();
   return (
     <AppBar position="static">
       <Toolbar>
@@ -17,7 +17,7 @@ export const NavigationDesktop = () => {
         >
           {routes.map((route) => {
             const { href, label } = route;
-            const isActive = location.pathname === href;
+            const isActive = pathname === href;
             return (
               <Button
                 key={href}

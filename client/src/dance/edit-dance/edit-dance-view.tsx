@@ -1,11 +1,11 @@
 import { useState } from "react";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 import { ErrorPage } from "../../common/error-page";
 import { Loader } from "../../common/loaders";
 import { useGetDance } from "../api/use-get-dance";
 import { useUpdateDance } from "../api/use-update-dance";
 import { DanceForm } from "./dance-form";
-import { DanceFormType, DanceFormValues } from "./dance-form-type";
+import type { DanceFormType, DanceFormValues } from "./dance-form-type";
 
 type Props = {
   danceId: number;

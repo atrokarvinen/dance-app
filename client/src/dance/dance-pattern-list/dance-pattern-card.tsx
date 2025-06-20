@@ -1,4 +1,5 @@
-import { Delete, Edit } from "@mui/icons-material";
+import Delete from "@mui/icons-material/Delete";
+import Edit from "@mui/icons-material/Edit";
 import {
   Card,
   CardActions,
@@ -11,7 +12,7 @@ import {
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { FavoriteActionButton } from "../../favorites/favorite-action-button";
-import { DancePattern } from "../dance-details/models/dance-details-type";
+import type { DancePattern } from "../dance-details/models/dance-details-type";
 import { getYoutubeThumbnail } from "../dance-pattern-details/youtube-video-utils";
 
 type Props = {

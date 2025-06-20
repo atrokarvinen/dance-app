@@ -1,4 +1,5 @@
-import { Favorite, FavoriteBorder } from "@mui/icons-material";
+import Favorite from "@mui/icons-material/Favorite";
+import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
 import { IconButton } from "@mui/material";
 
 type Props = {
