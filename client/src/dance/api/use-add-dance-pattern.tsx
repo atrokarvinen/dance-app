@@ -3,12 +3,19 @@ import { useApiError } from "../../common/api/use-api-error";
 import { useToast } from "../../common/toast/use-toast";
 import { addDancePattern as addDancePatternRequest } from "./api";
 
+export type AddDancePatternPayload = {
+  name: string;
+  description?: string;
+  videoUrl?: string;
+  danceId: number;
+};
+
 export const useAddDancePattern = () => {
   const { getError } = useApiError();
   const { showErrorToast } = useToast();
 
   const mutation = useMutation({
-    mutationFn: async (values: any) => {
+    mutationFn: async (values: AddDancePatternPayload) => {
       const created = await addDancePatternRequest(values);
       return created;
     },
@@ -18,7 +25,7 @@ export const useAddDancePattern = () => {
     },
   });
 
-  const addDancePattern = (payload: any) => {
+  const addDancePattern = (payload: AddDancePatternPayload) => {
     return mutation.mutateAsync(payload);
   };
 

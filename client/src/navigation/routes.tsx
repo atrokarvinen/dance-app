@@ -22,7 +22,7 @@ export const RouteVisibility = {
   AUTH: "auth" as const,
   UNAUTH: "unauth" as const,
 };
-export type RouteVisibilityType =
+type RouteVisibilityType =
   (typeof RouteVisibility)[keyof typeof RouteVisibility];
 
 export const routes: LinkType[] = [

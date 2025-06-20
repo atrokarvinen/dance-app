@@ -1,7 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 import { useApiError } from "../../common/api/use-api-error";
 import { useToast } from "../../common/toast/use-toast";
-import type { Dance } from "../dance";
+import type { DanceFormValues } from "../edit-dance/dance-form-type";
 import { addDance as addDanceRequest } from "./api";
 
 export const useAddDance = () => {
@@ -9,7 +9,7 @@ export const useAddDance = () => {
   const { showErrorToast } = useToast();
 
   const mutation = useMutation({
-    mutationFn: async (values: Dance) => {
+    mutationFn: async (values: DanceFormValues) => {
       const created = await addDanceRequest(values);
       return created;
     },
@@ -23,7 +23,7 @@ export const useAddDance = () => {
     },
   });
 
-  const addDance = async (values: any) => {
+  const addDance = async (values: DanceFormValues) => {
     const respo = await mutation.mutateAsync(values);
     return respo.data;
   };
