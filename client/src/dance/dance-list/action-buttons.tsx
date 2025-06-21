@@ -7,6 +7,7 @@ import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
 import Stack from "@mui/material/Stack";
 import { Link } from "react-router-dom";
+import { AuthorizedVisibility } from "../../auth/authorized-visibility/authorized-visibility";
 
 type Props = {
   viewMode: string;
@@ -44,13 +45,15 @@ export const ActionButtons = ({
             <Add />
           </IconButton>
         )}
-        <IconButton
-          data-testid="edit-mode"
-          onClick={() => onEditModeChange(!isEditMode)}
-          color={isEditMode ? "primary" : "default"}
-        >
-          {isEditMode ? <EditOff /> : <Edit />}
-        </IconButton>
+        <AuthorizedVisibility>
+          <IconButton
+            data-testid="edit-mode"
+            onClick={() => onEditModeChange(!isEditMode)}
+            color={isEditMode ? "primary" : "default"}
+          >
+            {isEditMode ? <EditOff /> : <Edit />}
+          </IconButton>
+        </AuthorizedVisibility>
       </Stack>
     </Stack>
   );
