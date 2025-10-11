@@ -51,6 +51,8 @@ var app = builder.Build();
 
 app.UseCors(builder => builder
     .WithOrigins([
+        "https://dance-app.vercel.app",
+        "http://localhost:8081",
         "http://localhost:5173",
         "http://localhost:4173"
     ])
