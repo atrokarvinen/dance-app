@@ -1,6 +1,6 @@
 import base from "axios";
 
-const baseUrl = import.meta.env.VITE_BACKEND_URL_REST;
+const baseUrl = import.meta.env.VITE_BACKEND_URL;
 
 export const axios = base.create({
   baseURL: baseUrl,
