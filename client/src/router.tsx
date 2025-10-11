@@ -1,5 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
-import { App } from "./App";
+import { App } from "./app";
 import { AuthPage } from "./auth/auth-page";
 import { SignupView } from "./auth/signup-view";
 import { DanceDetailsPage } from "./dance/dance-details/dance-details-page";
